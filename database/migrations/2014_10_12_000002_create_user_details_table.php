@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->string('gender', 10);
+            $table->string('nim', 15);
             $table->string('position', 50);
             $table->string('phone_number', 20);
             $table->date('birthdate')->nullable();
