@@ -3,7 +3,7 @@
 return [
     "creatorName" => "UBK - Attendance",
     "creatorUrl" => "https://pixinvent.com",
-    "templateName" => "UBK - Attendance",
+    "templateName" => "UBK",
     "templateSuffix" => "Bootstrap Admin Template",
     "templateVersion" => "1.0.0",
     "templateFree" => false,

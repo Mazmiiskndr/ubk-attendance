@@ -17,7 +17,15 @@ return new class extends Migration
             $table->string('nim', 15);
             $table->string('email', 191)->unique();
             $table->string('password');
+            $table->tinyInteger('status')->default(1);
+            $table->uuid('role_id');
             $table->timestamps();
+
+            $table->foreign('role_id')
+                ->references('id')
+                ->on('roles')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
