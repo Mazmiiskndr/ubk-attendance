@@ -20,6 +20,7 @@ class RoleFactory extends Factory
     {
         return [
             'name' => $this->faker->jobTitle,
+            'name' => strtolower(str_replace(' ', '_', $this->faker->jobTitle)),
         ];
     }
 }

@@ -27,16 +27,43 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
-
         $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
+            $this->registerApiRoutes();
+            $this->registerWebRoutes();
+            $this->registerUsersRoutes();
         });
+    }
+
+    /**
+     * Register routes for the api section.
+     * @return void
+     */
+    protected function registerApiRoutes()
+    {
+        Route::prefix('api')->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Register routes for the web section.
+     * @return void
+     */
+    protected function registerWebRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
+    }
+
+    /**
+     * Register routes for the users section.
+     * @return void
+     */
+    protected function registerUsersRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/users.php'));
     }
 }

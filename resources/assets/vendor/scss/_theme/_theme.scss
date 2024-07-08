@@ -23,7 +23,7 @@
   }
   &.menu-vertical {
     .menu-sub > .menu-item > .menu-link:before {
-      left: 1.35rem;
+      left: 1.6rem;
       @include rtl-style {
         right: 1.35rem;
         left: inherit;

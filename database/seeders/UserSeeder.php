@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
         $admins = [
             [
                 'role_name' => 'Administrator',
+                'role_name_alias' => 'admin',
                 'name' => 'Admin User',
                 'username' => 'admin',
                 'email' => 'admin@example.com',
@@ -27,7 +28,8 @@ class UserSeeder extends Seeder
 
         foreach ($admins as $key => $value) {
             Role::create([
-                'name' => $value['role_name']
+                'name' => $value['role_name'],
+                'name_alias' => $value['role_name_alias']
             ])->users()->create([
                 'name' => $value['name'],
                 'username' => $value['username'],

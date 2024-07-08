@@ -62,6 +62,11 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
                     icon: 'error'
                     , title: 'Oops...'
                     , text: "{{ session('auth') }}"
+                    , type: 'error'
+                    , customClass: {
+                        confirmButton: 'btn btn-primary'
+                    }
+                    , buttonsStyling: false
                 });
             }
         });
