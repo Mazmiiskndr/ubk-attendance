@@ -102,7 +102,7 @@ $navbarDetached = ($navbarDetached ?? '');
                             <li>
                                 <a class="dropdown-item" href="{{ auth()->user()->id }}">
                                     <i class='ti ti-settings me-2'></i>
-                                    <span class="align-middle">My Profile</span>
+                                    <span class="align-middle">Profil Saya</span>
                                 </a>
                             </li>
                             <li>
@@ -112,7 +112,7 @@ $navbarDetached = ($navbarDetached ?? '');
                             <li>
                                 <a class="dropdown-item text-danger" href="javascript:void(0)" onclick="logoutButton();">
                                     <i class='ti ti-logout me-2'></i>
-                                    <span class="align-middle">Logout</span>
+                                    <span class="align-middle">Keluar</span>
                                 </a>
                             </li>
                             <form method="POST" id="logout-form" action="{{ route('logout') }}">

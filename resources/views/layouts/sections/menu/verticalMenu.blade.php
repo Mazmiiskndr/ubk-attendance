@@ -26,9 +26,9 @@ $configData = Helper::appClasses();
     <ul class="menu-inner py-1">
         <!-- Dashboard Menu  -->
         <li class="menu-item {{ request()->is('dashboard') ? 'active' : '' }}">
-            <a href="javascript:void(0);" class="menu-link ">
+            <a href="{{ route('backend.dashboard') }}" class="menu-link ">
                 <i class="menu-icon tf-icons ti ti-home"></i>
-                <div>Dashboard</div>
+                <div>Beranda</div>
             </a>
         </li>
 
@@ -54,11 +54,11 @@ $configData = Helper::appClasses();
             </ul>
         </li>
 
-        <!-- Dashboard Menu  -->
+        <!-- Setting Menu  -->
         <li class="menu-item {{ request()->is('settings') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link ">
                 <i class="menu-icon tf-icons ti ti-settings"></i>
-                <div>Settings</div>
+                <div>Pengaturan</div>
             </a>
         </li>
 
