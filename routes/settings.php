@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
-    Backend\UserController,
+    Backend\SettingController,
 };
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +20,5 @@ use Illuminate\Support\Facades\Route;
 // Grouping portfolios routes
 Route::middleware('auth')->name('backend.')->group(function () {
     // Route for list portfolios page
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
 });

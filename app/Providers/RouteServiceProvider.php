@@ -31,6 +31,7 @@ class RouteServiceProvider extends ServiceProvider
             $this->registerApiRoutes();
             $this->registerWebRoutes();
             $this->registerUsersRoutes();
+            $this->registerSettingsRoutes();
         });
     }
 
@@ -65,5 +66,16 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/users.php'));
+    }
+
+    /**
+     * Register routes for the settings section.
+     * @return void
+     */
+    protected function registerSettingsRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/settings.php'));
     }
 }
