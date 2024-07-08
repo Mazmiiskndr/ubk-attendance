@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             [
                 'role_name' => 'Administrator',
                 'name' => 'Admin User',
+                'username' => 'admin',
                 'email' => 'admin@example.com',
                 'password' => 'admin',
                 'status' => 1,
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
                 'name' => $value['role_name']
             ])->users()->create([
                 'name' => $value['name'],
+                'username' => $value['username'],
                 'email' => $value['email'],
                 'password' => Hash::make($value['password']),
                 'status' => $value['status'],
