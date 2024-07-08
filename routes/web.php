@@ -1,13 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\{
+    Auth\LoginController,
+    Backend\DashboardController,
+};
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\language\LanguageController;
-use App\Http\Controllers\pages\HomePage;
-use App\Http\Controllers\pages\Page2;
-use App\Http\Controllers\pages\MiscError;
-use App\Http\Controllers\authentications\LoginBasic;
-use App\Http\Controllers\authentications\RegisterBasic;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +19,15 @@ use App\Http\Controllers\authentications\RegisterBasic;
 
 // Home / Login Page route
 Route::get('/', [LoginController::class, 'index'])->name('login');
+
+// Grouping routes backend
+Route::middleware('auth')->name('backend.')->group(function () {
+    // Route for dashboard page
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+// Route for logout
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Main Page Route
 // Route::get('/', [HomePage::class, 'index'])->name('pages-home');
