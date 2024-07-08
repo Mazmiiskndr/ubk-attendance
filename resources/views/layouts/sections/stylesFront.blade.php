@@ -6,7 +6,8 @@
 
 @vite(['resources/assets/vendor/fonts/tabler-icons.scss'])
 <!-- Core CSS -->
-@vite(['resources/assets/vendor/scss'.$configData['rtlSupport'].'/core' .($configData['style'] !== 'light' ? '-' . $configData['style'] : '') .'.scss',
+@vite([
+'resources/assets/vendor/scss'.$configData['rtlSupport'].'/core' .($configData['style'] !== 'light' ? '-' . $configData['style'] : '') .'.scss',
 'resources/assets/vendor/scss'.$configData['rtlSupport'].'/' .$configData['theme'] .($configData['style'] !== 'light' ? '-' . $configData['style'] : '') .'.scss',
 'resources/assets/css/demo.css',
 'resources/assets/vendor/libs/node-waves/node-waves.scss',

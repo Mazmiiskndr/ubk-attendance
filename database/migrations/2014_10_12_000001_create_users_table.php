@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->tinyInteger('status')->default(1);
             $table->uuid('role_id');
+            $table->string('images', 191);
             $table->timestamps();
 
             $table->foreign('role_id')

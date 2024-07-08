@@ -32,11 +32,12 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
 
     <!-- Include Styles -->
     <!-- $isFront is used to append the front layout styles only on the front layout otherwise the variable will be blank -->
-    @include('layouts/sections/styles' . $isFront)
+    @include('layouts/sections/styles')
+    @stack('styles')
 
     <!-- Include Scripts for customizer, helper, analytics, config -->
     <!-- $isFront is used to append the front layout scriptsIncludes only on the front layout otherwise the variable will be blank -->
-    @include('layouts/sections/scriptsIncludes' . $isFront)
+    @include('layouts/sections/scriptsIncludes')
 </head>
 
 <body>
@@ -47,10 +48,43 @@ $contentLayout = (isset($container) ? (($container === 'container-xxl') ? "layou
 
     <!-- Include Scripts -->
     <!-- $isFront is used to append the front layout scripts only on the front layout otherwise the variable will be blank -->
-    @include('layouts/sections/scripts' . $isFront)
     {{-- Livewire --}}
     @livewireScripts
     {{-- End Livewire --}}
+    @include('layouts/sections/scripts')
+    @stack('scripts')
+    {{-- Check if the authentication is already exist! --}}
+    @if (session()->has('auth'))
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            if ("{{ session('auth') }}") {
+                Swal.fire({
+                    icon: 'error'
+                    , title: 'Oops...'
+                    , text: "{{ session('auth') }}"
+                });
+            }
+        });
+
+    </script>
+    @endif
+    @if (session()->has('logout'))
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            if ("{{ session('logout') }}") {
+                Swal.fire({
+                    position: 'center'
+                    , icon: 'success'
+                    , title: "{{ session('logout') }}"
+                    , showConfirmButton: false
+                    , timer: 2500
+                });
+            }
+        });
+
+    </script>
+
+    @endif
 </body>
 
 </html>

@@ -70,7 +70,7 @@ $navbarDetached = ($navbarDetached ?? '');
                     <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                             <div class="avatar avatar-online">
-                                <img src="#" alt class="h-auto rounded-circle">
+                                <img src="{{ asset('assets/images/users/' . auth()->user()->images ?? "default" . '.png') }}" alt class="h-auto rounded-circle">
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -79,13 +79,13 @@ $navbarDetached = ($navbarDetached ?? '');
                                     <div class="d-flex">
                                         <div class="flex-shrink-0 me-3">
                                             <div class="avatar avatar-online">
-                                                <img src="#" alt class="h-auto rounded-circle">
+                                                <img src="{{ asset('assets/images/users/' . auth()->user()->images ?? "default" . '.png') }}" alt class="h-auto rounded-circle">
                                             </div>
                                         </div>
                                         <div class="flex-grow-1">
                                             <span class="fw-medium d-block">
                                                 @if (auth()->check())
-                                                {{ auth()->user()->full_name }}
+                                                {{ auth()->user()->name }}
                                                 @else
                                                 -
                                                 @endif
@@ -94,25 +94,6 @@ $navbarDetached = ($navbarDetached ?? '');
                                                 }}</small>
                                         </div>
                                     </div>
-                                </a>
-                            </li>
-                            <li>
-                                <div class="dropdown-divider"></div>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ Route::has('profile.show') ? route('profile.show') : 'javascript:void(0);' }}">
-                                    <i class="ti ti-user-check me-2 ti-sm"></i>
-                                    <span class="align-middle">My Profile</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" href="javascript:void(0);">
-                                    <span class="d-flex align-items-center align-middle">
-                                        <i class="flex-shrink-0 ti ti-credit-card me-2 ti-sm"></i>
-                                        <span class="flex-grow-1 align-middle">Billing</span>
-                                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger w-px-20 h-px-20">2</span>
-                                    </span>
                                 </a>
                             </li>
                             <li>
@@ -149,3 +130,30 @@ $navbarDetached = ($navbarDetached ?? '');
         @endif
     </nav>
     <!-- / Navbar -->
+    @push('scripts')
+    <script>
+        function logoutButton() {
+            event.preventDefault();
+            Swal.fire({
+                title: 'You sure want to logout?'
+                , text: "You will no longer be able to access the data!!"
+                , icon: 'warning'
+                , showCancelButton: true
+                , confirmButtonColor: '#7367f0'
+                , cancelButtonColor: '#d33'
+                , confirmButtonText: 'Yes, Logout!'
+                , customClass: {
+                    confirmButton: 'btn btn-primary me-1'
+                    , cancelButton: 'btn btn-label-secondary'
+                }
+                , buttonsStyling: false
+            , }).then((result) => {
+                // If Result is True then submit the form will be logout
+                if (result.isConfirmed) {
+                    document.querySelector("#logout-form").submit();
+                }
+            });
+        }
+
+    </script>
+    @endpush

@@ -34,6 +34,7 @@ class UserSeeder extends Seeder
                 'email' => $value['email'],
                 'password' => Hash::make($value['password']),
                 'status' => $value['status'],
+                'images' => 'default.png',
             ]);
         }
     }

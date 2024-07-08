@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'password' => Hash::make('password'),
             'status' => $this->faker->randomElement([0, 1]),
             'role_id' => Role::factory(),
+            'images' => 'default.png',
         ];
     }
 }
