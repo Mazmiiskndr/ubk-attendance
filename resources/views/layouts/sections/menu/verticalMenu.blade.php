@@ -54,6 +54,14 @@ $configData = Helper::appClasses();
             </ul>
         </li>
 
+        <!-- Dashboard Menu  -->
+        <li class="menu-item {{ request()->is('settings') ? 'active' : '' }}">
+            <a href="javascript:void(0);" class="menu-link ">
+                <i class="menu-icon tf-icons ti ti-settings"></i>
+                <div>Settings</div>
+            </a>
+        </li>
+
     </ul>
 
 </aside>

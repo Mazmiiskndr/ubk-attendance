@@ -694,9 +694,9 @@ class TemplateCustomizer {
             this._loadingState(false)
           })
           if (e.target.value === 'rtl') {
-            window.location.href = baseUrl + 'lang/ar'
+            window.location.href = baseUrl + 'dashboard'
           } else {
-            window.location.href = baseUrl + 'lang/en'
+            window.location.href = baseUrl + 'dashboard'
           }
         }
 
