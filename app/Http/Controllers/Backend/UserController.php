@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function students()
     {
-        return view('pages.backend.users.index',);
+        return view('pages.backend.users.students');
+    }
+
+    public function lecturers()
+    {
+        return view('pages.backend.users.lecturers');
     }
 }

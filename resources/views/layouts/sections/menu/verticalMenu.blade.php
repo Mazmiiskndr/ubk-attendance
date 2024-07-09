@@ -36,11 +36,26 @@ $configData = Helper::appClasses();
         </li>
 
         <!-- Dashboard Menu  -->
-        <li class="menu-item {{ request()->is('users*') ? 'active' : '' }}">
-            <a href="{{ route('backend.users.index') }}" class="menu-link ">
+        <!-- User Menu Item -->
+        <li class="menu-item {{ request()->is('users*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-users"></i>
                 <div>Pengguna</div>
             </a>
+
+            <!-- Submenu for User -->
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->is('users/students') ? 'active' : '' }}">
+                    <a href="{{ route('backend.students.index') }}" class="menu-link ml-4">
+                        <div>List Mahasiswa</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->is('users/lecturers') ? 'active' : '' }}">
+                    <a href="{{ route('backend.lecturers.index') }}" class="menu-link ml-4">
+                        <div>List Dosen</div>
+                    </a>
+                </li>
+            </ul>
         </li>
 
         <!-- Settings Menu  -->

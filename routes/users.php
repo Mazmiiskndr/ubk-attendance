@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Grouping portfolios routes
-Route::middleware('auth')->name('backend.')->group(function () {
+Route::middleware('auth')->prefix('users')->name('backend.')->group(function () {
     // Route for list portfolios page
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('students', [UserController::class, 'students'])->name('students.index');
+    Route::get('lecturers', [UserController::class, 'lecturers'])->name('lecturers.index');
 });
