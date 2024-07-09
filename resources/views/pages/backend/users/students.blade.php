@@ -13,7 +13,7 @@
     <div class="card-header">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="mb-1 mb-sm-0 text-center text-sm-start">
-                <h4 class="card-title">Table Mahasiswa</h4>
+                <h4 class="card-title">Tabel Mahasiswa</h4>
             </div>
             <div>
                 <div class="d-flex justify-content-sm-end flex-column flex-sm-row gap-1">
