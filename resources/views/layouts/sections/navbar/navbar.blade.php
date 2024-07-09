@@ -135,20 +135,21 @@ $navbarDetached = ($navbarDetached ?? '');
         function logoutButton() {
             event.preventDefault();
             Swal.fire({
-                title: 'You sure want to logout?'
-                , text: "You will no longer be able to access the data!!"
+                title: 'Anda yakin ingin keluar?'
+                , text: "Anda tidak akan dapat mengakses data lagi!!"
                 , icon: 'warning'
                 , showCancelButton: true
                 , confirmButtonColor: '#7367f0'
                 , cancelButtonColor: '#d33'
-                , confirmButtonText: 'Yes, Logout!'
+                , confirmButtonText: 'Ya, Keluar!'
+                , cancelButtonText: 'Batal'
                 , customClass: {
                     confirmButton: 'btn btn-primary me-1'
                     , cancelButton: 'btn btn-label-secondary'
                 }
                 , buttonsStyling: false
             , }).then((result) => {
-                // If Result is True then submit the form will be logout
+                // Jika Result adalah True maka form akan di submit untuk logout
                 if (result.isConfirmed) {
                     document.querySelector("#logout-form").submit();
                 }

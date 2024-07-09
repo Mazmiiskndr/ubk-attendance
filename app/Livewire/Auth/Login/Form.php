@@ -73,7 +73,7 @@ class Form extends Component
             }
 
             // If the username exists but the password is wrong, give a general error message
-            session()->flash('error', "Username atau Password salah. Silakan coba lagi.");
+            session()->flash('error', "Username atau Kata Sandi salah. Silakan coba lagi.");
             return redirect()->route('login');
         } catch (\Exception $e) {
             // Flash a general error message
