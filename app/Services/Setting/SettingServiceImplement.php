@@ -29,4 +29,12 @@ class SettingServiceImplement extends Service implements SettingService
     {
         return $this->handleRepositoryCall('getSettings', [$limit]);
     }
+
+    /**
+     * Get the data formatted for DataTables.
+     */
+    public function getDatatables()
+    {
+        return $this->handleRepositoryCall('getDatatables');
+    }
 }

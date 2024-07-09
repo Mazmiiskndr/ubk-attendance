@@ -28,13 +28,13 @@ class SettingRepositoryImplement extends Eloquent implements SettingRepository
     public function getSettings($limit = null)
     {
         // If the limit is set, use the 'take' method to take a limited number of settings
-        $query = $this->settingModel->latest();
+        $query = $this->settingModel;
         if ($limit !== null) {
             $query->limit($limit);
         }
 
         // Fetch the latest settings
-        $settings = $query->get();
+        $settings = $query->first();
 
         // If no settings are found, throw an exception
         if (!$settings) {
@@ -50,20 +50,59 @@ class SettingRepositoryImplement extends Eloquent implements SettingRepository
      */
     public function getDatatables()
     {
-        // Retrieve the category resumes data from the resume model
-        $data = $this->getSettings();
+        $settings = $this->getSettings(); // Assuming there's only one record
 
-        // Return format the data for DataTables
-        return $this->formatDataTablesResponse(
-            $data,
+        $data = collect([
             [
-                'created_at' => function ($data) {
-                    return date('d-F-Y', strtotime($data->created_at));
-                },
-                'action' => function ($data) {
-                    return $this->getActionButtons($data->id, 'showSetting', 'confirmDeleteSetting');
-                }
+                'variable' => 'Mulai jam masuk',
+                'parameter' => $settings->check_in_start,
+                'description' => 'Parameter jam akan dimulai presensi masuk',
+                'action' => $this->getActionButtons(1, 'showSetting')
+            ],
+            [
+                'variable' => 'Akhir jam masuk',
+                'parameter' => $settings->check_in_end,
+                'description' => 'Batas dari Parameter jam presensi masuk',
+                'action' => $this->getActionButtons(2, 'showSetting')
+            ],
+            [
+                'variable' => 'Mulai jam keluar',
+                'parameter' => $settings->check_out_start,
+                'description' => 'Parameter jam akan dimulai presensi keluar / pulang',
+                'action' => $this->getActionButtons(3, 'showSetting')
+            ],
+            [
+                'variable' => 'Akhir jam keluar',
+                'parameter' => $settings->check_out_end,
+                'description' => 'Batas dari parameter jam presensi keluar / pulang',
+                'action' => $this->getActionButtons(4, 'showSetting')
+            ],
+            [
+                'variable' => 'Hari Libur 1',
+                'parameter' => $settings->holiday_1,
+                'description' => 'Jika parameter ini diset pada hari tersebut presensi tidak berjalan',
+                'action' => $this->getActionButtons(5, 'showSetting')
+            ],
+            [
+                'variable' => 'Hari Libur 2',
+                'parameter' => $settings->holiday_2,
+                'description' => 'Jika parameter ini diset pada hari tersebut presensi tidak berjalan',
+                'action' => $this->getActionButtons(6, 'showSetting')
+            ],
+            [
+                'variable' => 'Zona Waktu',
+                'parameter' => $settings->time_zone,
+                'description' => 'Parameter zona waktu berdasarkan area',
+                'action' => $this->getActionButtons(7, 'showSetting')
+            ],
+            [
+                'variable' => 'IP Address',
+                'parameter' => $settings->ip_address,
+                'description' => 'IP Address Kontroler',
+                'action' => $this->getActionButtons(8, 'showSetting')
             ]
-        );
+        ]);
+
+        return $this->formatDataTablesResponse($data);
     }
 }

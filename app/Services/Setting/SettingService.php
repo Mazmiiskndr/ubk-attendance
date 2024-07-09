@@ -11,4 +11,9 @@ interface SettingService extends BaseService
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getSettings($limit);
+
+    /**
+     * Get the data formatted for DataTables.
+     */
+    public function getDatatables();
 }

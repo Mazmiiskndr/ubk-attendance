@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\{Role, User, UserDetail};
+use App\Models\{Role, Setting, User, UserDetail};
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
+            SettingSeeder::class,
         ]);
 
         //Make roles and users with details
