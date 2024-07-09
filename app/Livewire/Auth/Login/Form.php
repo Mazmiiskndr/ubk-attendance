@@ -46,34 +46,38 @@ class Form extends Component
         $this->validate();
 
         try {
+            // Check if the username exists in the database
+            $user = User::where('username', $this->username)->first();
+
+            if (!$user) {
+                // If the username does not exist, give a specific error message
+                session()->flash('error', "Username yang Anda masukkan tidak ada. Silakan coba lagi.");
+                return redirect()->route('login');
+            }
+
+            // Check if the user is active
+            if ($user->status != 1) {
+                // If the user is not active, give a specific error message
+                session()->flash('error', "Akun Anda tidak aktif. Silakan hubungi admin.");
+                return redirect()->route('login');
+            }
+
             // Attempt to authenticate the user with the given credentials
             if (Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
                 // If the validation was successful and the user is authenticated
                 if (Auth::check()) {
                     // Redirect the user to the desired page with a success message
-                    session()->flash('success', "Great job! You've successfully logged in. Let's get started!");
+                    session()->flash('success', "Anda berhasil masuk!");
                     return redirect()->route('backend.dashboard');
                 }
             }
 
-            // If authentication fails, check if the username exists
-            $userExists = User::where('username', $this->username)->exists();
-            if (!$userExists) {
-                // If the username does not exist, flash a specific error message
-                session()->flash('error', "The username you entered does not exist. Please try again.");
-            } else {
-                // If the username exists but the password is incorrect, flash a generic error message
-                session()->flash('error', "Invalid Username or Password. Please try again.");
-            }
-
-            // Redirect back to the login page
+            // If the username exists but the password is wrong, give a general error message
+            session()->flash('error', "Username atau Password salah. Silakan coba lagi.");
             return redirect()->route('login');
         } catch (\Exception $e) {
-            // If there's an exception, log it for debugging
-            // Log::error('An error occurred during admin authentication: ' . $e->getMessage());
-
             // Flash a general error message
-            session()->flash('error', 'An error occurred: ' . $e->getMessage());
+            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
             return redirect()->route('login');
         }
     }

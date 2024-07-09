@@ -2,6 +2,7 @@
 
 @vite([
 'resources/assets/vendor/libs/sweetalert2/sweetalert2.js',
+'resources/assets/vendor/libs/toastr/toastr.js',
 'resources/assets/vendor/libs/jquery/jquery.js',
 'resources/assets/vendor/libs/popper/popper.js',
 'resources/assets/vendor/js/bootstrap.js',

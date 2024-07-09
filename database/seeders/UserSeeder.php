@@ -24,6 +24,15 @@ class UserSeeder extends Seeder
                 'password' => 'admin',
                 'status' => 1,
             ],
+            [
+                'role_name' => 'Dosen',
+                'role_name_alias' => 'dosen',
+                'name' => 'Moch Azmi Iskandar',
+                'username' => 'mazmiiskndr',
+                'email' => 'azmiiskandar0@gmail.com',
+                'password' => 'tasik123',
+                'status' => 1,
+            ],
         ];
 
         foreach ($admins as $key => $value) {

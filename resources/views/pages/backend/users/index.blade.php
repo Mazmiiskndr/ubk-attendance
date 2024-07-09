@@ -35,6 +35,7 @@
 
     {{-- Start List DataTable --}}
     <div class="card-body">
+
         {{-- @livewire('backend.resumes.datatables') --}}
     </div>
     {{-- End List DataTable --}}
