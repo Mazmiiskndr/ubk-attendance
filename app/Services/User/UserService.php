@@ -6,5 +6,9 @@ use LaravelEasyRepository\BaseService;
 
 interface UserService extends BaseService
 {
-    // Write something awesome :)
+    /**
+     * Get all users
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getUsers($limit);
 }

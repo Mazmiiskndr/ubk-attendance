@@ -6,5 +6,9 @@ use LaravelEasyRepository\Repository;
 
 interface UserRepository extends Repository
 {
-    // Write something awesome :)
+    /**
+     * Get all users
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getUsers($limit);
 }

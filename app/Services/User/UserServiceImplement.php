@@ -21,5 +21,12 @@ class UserServiceImplement extends Service implements UserService
         $this->mainRepository = $mainRepository;
     }
 
-    // Define your custom methods :)
+    /**
+     * Get all users
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getUsers($limit = null)
+    {
+        return $this->handleRepositoryCall('getUsers', [$limit]);
+    }
 }
