@@ -33,6 +33,15 @@ class UserSeeder extends Seeder
                 'password' => 'tasik123',
                 'status' => 1,
             ],
+            [
+                'role_name' => 'Mahasiswa',
+                'role_name_alias' => 'mahasiswa',
+                'name' => 'Azmi Iskandar',
+                'username' => 'azmi123',
+                'email' => 'mazmiiskndr@gmail.com',
+                'password' => 'tasik123',
+                'status' => 1,
+            ],
         ];
 
         foreach ($admins as $key => $value) {
