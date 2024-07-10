@@ -77,7 +77,9 @@
         });
 
         function showSetting(settingId) {
-            Livewire.dispatch('getSetting', settingId);
+            Livewire.dispatch('requestSettingById', {
+                settingId: settingId
+            });
         }
 
     </script>
@@ -91,7 +93,7 @@
 {{-- END FORM CREATE PENGATURAN --}}
 
 {{-- START FORM EDIT PENGATURAN --}}
-{{-- @livewire('backend.resumes.edit') --}}
+@livewire('backend.setting.edit')
 {{-- END FORM EDIT PENGATURAN --}}
 
 @endsection
