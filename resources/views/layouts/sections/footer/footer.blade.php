@@ -98,6 +98,19 @@ $containerFooter = (isset($configData['contentLayout']) && $configData['contentL
                 // If the event contains a success detail
                 if (type == 'success') {
                     showToast('success', message);
+                } else if (type == 'error') {
+                    // Display an error message using Swal.fire
+
+                    Swal.fire({
+                        icon: 'error'
+                        , type: 'error'
+                        , title: 'Oops...'
+                        , text: message
+                        , customClass: {
+                            confirmButton: 'btn btn-primary'
+                            , buttonsStyling: false
+                        }
+                    });
                 }
 
             }

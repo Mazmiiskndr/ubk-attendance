@@ -70,17 +70,19 @@ class Edit extends Component
             $isUpdated = $settingService->updateSetting($properties);
 
             // Check if the settings were updated successfully
-            if (!$isUpdated) {
-                throw new \InvalidArgumentException('Failed to update the setting!');
+            if ($isUpdated === false) {
+                throw new \InvalidArgumentException('Gagal memperbarui pengaturan!');
+            } elseif ($isUpdated === 0) {
+                throw new \InvalidArgumentException('Tidak ada perubahan terdeteksi. Silakan ubah pengaturan sebelum menyimpan.');
             }
             // Notify the frontend of success
             // Notify the frontend of success
-            $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Setting has been successfully updated!']);
+            $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Pengaturan berhasil diperbarui!']);
             // Let other components know that a setting was updated
             $this->dispatch('settingUpdated', true);
         } catch (\Throwable $th) {
             // Notify the frontend of the error
-            $this->dispatch('show-toast', ['type' => 'error', 'message' => 'An error occurred while updating the setting: ' . $th->getMessage()]);
+            $this->dispatch('show-toast', ['type' => 'error', 'message' => 'Error : ' . $th->getMessage()]);
         } finally {
             // Ensure the modal is closed
             $this->closeModal();
