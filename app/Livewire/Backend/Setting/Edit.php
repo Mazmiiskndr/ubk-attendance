@@ -74,12 +74,13 @@ class Edit extends Component
                 throw new \InvalidArgumentException('Failed to update the setting!');
             }
             // Notify the frontend of success
-            $this->dispatchSuccessEvent('Setting has been successfully updated!');
+            // Notify the frontend of success
+            $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Setting has been successfully updated!']);
             // Let other components know that a setting was updated
             $this->dispatch('settingUpdated', true);
         } catch (\Throwable $th) {
             // Notify the frontend of the error
-            $this->dispatchErrorEvent('An error occurred while updating setting: ' . $th->getMessage());
+            $this->dispatch('show-toast', ['type' => 'error', 'message' => 'An error occurred while updating the setting: ' . $th->getMessage()]);
         } finally {
             // Ensure the modal is closed
             $this->closeModal();

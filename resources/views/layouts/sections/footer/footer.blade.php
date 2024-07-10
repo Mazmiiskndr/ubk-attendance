@@ -33,6 +33,7 @@ $containerFooter = (isset($configData['contentLayout']) && $configData['contentL
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         function showToast(type, message) {
+
             // Get the toast element and its components
             const toastEl = document.getElementById('successToast');
             const toastIcon = toastEl.querySelector('.fas');
@@ -81,6 +82,24 @@ $containerFooter = (isset($configData['contentLayout']) && $configData['contentL
                         , text: error
                     });
                 }
+            }
+        });
+
+        window.addEventListener('show-toast', event => {
+
+            // Check if the event contains detail
+            if (event.detail) {
+                // Extract the error, success, and type from the event detail
+                const [{
+                    message
+                    , type
+                }] = event.detail;
+
+                // If the event contains a success detail
+                if (type == 'success') {
+                    showToast('success', message);
+                }
+
             }
         });
 

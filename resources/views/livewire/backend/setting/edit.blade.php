@@ -51,7 +51,6 @@
 
     <script>
         let myModal = new bootstrap.Modal(document.getElementById('updateSetting'));
-
         // Event listener for showing modal
         $wire.on('show-modal', () => {
             myModal.show();
