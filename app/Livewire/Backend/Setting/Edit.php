@@ -13,6 +13,12 @@ class Edit extends Component
 
     public $settingId, $checkInStart, $checkInEnd, $checkOutStart, $checkOutEnd, $holiday1, $holiday2, $time_zone, $ipAddress;
 
+    public function updated($property)
+    {
+        $settingService = app(SettingService::class);
+        $this->validateOnly($property, $settingService->getValidationRules($this->settingId), $settingService->getValidationErrorMessages());
+    }
+
     public function render()
     {
         return view('livewire.backend.setting.edit');
@@ -53,6 +59,49 @@ class Edit extends Component
                 throw new \Exception("Invalid setting ID");
         }
         $this->dispatch('show-modal');
+    }
+
+    public function updateSetting(SettingService $settingService)
+    {
+        $this->validate($settingService->getValidationRules($this->settingId), $settingService->getValidationErrorMessages());
+        $properties = $this->prepareSettingData();
+        try {
+            // Attempt to update the settings
+            $isUpdated = $settingService->updateSetting($properties);
+
+            // Check if the settings were updated successfully
+            if (!$isUpdated) {
+                throw new \InvalidArgumentException('Failed to update the setting!');
+            }
+            // Notify the frontend of success
+            $this->dispatchSuccessEvent('Setting has been successfully updated!');
+            // Let other components know that a setting was updated
+            $this->dispatch('settingUpdated', true);
+        } catch (\Throwable $th) {
+            // Notify the frontend of the error
+            $this->dispatchErrorEvent('An error occurred while updating setting: ' . $th->getMessage());
+        } finally {
+            // Ensure the modal is closed
+            $this->closeModal();
+        }
+    }
+
+    protected function prepareSettingData(): array
+    {
+        // Map properties to the database columns
+        $properties = [
+            'setting_id' => $this->settingId,
+            'check_in_start' => $this->checkInStart,
+            'check_in_end' => $this->checkInEnd,
+            'check_out_start' => $this->checkOutStart,
+            'check_out_end' => $this->checkOutEnd,
+            'holiday_1' => $this->holiday1,
+            'holiday_2' => $this->holiday2,
+            'time_zone' => $this->time_zone,
+            'ip_address' => $this->ipAddress,
+        ];
+
+        return $properties;
     }
 
     public function resetFields()

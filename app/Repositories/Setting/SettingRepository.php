@@ -16,4 +16,10 @@ interface SettingRepository extends Repository
      * Get the data formatted for DataTables.
      */
     public function getDatatables();
+
+    public function getValidationRules(?string $settingId);
+    
+    public function getValidationErrorMessages();
+
+    public function updateSetting($data);
 }

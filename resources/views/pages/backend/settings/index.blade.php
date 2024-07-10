@@ -5,6 +5,19 @@
 @vite(['resources/assets/js/datatable/datatables.min.css'])
 @endpush
 
+@section('vendor-style')
+@vite([
+'resources/assets/vendor/libs/jquery-timepicker/jquery-timepicker.scss',
+])
+@endsection
+
+<!-- Vendor Scripts -->
+@section('vendor-script')
+@vite([
+'resources/assets/vendor/libs/jquery-timepicker/jquery-timepicker.js',
+])
+@endsection
+
 @section('content')
 {{-- Is Allowed User To List Pengaturan --}}
 <h4 class="fw-bold py-3 mb-1">List Pengaturan</h4>
@@ -17,7 +30,6 @@
             </div>
         </div>
     </div>
-
     {{-- Start List DataTable --}}
     <div class="card-body">
         @livewire('backend.setting.datatables')

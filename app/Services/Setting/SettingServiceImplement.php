@@ -37,4 +37,19 @@ class SettingServiceImplement extends Service implements SettingService
     {
         return $this->handleRepositoryCall('getDatatables');
     }
+
+    public function getValidationRules(?string $settingId = null)
+    {
+        return $this->handleRepositoryCall('getValidationRules', [$settingId]);
+    }
+
+    public function getValidationErrorMessages()
+    {
+        return $this->handleRepositoryCall('getValidationErrorMessages');
+    }
+
+    public function updateSetting($data)
+    {
+        return $this->handleRepositoryCall('updateSetting', [$data]);
+    }
 }

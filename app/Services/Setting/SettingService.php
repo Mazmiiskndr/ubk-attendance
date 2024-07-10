@@ -16,4 +16,10 @@ interface SettingService extends BaseService
      * Get the data formatted for DataTables.
      */
     public function getDatatables();
+
+    public function getValidationRules(?string $settingId = null);
+
+    public function getValidationErrorMessages();
+
+    public function updateSetting($data);
 }

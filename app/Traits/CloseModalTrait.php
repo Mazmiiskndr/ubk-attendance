@@ -9,12 +9,12 @@ trait CloseModalTrait
      */
     public function closeModal()
     {
+        $this->dispatch('hide-modal');
         // Reset the form for the next client
         $this->resetFields();
         // Reset the validation error messages
         $this->resetErrorBag();
         // Reset the validation status
         $this->resetValidation();
-        $this->dispatch('hide-modal');
     }
 }
