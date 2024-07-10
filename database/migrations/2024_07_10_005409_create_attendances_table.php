@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_details', function (Blueprint $table) {
+        Schema::create('attendances', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('gender', 10);
-            $table->string('nim', 15);
-            $table->string('position', 50);
-            $table->string('phone_number', 20);
-            $table->date('birthdate')->nullable();
-            $table->text('address')->nullable();
+            $table->dateTime('check_in');
+            $table->dateTime('check_out')->nullable();
+            $table->dateTime('attendance_date');
+            $table->string('image_in', 191)->nullable();
+            $table->string('image_out', 191)->nullable();
+            $table->string('status');
+            $table->text('remarks')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')
@@ -35,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_details');
+        Schema::dropIfExists('attendances');
     }
 };
