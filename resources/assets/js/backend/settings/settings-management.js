@@ -1,11 +1,12 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('livewire:init', function () {
   const columns = [
     {
       data: 'DT_RowIndex',
       name: 'DT_RowIndex',
       width: '10px',
       orderable: false,
-      searchable: false
+      searchable: false,
+      className: 'text-center fw-semibold'
     },
     {
       data: 'variable',
@@ -23,7 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
       data: 'action',
       name: 'action',
       orderable: false,
-      searchable: false
+      searchable: false,
+      className: 'text-center'
     }
   ];
 
@@ -46,23 +48,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
-
-// Event listener for hiding modals
-window.addEventListener('hide-modal', () => {
-  ['createNewSetting', 'updateSetting'].forEach(id => {
-    var modal = new bootstrap.Modal(document.getElementById(id));
-    modal.hide();
-  });
-});
-
-// Event listener for showing modals
-window.addEventListener('show-modal', () => {
-  var updateModal = new bootstrap.Modal(document.getElementById('updateSetting'));
-  updateModal.show();
-});
-
-function showSetting(settingId) {
-  Livewire.dispatch('requestSettingById', {
-    settingId: settingId
-  });
-}
