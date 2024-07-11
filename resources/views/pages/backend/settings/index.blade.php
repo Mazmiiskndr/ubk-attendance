@@ -34,6 +34,7 @@
                     , width: '10px'
                     , orderable: false
                     , searchable: false
+                    , className: 'text-center fw-semibold'
                 }
                 , {
                     data: 'variable'
@@ -52,6 +53,7 @@
                     , name: 'action'
                     , orderable: false
                     , searchable: false
+                    , className: 'text-center'
                 }
             ];
 

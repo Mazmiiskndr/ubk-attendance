@@ -16,4 +16,10 @@ class UserController extends Controller
     {
         return view('pages.backend.users.lecturers');
     }
+
+    public function showStudent()
+    {
+        dd('test');
+        // return view('pages.backend.users.lecturers');
+    }
 }

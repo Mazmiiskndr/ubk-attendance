@@ -21,5 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->prefix('users')->name('backend.')->group(function () {
     // Route for list portfolios page
     Route::get('students', [UserController::class, 'students'])->name('students.index');
+    Route::get('student/detail', [UserController::class, 'showStudent'])->name('student.show');
     Route::get('lecturers', [UserController::class, 'lecturers'])->name('lecturers.index');
 });

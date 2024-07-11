@@ -2,6 +2,7 @@
 
 use App\Livewire\Backend\{
     Setting\Datatables as SettingDatatables,
+    Student\Datatables as UserDatatables,
 };
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,6 @@ Route::prefix('livewire/backend/')->group(function () {
     // Route for list what i dos page
     Route::get('setting/getDatatable', [SettingDatatables::class, 'getDatatable'])
         ->name('setting.getDatatable');
+    Route::get('student/getDatatable', [UserDatatables::class, 'getDatatable'])
+        ->name('student.getDatatable');
 });

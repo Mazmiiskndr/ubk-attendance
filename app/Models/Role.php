@@ -14,7 +14,8 @@ class Role extends Model
     protected $guarded = [];
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'name_alias'
     ];
 
     public function users(): HasMany

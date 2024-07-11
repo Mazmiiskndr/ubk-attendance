@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Role;
+use App\Models\UserDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -45,10 +46,12 @@ class UserSeeder extends Seeder
         ];
 
         foreach ($admins as $key => $value) {
-            Role::create([
+            $role = Role::create([
                 'name' => $value['role_name'],
                 'name_alias' => $value['role_name_alias']
-            ])->users()->create([
+            ]);
+
+            $user = $role->users()->create([
                 'name' => $value['name'],
                 'username' => $value['username'],
                 'email' => $value['email'],
@@ -56,6 +59,19 @@ class UserSeeder extends Seeder
                 'status' => $value['status'],
                 'images' => 'default.png',
             ]);
+
+            // Check if the user is a mahasiswa and create user detail
+            if ($value['role_name_alias'] === 'mahasiswa') {
+                UserDetail::create([
+                    'user_id' => $user->id,
+                    'gender' => 'Laki-laki',
+                    'nim' => '12191497',
+                    'phone_number' => '082118923691',
+                    'position' => "Semester 2",
+                    'birthdate' => "2001-01-06",
+                    'address' => "Perum Griya Mitra Batik Jl. Batik Keris E148",
+                ]);
+            }
         }
     }
 }

@@ -22,11 +22,21 @@ class UserServiceImplement extends Service implements UserService
     }
 
     /**
-     * Get all users
+     * Get all users with optional role alias and limit
+     * @param string|null $roleAlias
+     * @param int|null $limit
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getUsers($limit = null)
+    public function getUsers($roleAlias = null, $limit = null)
     {
-        return $this->handleRepositoryCall('getUsers', [$limit]);
+        return $this->handleRepositoryCall('getUsers', [$roleAlias, $limit]);
+    }
+
+    /**
+     * Get the data formatted for DataTables.
+     */
+    public function getStudentDatatables()
+    {
+        return $this->handleRepositoryCall('getStudentDatatables');
     }
 }

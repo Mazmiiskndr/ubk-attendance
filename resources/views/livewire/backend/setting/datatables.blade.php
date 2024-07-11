@@ -2,11 +2,11 @@
     <table class="table table-hover table-bordered table-responsive display" id="myTable" data-route="{{ route('setting.getDatatable') }}" aria-describedby="mySettingTables">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Variabel</th>
-                <th>Parameter Konfigurasi</th>
-                <th>Keterangan</th>
-                <th>Aksi</th>
+                <th><b>No</b></th>
+                <th><b>Variabel</b></th>
+                <th><b>Parameter Konfigurasi</b></th>
+                <th><b>Keterangan</b></th>
+                <th><b>Aksi</b></th>
             </tr>
         </thead>
     </table>

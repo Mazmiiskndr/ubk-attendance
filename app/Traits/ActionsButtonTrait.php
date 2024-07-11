@@ -13,12 +13,24 @@ trait ActionsButtonTrait
      * @param $onclickDelete
      * @param $editRoute
      * @param $editType
+     * @param $onclickDetail
+     * @param $detailRoute
+     * @param $detailType
      * @return string HTML string for the action buttons
      */
-    private function getActionButtons($id, $onclickEdit = null, $onclickDelete = null, $editRoute = null, $editType = 'button')
-    {
+    private function getActionButtons(
+        $id,
+        $onclickEdit = null,
+        $onclickDelete = null,
+        $editRoute = null,
+        $editType = 'button',
+        $onclickDetail = null,
+        $detailRoute = null,
+        $detailType = 'button'
+    ) {
         $actionButtonsBuilder = (new ActionButtonsBuilder())
             ->setType($editType)
+            ->setTypeDetail($detailType)
             ->setIdentity($id);
 
         if ($onclickEdit) {
@@ -31,6 +43,14 @@ trait ActionsButtonTrait
 
         if ($onclickDelete) {
             $actionButtonsBuilder->setOnclickDelete($onclickDelete);
+        }
+
+        if ($onclickDetail) {
+            $actionButtonsBuilder->setOnclickDetail($onclickDetail);
+        }
+
+        if ($detailRoute) {
+            $actionButtonsBuilder->setDetailRoute($detailRoute);
         }
 
         return $actionButtonsBuilder->build();
