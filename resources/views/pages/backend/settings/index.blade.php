@@ -2,21 +2,8 @@
 @section('title', 'List Pengaturan')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatable/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
 @endpush
-
-@section('vendor-style')
-@vite([
-'resources/assets/vendor/libs/jquery-timepicker/jquery-timepicker.scss',
-])
-@endsection
-
-<!-- Vendor Scripts -->
-@section('vendor-script')
-@vite([
-'resources/assets/vendor/libs/jquery-timepicker/jquery-timepicker.js',
-])
-@endsection
 
 @section('content')
 {{-- Is Allowed User To List Pengaturan --}}
@@ -37,7 +24,7 @@
     {{-- End List DataTable --}}
 
     @push('scripts')
-    @vite(['resources/assets/js/datatable/datatables.min.js'])
+    @vite(['resources/assets/js/datatable/datatables.min.js','resources/assets/vendor/libs/flatpickr/flatpickr.js'])
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -95,14 +82,8 @@
         }
 
     </script>
-    {{-- @vite(['resources/assets/js/backend/settings/settings-management.js']) --}}
-    {{-- <script src="{{ asset('assets/js/backend/resumes/resumes-management.js') }}"></script> --}}
     @endpush
 </div>
-
-{{-- START FORM CREATE PENGATURAN --}}
-{{-- @livewire('backend.resumes.create') --}}
-{{-- END FORM CREATE PENGATURAN --}}
 
 {{-- START FORM EDIT PENGATURAN --}}
 @livewire('backend.setting.edit')

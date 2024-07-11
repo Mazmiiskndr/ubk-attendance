@@ -47,22 +47,39 @@
         </div>
     </div>
     @push('scripts')
-    @script
-
     <script>
-        let myModal = new bootstrap.Modal(document.getElementById('updateSetting'));
-        // Event listener for showing modal
-        $wire.on('show-modal', () => {
-            myModal.show();
-        });
+        function initializeFlatpickr() {
+            let timeFields = ['#checkInStart', '#checkInEnd', '#checkOutStart', '#checkOutEnd'];
 
-        // Event listener for hiding modal
-        $wire.on('hide-modal', () => {
-            console.log('hide modal');
-            myModal.hide();
+            timeFields.forEach(function(selector) {
+                let element = document.querySelector(selector);
+                if (element) {
+                    element.flatpickr({
+                        enableTime: true
+                        , noCalendar: true
+                        , dateFormat: "H:i:S"
+                        , time_24hr: true
+                        , enableSeconds: true
+                    });
+                }
+            });
+        }
+
+        document.addEventListener('livewire:init', function() {
+            let myModal = new bootstrap.Modal(document.getElementById('updateSetting'));
+
+            // Event listener for showing modal
+            Livewire.on('show-modal', () => {
+                myModal.show();
+                setTimeout(initializeFlatpickr, 100); // Delay to ensure the modal is fully rendered
+            });
+
+            // Event listener for hiding modal
+            Livewire.on('hide-modal', () => {
+                myModal.hide();
+            });
         });
 
     </script>
-    @endscript
     @endpush
 </div>

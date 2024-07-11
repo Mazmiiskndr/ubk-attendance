@@ -11,7 +11,7 @@ class Edit extends Component
 {
     use LivewireMessageEvents, CloseModalTrait;
 
-    public $settingId, $checkInStart, $checkInEnd, $checkOutStart, $checkOutEnd, $holiday1, $holiday2, $time_zone, $ipAddress;
+    public $settingId, $checkInStart, $checkInEnd, $checkOutStart, $checkOutEnd, $holiday1, $holiday2, $timeZone, $ipAddress;
 
     public function updated($property)
     {
@@ -50,7 +50,7 @@ class Edit extends Component
                 $this->holiday2 = $setting->holiday_2;
                 break;
             case 7:
-                $this->time_zone = $setting->time_zone;
+                $this->timeZone = $setting->time_zone;
                 break;
             case 8:
                 $this->ipAddress = $setting->ip_address;
