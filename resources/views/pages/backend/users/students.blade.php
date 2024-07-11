@@ -24,6 +24,7 @@
                     {{-- End Button for Create New Mahasiswa --}}
 
                     {{-- Start Button for Delete Batch --}}
+                    {{-- TODO: DELETE BATCH --}}
                     <x-button type="button" color="label-danger btn-sm" onclick="confirmDeleteBatch()">
                         <i class="tf-icons fas fa-trash-alt ti-xs me-1"></i>&nbsp; Hapus Massal
                     </x-button>
@@ -40,69 +41,11 @@
     {{-- End List DataTable --}}
 
     @push('scripts')
-    @vite(['resources/assets/js/datatable/datatables.min.js'])
-    {{-- <script src="{{ asset('assets/js/backend/resumes/resumes-management.js') }}"></script> --}}
+    @vite([
+    'resources/assets/js/datatable/datatables.min.js',
+    'resources/assets/js/backend/users/students-management.js'
+    ])
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const columns = [{
-                    data: 'DT_RowIndex'
-                    , name: 'DT_RowIndex'
-                    , width: '10px'
-                    , orderable: false
-                    , searchable: false
-                    , className: 'text-center fw-semibold'
-                }
-                , {
-                    data: 'name'
-                    , name: 'name'
-                }
-                , {
-                    data: 'nim'
-                    , name: 'nim'
-                }
-                , {
-                    data: 'gender'
-                    , name: 'gender'
-                }
-                , {
-                    data: 'phone_number'
-                    , name: 'phone_number'
-                }
-                , {
-                    data: 'status'
-                    , name: 'status'
-                    , className: 'text-center'
-                }
-                , {
-                    data: 'action'
-                    , name: 'action'
-                    , orderable: false
-                    , searchable: false
-                    , width: '150px'
-                    , className: 'text-center'
-                }
-            ];
-
-            // Initialize DataTable if it hasn't been initialized yet
-            if (!$.fn.dataTable.isDataTable('#myTable')) {
-                var dataTable = $('#myTable').DataTable({
-                    processing: true
-                    , serverSide: true
-                    , responsive: true
-                    , autoWidth: false
-                    , ajax: {
-                        url: document.getElementById('myTable').dataset.route
-                        , type: 'GET'
-                    }
-                    , columns: columns
-                });
-
-                window.addEventListener('refreshDatatable', () => {
-                    dataTable.ajax.reload();
-                });
-            }
-        });
-
         function showStudent(studentId) {
             Livewire.dispatch('requestStudentById', {
                 studentId: studentId

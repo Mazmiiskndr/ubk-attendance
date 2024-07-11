@@ -100,7 +100,7 @@ class Edit extends Component
             'check_out_end' => $this->checkOutEnd,
             'holiday_1' => $this->holiday1,
             'holiday_2' => $this->holiday2,
-            'time_zone' => $this->time_zone,
+            'time_zone' => $this->timeZone,
             'ip_address' => $this->ipAddress,
         ];
 
