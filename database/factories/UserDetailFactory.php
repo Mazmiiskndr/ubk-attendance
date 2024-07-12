@@ -22,7 +22,7 @@ class UserDetailFactory extends Factory
         return [
             'user_id' => User::factory(),
             'nim' => $this->faker->numerify('##########'),
-            'gender' => $this->faker->randomElement(['male', 'female']),
+            'gender' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             'position' => str()->limit($this->faker->jobTitle, 40),
             'phone_number' => $this->faker->phoneNumber,
             'birthdate' => $this->faker->date(),

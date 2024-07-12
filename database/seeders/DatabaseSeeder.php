@@ -18,11 +18,8 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
         ]);
 
-        //Make roles and users with details
-        Role::factory()->count(5)->create()->each(function ($role) {
-            User::factory()->count(10)->create(['role_id' => $role->id])->each(function ($user) {
-                UserDetail::factory()->create(['user_id' => $user->id]);
-            });
+        User::factory(50)->create()->each(function ($user) {
+            UserDetail::factory()->create(['user_id' => $user->id]);
         });
     }
 }
