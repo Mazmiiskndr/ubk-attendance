@@ -8,7 +8,7 @@
                             <div class="content-left">
                                 <span>Total</span>
                                 <div class="d-flex align-items-center my-2">
-                                    <h3 class="mb-0 me-2">21,459</h3>
+                                    <h3 class="mb-0 me-2">{{ $totalUsers }}</h3>
                                 </div>
                             </div>
                             <div class="avatar">
@@ -27,7 +27,7 @@
                             <div class="content-left">
                                 <span>Mahasiswa Aktif</span>
                                 <div class="d-flex align-items-center my-2">
-                                    <h3 class="mb-0 me-2">4,567</h3>
+                                    <h3 class="mb-0 me-2">{{ $activeUsers }}</h3>
                                 </div>
                             </div>
                             <div class="avatar">
@@ -46,7 +46,7 @@
                             <div class="content-left">
                                 <span>Laki-Laki</span>
                                 <div class="d-flex align-items-center my-2">
-                                    <h3 class="mb-0 me-2">19,860</h3>
+                                    <h3 class="mb-0 me-2">{{ $maleUsers }}</h3>
                                 </div>
                             </div>
                             <div class="avatar">
@@ -65,7 +65,7 @@
                             <div class="content-left">
                                 <span>Perempuan</span>
                                 <div class="d-flex align-items-center my-2">
-                                    <h3 class="mb-0 me-2">237</h3>
+                                    <h3 class="mb-0 me-2">{{ $femaleUsers }}</h3>
                                 </div>
                             </div>
                             <div class="avatar">

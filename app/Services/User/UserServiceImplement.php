@@ -33,6 +33,19 @@ class UserServiceImplement extends Service implements UserService
     }
 
     /**
+     * Count users with optional role alias, status, and gender
+     * @param string|null $roleAlias
+     * @param int|null $status
+     * @param string|null $gender
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public function countUsers($roleAlias = null, $status = null, $gender = null)
+    {
+        return $this->handleRepositoryCall('countUsers', [$roleAlias, $status, $gender]);
+    }
+
+    /**
      * Get the data formatted for DataTables.
      */
     public function getStudentDatatables()

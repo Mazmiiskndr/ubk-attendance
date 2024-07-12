@@ -57,6 +57,47 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     }
 
     /**
+     * Count users with optional role alias, status, and gender
+     * @param string|null $roleAlias
+     * @param int|null $status
+     * @param string|null $gender
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public function countUsers($roleAlias = null, $status = null, $gender = null)
+    {
+        $query = $this->userModel->query();
+
+        if ($roleAlias !== null) {
+            $role = $this->roleModel->where('name_alias', $roleAlias)->first();
+
+            if ($role) {
+                $query->where('role_id', $role->id);
+            } else {
+                throw new \InvalidArgumentException("Role with alias '{$roleAlias}' cannot be found.");
+            }
+        }
+
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+
+        if ($gender !== null) {
+            $query->whereHas('userDetail', function ($q) use ($gender) {
+                $q->where('gender', $gender);
+            });
+        }
+
+        $count = $query->count();
+
+        if ($count === 0) {
+            throw new \InvalidArgumentException("No users found matching the criteria.");
+        }
+
+        return $count;
+    }
+
+    /**
      * Get the data formatted for DataTables.
      */
     public function getStudentDatatables()
