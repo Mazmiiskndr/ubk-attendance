@@ -98,6 +98,28 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     }
 
     /**
+     * Delete users by given IDs
+     * @param array|int $userIds
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    public function deleteUsers($userIds)
+    {
+        // Ensure $userIds is an array
+        $userIds = is_array($userIds) ? $userIds : [$userIds];
+
+        // Fetch users by IDs
+        $users = $this->userModel->whereIn('id', $userIds)->get();
+
+        if ($users->isEmpty()) {
+            throw new \InvalidArgumentException("Users with the given IDs cannot be found.");
+        }
+
+        // Delete the users
+        $this->userModel->whereIn('id', $userIds)->delete();
+    }
+
+    /**
      * Get the data formatted for DataTables.
      */
     public function getStudentDatatables()

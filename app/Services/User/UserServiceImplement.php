@@ -46,6 +46,17 @@ class UserServiceImplement extends Service implements UserService
     }
 
     /**
+     * Delete users by given IDs
+     * @param array|int $userIds
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    public function deleteUsers($userIds)
+    {
+        return $this->handleRepositoryCall('deleteUsers', [$userIds]);
+    }
+
+    /**
      * Get the data formatted for DataTables.
      */
     public function getStudentDatatables()

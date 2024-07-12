@@ -28,4 +28,12 @@ interface UserService extends BaseService
      * @throws \InvalidArgumentException
      */
     public function countUsers($roleAlias = null, $status = null, $gender = null);
+
+    /**
+     * Delete users by given IDs
+     * @param array|int $userIds
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    public function deleteUsers($userIds);
 }

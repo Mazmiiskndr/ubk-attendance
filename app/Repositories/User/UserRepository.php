@@ -28,4 +28,12 @@ interface UserRepository extends Repository
      * @throws \InvalidArgumentException
      */
     public function countUsers($roleAlias, $status, $gender);
+
+    /**
+     * Delete users by given IDs
+     * @param array|int $userIds
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    public function deleteUsers($userIds);
 }
