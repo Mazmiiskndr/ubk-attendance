@@ -31,6 +31,26 @@ $containerFooter = (isset($configData['contentLayout']) && $configData['contentL
 </div>
 @push('scripts')
 <script>
+    function showSwalDialog(title, text, callback) {
+        Swal.fire({
+            title: title
+            , text: text
+            , icon: 'warning'
+            , showCancelButton: true
+            , confirmButtonColor: '#7367f0'
+            , cancelButtonColor: '#d33'
+            , confirmButtonText: 'Ya, Hapus!'
+            , cancelButtonText: 'Batal'
+            , customClass: {
+                confirmButton: 'btn btn-primary me-1'
+                , cancelButton: 'btn btn-label-secondary'
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                callback();
+            }
+        });
+    }
     document.addEventListener('DOMContentLoaded', function() {
         function showToast(type, message) {
 

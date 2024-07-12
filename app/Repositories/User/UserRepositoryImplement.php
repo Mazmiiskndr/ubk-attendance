@@ -130,7 +130,7 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
                     return $this->getActionButtons(
                         $data->id,
                         'showStudent',
-                        'deleteStudent',
+                        'confirmDeleteStudent',
                         null,
                         'button',
                         'showDetail',
