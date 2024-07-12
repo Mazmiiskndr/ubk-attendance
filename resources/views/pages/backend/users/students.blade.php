@@ -8,12 +8,15 @@
 @section('content')
 {{-- Is Allowed User To List Mahasiswa --}}
 <h4 class="fw-bold py-3 mb-1">List Mahasiswa</h4>
+
+@livewire('backend.student.cards')
+
 <!-- DataTable with Buttons -->
 <div class="card">
-    <div class="card-header">
+    <div class="card-header border-bottom">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="mb-1 mb-sm-0 text-center text-sm-start">
-                <h4 class="card-title">Tabel Mahasiswa</h4>
+                <h4 class="card-title">Filter</h4>
             </div>
             <div>
                 <div class="d-flex justify-content-sm-end flex-column flex-sm-row gap-1">
@@ -32,6 +35,8 @@
                 </div>
             </div>
         </div>
+
+        @livewire('backend.student.filters')
     </div>
 
     {{-- Start List DataTable --}}
