@@ -152,8 +152,8 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
                     $labelClass = $data->status == 1 ? 'bg-label-success' : 'bg-label-danger';
                     return '<span class="badge ' . $labelClass . '">' . $status . '</span>';
                 },
-                'indent_number' => function ($data) {
-                    return $data->userDetail ? $data->userDetail->indent_number : '-';
+                'ident_number' => function ($data) {
+                    return $data->userDetail ? $data->userDetail->ident_number : '-';
                 },
                 'gender' => function ($data) {
                     return $data->userDetail ? $data->userDetail->gender : '-';

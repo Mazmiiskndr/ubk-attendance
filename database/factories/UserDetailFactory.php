@@ -21,7 +21,7 @@ class UserDetailFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'indent_number' => $this->faker->numerify('##########'),
+            'ident_number' => $this->faker->numerify('##########'),
             'gender' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
             'position' => str()->limit($this->faker->jobTitle, 40),
             'phone_number' => $this->faker->phoneNumber,

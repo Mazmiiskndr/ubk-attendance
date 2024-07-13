@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
       name: 'name'
     },
     {
-      data: 'indent_number',
-      name: 'indent_number'
+      data: 'ident_number',
+      name: 'ident_number'
     },
     {
       data: 'gender',
