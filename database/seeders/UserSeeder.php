@@ -65,7 +65,7 @@ class UserSeeder extends Seeder
                 UserDetail::create([
                     'user_id' => $user->id,
                     'gender' => 'Laki-laki',
-                    'nim' => '12191497',
+                    'indent_number' => '7101200006',
                     'phone_number' => '082118923691',
                     'position' => "Semester 2",
                     'birthdate' => "2001-01-06",

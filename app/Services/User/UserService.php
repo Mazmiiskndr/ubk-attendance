@@ -36,4 +36,12 @@ interface UserService extends BaseService
      * @throws \InvalidArgumentException
      */
     public function deleteUsers($userIds);
+
+    /**
+     * Get user by ID with role and optional user details
+     * @param int $userId
+     * @return \Illuminate\Database\Eloquent\Model|mixed
+     * @throws \InvalidArgumentException
+     */
+    public function getUserById($userId);
 }

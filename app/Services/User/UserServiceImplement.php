@@ -63,4 +63,15 @@ class UserServiceImplement extends Service implements UserService
     {
         return $this->handleRepositoryCall('getStudentDatatables');
     }
+
+    /**
+     * Get user by ID with role and optional user details
+     * @param int $userId
+     * @return \Illuminate\Database\Eloquent\Model|mixed
+     * @throws \InvalidArgumentException
+     */
+    public function getUserById($userId)
+    {
+        return $this->handleRepositoryCall('getUserById', [$userId]);
+    }
 }

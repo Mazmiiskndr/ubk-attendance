@@ -31,7 +31,7 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
      */
     public function getUsers($roleAlias = null, $limit = null)
     {
-        $query = $this->userModel->latest();
+        $query = $this->userModel->with(['role', 'userDetail'])->latest();
 
         if ($roleAlias !== null) {
             $role = $this->roleModel->where('name_alias', $roleAlias)->first();
@@ -120,13 +120,29 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     }
 
     /**
+     * Get user by ID with role and optional user details
+     * @param int $userId
+     * @return \Illuminate\Database\Eloquent\Model|mixed
+     * @throws \InvalidArgumentException
+     */
+    public function getUserById($userId)
+    {
+        $user = $this->userModel->with(['role', 'userDetail'])->find($userId);
+
+        if (!$user) {
+            throw new \InvalidArgumentException("User with ID {$userId} cannot be found.");
+        }
+
+        return $user;
+    }
+
+    /**
      * Get the data formatted for DataTables.
      */
     public function getStudentDatatables()
     {
         // Retrieve the groups data from the group model
         $data = $this->getUsers("mahasiswa", null);
-
         // Return format the data for DataTables
         return $this->formatDataTablesResponse(
             $data,
@@ -136,8 +152,8 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
                     $labelClass = $data->status == 1 ? 'bg-label-success' : 'bg-label-danger';
                     return '<span class="badge ' . $labelClass . '">' . $status . '</span>';
                 },
-                'nim' => function ($data) {
-                    return $data->userDetail ? $data->userDetail->nim : '-';
+                'indent_number' => function ($data) {
+                    return $data->userDetail ? $data->userDetail->indent_number : '-';
                 },
                 'gender' => function ($data) {
                     return $data->userDetail ? $data->userDetail->gender : '-';
@@ -149,8 +165,9 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
                     return date('d-M-Y H:i', strtotime($data->created_at));
                 },
                 'action' => function ($data) {
+                    $encodedId = base64_encode($data->id);
                     return $this->getActionButtons(
-                        $data->id,
+                        $encodedId,
                         'showStudent',
                         'confirmDeleteStudent',
                         null,

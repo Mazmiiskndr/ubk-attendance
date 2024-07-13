@@ -3,10 +3,16 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Services\User\UserService;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
     public function students()
     {
         return view('pages.backend.users.students');
@@ -17,9 +23,19 @@ class UserController extends Controller
         return view('pages.backend.users.lecturers');
     }
 
-    public function showStudent()
+    public function showStudent($encodedId)
     {
-        dd('test');
-        // return view('pages.backend.users.lecturers');
+        try {
+            $id = base64_decode($encodedId);
+            if (!$id) {
+                throw new \InvalidArgumentException("Invalid ID provided.");
+            }
+
+            $student = $this->userService->getUserById($id);
+            return view('pages.backend.users.show-student', compact('student'));
+        } catch (\InvalidArgumentException $e) {
+            // Handle the exception, for example by redirecting back with an error message
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }
