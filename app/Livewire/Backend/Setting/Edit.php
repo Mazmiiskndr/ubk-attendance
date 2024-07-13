@@ -11,7 +11,7 @@ class Edit extends Component
 {
     use LivewireMessageEvents, CloseModalTrait;
 
-    public $settingId, $checkInStart, $checkInEnd, $checkOutStart, $checkOutEnd, $holiday1, $holiday2, $timeZone, $ipAddress;
+    public $settingId, $timeZone, $botToken, $ipAddress;
 
     public function updated($property)
     {
@@ -32,27 +32,12 @@ class Edit extends Component
 
         switch ($settingId) {
             case 1:
-                $this->checkInStart = $setting->check_in_start;
-                break;
-            case 2:
-                $this->checkInEnd = $setting->check_in_end;
-                break;
-            case 3:
-                $this->checkOutStart = $setting->check_out_start;
-                break;
-            case 4:
-                $this->checkOutEnd = $setting->check_out_end;
-                break;
-            case 5:
-                $this->holiday1 = $setting->holiday_1;
-                break;
-            case 6:
-                $this->holiday2 = $setting->holiday_2;
-                break;
-            case 7:
                 $this->timeZone = $setting->time_zone;
                 break;
-            case 8:
+            case 2:
+                $this->botToken = $setting->bot_token;
+                break;
+            case 3:
                 $this->ipAddress = $setting->ip_address;
                 break;
             default:
@@ -94,13 +79,8 @@ class Edit extends Component
         // Map properties to the database columns
         $properties = [
             'setting_id' => $this->settingId,
-            'check_in_start' => $this->checkInStart,
-            'check_in_end' => $this->checkInEnd,
-            'check_out_start' => $this->checkOutStart,
-            'check_out_end' => $this->checkOutEnd,
-            'holiday_1' => $this->holiday1,
-            'holiday_2' => $this->holiday2,
             'time_zone' => $this->timeZone,
+            'bot_token' => $this->botToken,
             'ip_address' => $this->ipAddress,
         ];
 

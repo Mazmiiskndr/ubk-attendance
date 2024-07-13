@@ -13,20 +13,10 @@
                         <div class="row">
                             <div class="col-12">
                                 @if($settingId == 1)
-                                <x-input-field id="checkInStart" label="Mulai Jam Masuk" model="checkInStart" placeholder="Mulai Jam Masuk.." required />
-                                @elseif($settingId == 2)
-                                <x-input-field id="checkInEnd" label="Akhir Jam Masuk" model="checkInEnd" placeholder="Akhir Jam Masuk.." required />
-                                @elseif($settingId == 3)
-                                <x-input-field id="checkOutStart" label="Mulai Jam Keluar" model="checkOutStart" placeholder="Mulai Jam Keluar.." required />
-                                @elseif($settingId == 4)
-                                <x-input-field id="checkOutEnd" label="Akhir Jam Keluar" model="checkOutEnd" placeholder="Akhir Jam Keluar.." required />
-                                @elseif($settingId == 5)
-                                <x-input-field id="holiday1" label="Hari Libur 1" model="holiday1" placeholder="Hari Libur 1.." required />
-                                @elseif($settingId == 6)
-                                <x-input-field id="holiday2" label="Hari Libur 2" model="holiday2" placeholder="Hari Libur 2.." required />
-                                @elseif($settingId == 7)
                                 <x-input-field id="timeZone" label="Zona Waktu" model="timeZone" placeholder="Zona Waktu.." required />
-                                @elseif($settingId == 8)
+                                @elseif($settingId == 2)
+                                <x-input-field id="botToken" label="Zona Waktu" model="botToken" placeholder="Bot Tken.." required />
+                                @elseif($settingId == 3)
                                 <x-input-field id="ipAddress" label="IP Address" model="ipAddress" placeholder="IP Address.." required />
                                 @endif
                             </div>
@@ -48,22 +38,22 @@
     </div>
     @push('scripts')
     <script>
-        function initializeFlatpickr() {
-            let timeFields = ['#checkInStart', '#checkInEnd', '#checkOutStart', '#checkOutEnd'];
+        // function initializeFlatpickr() {
+        // let timeFields = ['#checkInStart', '#checkInEnd', '#checkOutStart', '#checkOutEnd'];
 
-            timeFields.forEach(function(selector) {
-                let element = document.querySelector(selector);
-                if (element) {
-                    element.flatpickr({
-                        enableTime: true
-                        , noCalendar: true
-                        , dateFormat: "H:i:S"
-                        , time_24hr: true
-                        , enableSeconds: true
-                    });
-                }
-            });
-        }
+        // timeFields.forEach(function(selector) {
+        //  let element = document.querySelector(selector);
+        // if (element) {
+        //  element.flatpickr({
+        //  enableTime: true
+        // , noCalendar: true
+        // , dateFormat: "H:i:S"
+        // , time_24hr: true
+        // , enableSeconds: true
+        // });
+        // }
+        // });
+        // }
 
         document.addEventListener('livewire:init', function() {
             let myModal = new bootstrap.Modal(document.getElementById('updateSetting'));
