@@ -11,4 +11,12 @@ class Setting extends Model
     protected $table = 'settings';
     protected $guarded = [];
     public $timestamps = false;
+
+    protected $fillable = [
+        'id',
+        'time_zone',
+        'bot_token',
+        'ip_address'
+    ];
+
 }
