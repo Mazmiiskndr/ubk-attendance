@@ -9,7 +9,6 @@ use App\Traits\HandleRepositoryCall;
 class SettingServiceImplement extends Service implements SettingService
 {
     use HandleRepositoryCall;
-
     /**
      * don't change $this->mainRepository variable name
      * because used in extends service class
