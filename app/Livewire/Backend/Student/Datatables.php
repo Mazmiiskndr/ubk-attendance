@@ -22,7 +22,21 @@ class Datatables extends Component
     public function deleteStudent(UserService $userService, $studentId)
     {
         try {
-            $userService->deleteUsers($studentId);
+            $userService->deleteUsers(base64_decode($studentId));
+
+            $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Mahasiswa berhasil hapus!']);
+
+            $this->refreshDataTable();
+        } catch (\Throwable $th) {
+            $this->dispatch('show-toast', ['type' => 'error', 'message' => 'Error : ' . $th->getMessage()]);
+        }
+    }
+
+    #[On('deleteBatchStudents')]
+    public function deleteBatchStudents(UserService $userService, $studentIds)
+    {
+        try {
+            $userService->deleteUsers($studentIds);
 
             $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Mahasiswa berhasil hapus!']);
 

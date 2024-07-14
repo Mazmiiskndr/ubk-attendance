@@ -54,7 +54,7 @@
             if (studentIds.length > 0) {
                 showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
                     // Emit an event untuk menghapus siswa yang dicentang
-                    Livewire.dispatch('deleteBatch', {
+                    Livewire.dispatch('deleteBatchStudents', {
                         studentIds: studentIds
                     });
                 });
