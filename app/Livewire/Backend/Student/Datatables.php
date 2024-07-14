@@ -50,19 +50,4 @@ class Datatables extends Component
     {
         $this->dispatch('refreshDatatable');
     }
-
-    // #[On('requestStudentById')]
-    // public function getStudent($StudentId)
-    // {
-    //     $this->dispatch('deliverStudentToEditComponent', $StudentId);
-    // }
-
-    // /**
-    //  * Refresh the DataTable when an  updated.
-    //  */
-    // #[On('StudentUpdated')]
-    // public function refreshDataTable()
-    // {
-    //     $this->dispatch('refreshDatatable');
-    // }
 }
