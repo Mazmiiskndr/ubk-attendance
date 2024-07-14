@@ -74,4 +74,28 @@ class UserServiceImplement extends Service implements UserService
     {
         return $this->handleRepositoryCall('getUserById', [$userId]);
     }
+
+    /**
+     * Get the validation rules for the form request.
+     * @param string|null $userId The user ID.
+     * @return array The validation rules.
+     */
+    public function getValidationRules(?string $userId = null)
+    {
+        return $this->handleRepositoryCall('getValidationRules', [$userId]);
+    }
+
+    /**
+     * Get the validation error messages for the form fields.
+     * @return array The validation error messages.
+     */
+    public function getValidationErrorMessages()
+    {
+        return $this->handleRepositoryCall('getValidationErrorMessages');
+    }
+
+    public function storeOrUpdateUser($data)
+    {
+        return $this->handleRepositoryCall('storeOrUpdateUser', [$data]);
+    }
 }

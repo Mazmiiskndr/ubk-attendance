@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="user-avatar-section">
                 <div class=" d-flex align-items-center flex-column">
-                    <img class="img-fluid rounded mb-3 pt-1 mt-4" src="{{ asset('assets/images/users/' . $student->images ?? 'assets/images/users/default.png' ) }}" height="100" width="100" alt="User avatar" />
+                    <img class="img-fluid rounded mb-3 pt-1 mt-4" src="{{ asset('storage/assets/images/users/' . $student->images ?? 'assets/images/users/default.png' ) }}" height="100" width="100" alt="User avatar" />
                     <div class="user-info text-center">
                         <h4 class="mb-2">{{ $student->name }}</h4>
                         <span class="badge bg-label-secondary mt-1 text-black">{{ $student->userDetail->ident_number ?? '-'}}</span>

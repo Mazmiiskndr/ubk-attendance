@@ -2,7 +2,7 @@
     <h5 class="card-header">Detail Profil</h5>
 
     <div class="card-body">
-        <form wire:submit.prevent="storeNewUser" method="POST">
+        <form wire:submit.prevent="storeNewStudent" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="mb-3 col-md-6 col-sm-12">
                     <x-input-field id="name" label="Nama Lengkap" model="form.name" placeholder="Nama Lengkap.." required />

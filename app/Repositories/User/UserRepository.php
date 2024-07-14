@@ -44,4 +44,19 @@ interface UserRepository extends Repository
      * @throws \InvalidArgumentException
      */
     public function getUserById($userId);
+
+    /**
+     * Get the validation rules for the form request.
+     * @param string|null $userId The user ID.
+     * @return array The validation rules.
+     */
+    public function getValidationRules(?string $userId);
+
+    /**
+     * Get the validation error messages for the form fields.
+     * @return array The validation error messages.
+     */
+    public function getValidationErrorMessages();
+
+    public function storeOrUpdateUser($data);
 }
