@@ -6,7 +6,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-start justify-content-between">
                             <div class="content-left">
-                                <span>Total</span>
+                                <span>Total Mahasiswa</span>
                                 <div class="d-flex align-items-center my-2">
                                     <h3 class="mb-0 me-2">{{ $totalUsers }}</h3>
                                 </div>

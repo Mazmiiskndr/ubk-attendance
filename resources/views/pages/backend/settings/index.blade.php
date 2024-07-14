@@ -2,7 +2,7 @@
 @section('title', 'List Pengaturan')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
+@vite(['resources/assets/js/datatable/datatables.min.css'])
 @endpush
 
 @section('content')
