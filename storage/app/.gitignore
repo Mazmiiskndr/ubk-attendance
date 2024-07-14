@@ -1,3 +1,14 @@
+# Ignore everything
 *
-!public/
+
+# Don't ignore the directories themselves
+!*/
+
+# Don't ignore the .gitignore file itself
 !.gitignore
+
+# Specifically ignore all files in public/assets/users
+public/assets/users/*
+
+# Except the default.png file in public/assets/users
+!public/assets/users/default.png
