@@ -1,11 +1,11 @@
-@props(['color' => 'primary', 'route' => '#', 'icon' => null, 'identity' => '', 'target' => null])
+@props(['color' => 'primary', 'route' => '#', 'icon' => null, 'identity' => null, 'target' => null])
 
 @php
 if($route == "#" || $route == null || $route == "javascript:void(0);")
 {
 $route = 'javascript:void(0);';
 }else{
-if($identity != ''){
+if($identity != null){
 $route = route($route, $identity);
 }else{
 $route = route($route);

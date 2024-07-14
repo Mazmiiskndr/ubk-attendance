@@ -38,4 +38,10 @@ class UserController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function create()
+    {
+        return view('pages.backend.users.student-create');
+    }
+
 }
