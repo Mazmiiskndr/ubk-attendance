@@ -4,10 +4,10 @@
         <div class="card-body">
             <div class="user-avatar-section">
                 <div class=" d-flex align-items-center flex-column">
-                    <img class="img-fluid rounded mb-3 pt-1 mt-4" src="{{ asset('assets/img/avatars/15.png') }}" height="100" width="100" alt="User avatar" />
+                    <img class="img-fluid rounded mb-3 pt-1 mt-4" src="{{ asset('assets/images/users/' . $student->images ?? 'assets/images/users/default.png' ) }}" height="100" width="100" alt="User avatar" />
                     <div class="user-info text-center">
-                        <h4 class="mb-2">Violet Mendoza</h4>
-                        <span class="badge bg-label-secondary mt-1">Author</span>
+                        <h4 class="mb-2">{{ $student->name }}</h4>
+                        <span class="badge bg-label-secondary mt-1 text-black">{{ $student->userDetail->ident_number ?? '-'}}</span>
                     </div>
                 </div>
             </div>
@@ -32,40 +32,41 @@
                 <ul class="list-unstyled">
                     <li class="mb-2">
                         <span class="fw-medium me-1">Username:</span>
-                        <span>violet.dev</span>
+                        <span>{{ $student->username }}</span>
                     </li>
                     <li class="mb-2 pt-1">
                         <span class="fw-medium me-1">Email:</span>
-                        <span>vafgot@vultukir.org</span>
+                        <span>{{ $student->email }}</span>
                     </li>
                     <li class="mb-2 pt-1">
                         <span class="fw-medium me-1">Status:</span>
-                        <span class="badge bg-label-success">Active</span>
+                        @if ($student->status == 1)
+                        <span class="badge bg-label-success">Aktif</span>
+                        @else
+                        <span class="badge bg-label-danger">Tidak Aktif</span>
+                        @endif
                     </li>
                     <li class="mb-2 pt-1">
-                        <span class="fw-medium me-1">Role:</span>
-                        <span>Author</span>
+                        <span class="fw-medium me-1">No Telepon:</span>
+                        <span>{{ $student->userDetail->phone_number ?? '-' }}</span>
                     </li>
                     <li class="mb-2 pt-1">
-                        <span class="fw-medium me-1">Tax id:</span>
-                        <span>Tax-8965</span>
-                    </li>
-                    <li class="mb-2 pt-1">
-                        <span class="fw-medium me-1">Contact:</span>
-                        <span>(123) 456-7890</span>
-                    </li>
-                    <li class="mb-2 pt-1">
-                        <span class="fw-medium me-1">Languages:</span>
-                        <span>French</span>
+                        <span class="fw-medium me-1">Jenis Kelamin:</span>
+                        <span>{{ $student->userDetail->gender ?? "-" }}</span>
                     </li>
                     <li class="pt-1">
-                        <span class="fw-medium me-1">Country:</span>
-                        <span>England</span>
+                        <span class="fw-medium me-1">Tanggal Lahir:</span>
+                        <span>{{ $student->userDetail->birthdate ?? "-" }}</span>
+                    </li>
+                    <li class="pt-1">
+                        <span class="fw-medium me-1">Alamat:</span>
+                        <span>{{ $student->userDetail->address ?? "-" }}</span>
                     </li>
                 </ul>
+                {{-- TODO: --}}
+                <hr>
                 <div class="d-flex justify-content-center">
-                    <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal">Edit</a>
-                    <a href="javascript:;" class="btn btn-label-danger suspend-user">Suspended</a>
+                    <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Edit</a>
                 </div>
             </div>
         </div>

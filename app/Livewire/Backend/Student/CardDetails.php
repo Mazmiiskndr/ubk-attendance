@@ -11,7 +11,6 @@ class CardDetails extends Component
     public function mount($student)
     {
         $this->student = $student;
-        dd($this->student);
     }
 
     public function render()

@@ -11,9 +11,11 @@
     <span class="text-muted fw-light">List Mahasiswa /</span> Akun Mahasiswa
 </h4>
 <div class="row">
-    <!-- User Sidebar -->
+    <!-- User Card Details -->
     @livewire('backend.student.card-details', ['student' => $student])
-    <!--/ User Sidebar -->
+    <!--/ User Card Details -->
+
+    {{-- TODO: --}}
 </div>
 @push('scripts')
 @vite([
