@@ -11,7 +11,7 @@
 
 <div class="input-group">
     <input {{ $attributes->merge(['class' => 'form-control ' . ($errors->has($model) ? 'is-invalid' : ''), 'id' => $id,
-    'type' => $type, 'placeholder' => $placeholder, 'aria-label' => $placeholder, 'aria-describedby' => $id]) }} @if($model) wire:model="{{ $model }}" @endif />
+    'type' => $type, 'placeholder' => $placeholder, 'aria-label' => $placeholder, 'aria-describedby' => $id]) }} @if($model) wire:model.live="{{ $model }}" @endif />
     <span class="input-group-text" id="{{ $id }}">{{ $appendText }}</span>
 </div>
 

@@ -1,5 +1,15 @@
-@props(['id', 'label' => false, 'model' => false, 'ignore' => false,
-'type' => 'text', 'placeholder' => '', 'required' => false, 'tooltip' => '', 'min' => false, 'max' => false])
+@props([
+'id',
+'label' => false,
+'model' => false,
+'ignore' => false,
+'type' => 'text',
+'placeholder' => '',
+'required' => false,
+'tooltip' => '',
+'min' => false,
+'max' => false
+])
 
 @php
 $inputAttributes = $attributes->merge([
@@ -9,7 +19,8 @@ $inputAttributes = $attributes->merge([
 'placeholder' => $placeholder
 ]);
 
-$wireModel = $ignore ? 'wire:model' : 'wire:model.defer';
+$wireModel = $ignore ? 'wire:model.defer' : 'wire:model.live';
+
 @endphp
 
 @if($label)
@@ -22,8 +33,8 @@ $wireModel = $ignore ? 'wire:model' : 'wire:model.defer';
 </label>
 @if($tooltip)
 <!-- Tooltip section -->
-<span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $tooltip }}">
-    <span class="badge badge-center rounded-pill bg-primary bg-glow" style="width: 15px;height:15px;">
+<span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $tooltip }}">
+    <span class="badge badge-center rounded-pill bg-warning bg-glow" style="width: 15px;height:15px;">
         <i class="ti ti-question-mark" style="font-size: 0.800rem;"></i>
     </span>
 </span>

@@ -5,6 +5,6 @@
 @endif
 
 <input {{ $attributes->merge(['class' => 'form-check-input', 'id' => $id, 'type' => $type, 'value' => $value, 'name' =>
-$name]) }} wire:model="{{ $model ? $model : '' }}" />
+$name]) }} wire:model.live="{{ $model ? $model : '' }}" />
 
 @error($model) <small class="error text-danger">{{ $message }}</small> @enderror

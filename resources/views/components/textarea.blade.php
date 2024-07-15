@@ -9,7 +9,7 @@
 @endif
 
 <textarea {{ $attributes->merge(['class' => 'form-control ' . ($errors->has($model) ? 'is-invalid' : ''),
-    'id' => $id, 'placeholder' => $placeholder]) }} @if($model) wire:model="{{ $model }}" @endif @if($rows) rows="{{ $rows }}" @endif>
+    'id' => $id, 'placeholder' => $placeholder]) }} @if($model) wire:model.live="{{ $model }}" @endif @if($rows) rows="{{ $rows }}" @endif>
 </textarea>
 
 @error($model)

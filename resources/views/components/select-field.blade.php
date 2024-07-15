@@ -1,5 +1,5 @@
 @props(['id', 'label' => false, 'model' => false, 'ignore' => false,
-'required' => false, 'options' => [], 'tooltip' => '', 'placeholder' => "true"])
+'required' => false, 'options' => [], 'tooltip' => '', 'placeholder' => "true",])
 
 @php
 $selectAttributes = $attributes->merge([
@@ -8,7 +8,7 @@ $selectAttributes = $attributes->merge([
 'name' => $id
 ]);
 
-$wireModel = $model ? 'wire:model=' . $model : '';
+$wireModel = $model ? 'wire:model.live=' . $model : '';
 @endphp
 
 @if($label)
@@ -33,7 +33,7 @@ $wireModel = $model ? 'wire:model=' . $model : '';
     <!-- Select section -->
     <select {{ $selectAttributes }} {{ $wireModel }}>
         @if($placeholder == "true")
-        <option value="" style="color: #a5a5a5">-- Pilih {{ $label }} -- </option>
+        <option value="" style="color: #a5a5a5">-- Choose {{ $label }} -- </option>
         @endif
         @foreach ($options as $value => $display)
         <option value="{{ $value }}">{{ $display }}</option>
