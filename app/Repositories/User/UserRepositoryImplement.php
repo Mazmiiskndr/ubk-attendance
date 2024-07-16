@@ -175,8 +175,8 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
                         $encodedId,
                         'showStudent',
                         'confirmDeleteStudent',
-                        null,
-                        'button',
+                        'backend.student.edit',
+                        'link',
                         'showDetail',
                         'backend.student.show',
                         'link'

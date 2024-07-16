@@ -39,6 +39,22 @@ class UserController extends Controller
         }
     }
 
+    public function editStudent($encodedId)
+    {
+        try {
+            $id = base64_decode($encodedId);
+            if (!$id) {
+                throw new \InvalidArgumentException("Invalid ID provided.");
+            }
+
+            $student = $this->userService->getUserById($id);
+            return view('pages.backend.users.edit-student', compact('student'));
+        } catch (\InvalidArgumentException $e) {
+            // Handle the exception, for example by redirecting back with an error message
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
     public function create()
     {
         return view('pages.backend.users.student-create');

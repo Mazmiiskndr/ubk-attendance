@@ -114,7 +114,7 @@ class ActionButtonsBuilder
         }
 
         return $this->type == 'link'
-            ? '<a href="' . route($this->editRoute, $this->identity)
+            ? '&nbsp;&nbsp;<a href="' . route($this->editRoute, $this->identity)
             . '" class="edit btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>'
             : '&nbsp;&nbsp;<button type="button" class="edit btn btn-primary btn-sm"'
             . 'onclick="' . $this->onclickEdit . '(\'' . $this->identity . '\')"><i class="fas fa-edit"></i></button>';
