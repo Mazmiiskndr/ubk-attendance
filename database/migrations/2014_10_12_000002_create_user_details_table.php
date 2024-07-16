@@ -15,7 +15,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
             $table->string('gender', 10)->nullable();
             $table->string('ident_number', 15)->nullable();
-            $table->string('position', 50)->nullable();
+            $table->string('class', 50)->nullable();
+            $table->integer('semester')->nullable();
             $table->string('phone_number', 20)->nullable();
             $table->date('birthdate')->nullable()->nullable();
             $table->text('address')->nullable()->nullable();

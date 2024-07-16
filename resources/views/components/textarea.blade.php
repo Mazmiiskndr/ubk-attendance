@@ -10,6 +10,7 @@
 
 <textarea {{ $attributes->merge(['class' => 'form-control ' . ($errors->has($model) ? 'is-invalid' : ''),
     'id' => $id, 'placeholder' => $placeholder]) }} @if($model) wire:model.live="{{ $model }}" @endif @if($rows) rows="{{ $rows }}" @endif>
+{{ $slot }}
 </textarea>
 
 @error($model)

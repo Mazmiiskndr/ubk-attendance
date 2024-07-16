@@ -67,6 +67,7 @@ class Create extends Component
         $this->form->phoneNumber = '';
         $this->form->gender = '';
         $this->form->semester = '';
+        $this->form->class = '';
         $this->form->images = '';
         $this->form->address = '';
     }

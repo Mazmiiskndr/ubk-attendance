@@ -67,7 +67,8 @@ class UserSeeder extends Seeder
                     'gender' => 'Laki-laki',
                     'ident_number' => '7101200006',
                     'phone_number' => '082118923691',
-                    'position' => "Semester 2",
+                    'class' => "B",
+                    'semester' => 7,
                     'birthdate' => "2001-01-06",
                     'address' => "Perum Griya Mitra Batik Jl. Batik Keris E148",
                 ]);

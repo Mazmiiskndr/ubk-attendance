@@ -1,5 +1,5 @@
 @props(['id', 'label' => false, 'model' => false, 'ignore' => false,
-'required' => false, 'options' => [], 'tooltip' => '', 'placeholder' => "true",])
+'required' => false, 'options' => [], 'tooltip' => '', 'placeholder' => "true", 'data' => null])
 
 @php
 $selectAttributes = $attributes->merge([
@@ -9,6 +9,7 @@ $selectAttributes = $attributes->merge([
 ]);
 
 $wireModel = $model ? 'wire:model.live=' . $model : '';
+$value = $attributes->get('value');
 @endphp
 
 @if($label)
@@ -35,8 +36,8 @@ $wireModel = $model ? 'wire:model.live=' . $model : '';
         @if($placeholder == "true")
         <option value="" style="color: #a5a5a5">-- Choose {{ $label }} -- </option>
         @endif
-        @foreach ($options as $value => $display)
-        <option value="{{ $value }}">{{ $display }}</option>
+        @foreach ($options as $valueOption => $display)
+        <option value="{{ $valueOption }}" {{ $valueOption == $data ? 'selected' : '' }}>{{ $display }}</option>
         @endforeach
     </select>
 </div>

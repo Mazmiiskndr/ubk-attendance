@@ -12,7 +12,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        {{-- @livewire('backend.student.edit', ['student' => $student]) --}}
+        @livewire('backend.student.edit', ['student' => $student])
     </div>
 </div>
 

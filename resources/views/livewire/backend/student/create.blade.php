@@ -23,13 +23,15 @@
                     <x-input-field id="birthDate" label="Tanggal Lahir" model="form.birthDate" placeholder="Tanggal Lahir.." required />
                 </div>
 
-                <div class="mb-3 col-md-6 col-sm-12">
+                <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                     <x-input-field type="number" id="semester" label="Semester" model="form.semester" placeholder="Semester.." required min="1" max="50" />
                 </div>
-                <div class="mb-3 col-md-6 col-sm-12">
+                <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
+                    <x-input-field type="text" id="class" label="Kelas" model="form.class" placeholder="Kelas.." required />
+                </div>
+                <div class="mb-3 col-lg-4 col-md-12 col-sm-12">
                     <x-input-field type="file" id="images" label="Gambar" model="form.images" placeholder="Gambar.." />
                 </div>
-
                 <div class="mb-3 col-md-12">
                     <x-textarea id="address" model="form.address" placeholder="Alamat Lengkap..." label="Alamat Lengkap" rows="3" required></x-textarea>
                 </div>

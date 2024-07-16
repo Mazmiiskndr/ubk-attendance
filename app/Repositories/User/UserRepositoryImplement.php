@@ -214,6 +214,7 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
             'gender' => 'required',
             'birthDate' => 'required|date',
             'semester' => 'required|integer|min:1',
+            'class' => 'required|integer|min:1',
             'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
             'address' => 'required|max:255',
             // 'username' => $usernameRule,
@@ -246,6 +247,8 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
             'semester.required' => 'Semester tidak boleh kosong!',
             'semester.integer' => 'Semester harus berupa angka!',
             'semester.min' => 'Semester tidak boleh kurang dari 1!',
+            'class.required' => 'Kelas tidak boleh kosong!',
+            'class.min' => 'Kelas tidak boleh kurang dari 1!',
             'images.image' => 'Berkas harus berupa gambar!',
             'images.mimes' => 'Gambar harus berformat: jpeg, png, jpg, gif!',
             'images.max' => 'Ukuran gambar tidak boleh lebih dari 5MB!',
@@ -285,7 +288,8 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
             [
                 'gender' => $data['gender'],
                 'ident_number' => $data['identNumber'],
-                'position' => $data['semester'], // Use semester as position
+                'semester' => $data['semester'], // Use semester as position
+                'class' => $data['class'], // Use semester as position
                 'phone_number' => $data['phoneNumber'],
                 'birthdate' => $data['birthDate'],
                 'address' => $data['address'],
