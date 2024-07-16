@@ -196,6 +196,9 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     {
         // Initialize password rule based on userId
         $passwordRule = $userId ? 'nullable|min:6|confirmed' : 'required|min:6|confirmed';
+        // Username and Email rules for unique validation
+        $usernameRule = $userId ? 'required|min:5|max:32|regex:/^\S*$/u|unique:users,username' : 'nullable|min:5|max:32|regex:/^\S*$/u|unique:users,username';
+        $identNumberRule = 'required|numeric|unique:user_details,ident_number';
 
         // Username and Email rules for unique validation
         $emailRule = 'required|email|max:100|unique:users,email';
@@ -204,12 +207,16 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
         if ($userId !== null) {
             // $usernameRule .= ",$userId,id";
             $emailRule .= ",$userId,id";
+            $identNumberRule .= ",$userId,user_id";
         }
+
 
         return [
             'name' => 'required|min:1',
-            'identNumber' => 'required|numeric|unique:user_details,ident_number',
+            'identNumber' => $identNumberRule,
             'email' => $emailRule,
+            // 'username' => $usernameRule,
+            // 'password' => $passwordRule,
             'phoneNumber' => 'required|numeric|digits_between:10,15',
             'gender' => 'required',
             'birthDate' => 'required|date',
@@ -270,7 +277,7 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     {
         // Create or update the user
         $user = $this->userModel->updateOrCreate(
-            ['id' => $data['id'] ?? null],
+            ['id' => $data['idStudent'] ?? null],
             [
                 'name' => $data['name'],
                 'username' => $data['identNumber'], // Assuming identNumber is used as username

@@ -6,6 +6,7 @@
             <div class="row">
                 <div class="mb-3 col-md-6 col-sm-12">
                     <x-input-field id="name" label="Nama Lengkap" model="form.name" placeholder="Nama Lengkap.." required value="{{ $student->name }}" />
+                    <x-input-field id="idStudent" type="hidden" model="form.idStudent" required value="{{ $student->id }}" />
                 </div>
                 <div class="mb-3 col-md-6 col-sm-12">
                     <x-input-field id="identNumber" label="NIM (Nomor Induk Mahasiswa)" model="form.identNumber" value="{{ $student->userDetail->ident_number }}" placeholder="NIM (Nomor Induk Mahasiswa).." required tooltip="NIM yang di masukkan akan digunakan sebagai username dan password." />
