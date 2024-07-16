@@ -66,7 +66,7 @@
                 {{-- TODO: --}}
                 <hr>
                 <div class="d-flex justify-content-center">
-                    <a href="javascript:;" class="btn btn-primary me-3" data-bs-target="#editUser" data-bs-toggle="modal"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                    <a href="{{ route('backend.student.edit',base64_encode($student->id)) }}" class="btn btn-primary me-3"><i class="fa fa-edit"></i>&nbsp;Edit</a>
                 </div>
             </div>
         </div>
