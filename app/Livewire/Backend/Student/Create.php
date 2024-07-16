@@ -4,8 +4,7 @@ namespace App\Livewire\Backend\Student;
 
 use App\Livewire\Forms\Backend\Student\CreateForm;
 use App\Services\User\UserService;
-use App\Traits\CloseModalTrait;
-use App\Traits\LivewireMessageEvents;
+use App\Traits\{CloseModalTrait, LivewireMessageEvents};
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
