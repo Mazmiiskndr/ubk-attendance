@@ -11,4 +11,13 @@ class CourseController extends Controller
     {
         return view('pages.backend.courses.index');
     }
+    public function show()
+    {
+        dd("TODO:");
+        // return view('pages.backend.courses.index');
+    }
+    public function edit()
+    {
+        dd("TODO:");
+    }
 }

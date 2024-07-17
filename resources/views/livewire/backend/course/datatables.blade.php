@@ -7,6 +7,7 @@
                 </th>
                 <th><b>No</b></th>
                 <th><b>Nama Mata Kuliah</b></th>
+                <th><b>Nama Dosen</b></th>
                 <th><b>Aksi</b></th>
             </tr>
         </thead>

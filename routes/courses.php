@@ -21,4 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->name('backend.')->group(function () {
     // Route for list portfolios page
     Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
+    Route::get('course/detail/{id}', [CourseController::class, 'show'])->name('course.show');
+    Route::get('course/update/{id}', [CourseController::class, 'edit'])->name('course.edit');
 });
