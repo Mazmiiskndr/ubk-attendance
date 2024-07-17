@@ -9,7 +9,6 @@ class CourseController extends Controller
 {
     public function index()
     {
-        dd("TODO: ");
-        // return view('pages.backend.settings.index',);
+        return view('pages.backend.courses.index');
     }
 }
