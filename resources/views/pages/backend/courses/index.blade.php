@@ -36,7 +36,7 @@
     {{-- Start List DataTable --}}
     <div class="card-body">
 
-        {{-- @livewire('backend.resumes.datatables') --}}
+        @livewire('backend.course.datatables')
     </div>
     {{-- End List DataTable --}}
 
