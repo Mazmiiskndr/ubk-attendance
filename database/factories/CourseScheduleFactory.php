@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
+use App\Models\CourseSchedule;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CourseScheduleFactory extends Factory
 {
+    protected $model = CourseSchedule::class;
     /**
      * Define the model's default state.
      *
@@ -17,7 +20,11 @@ class CourseScheduleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'course_id' => Course::factory(),
+            'check_in_start' => $this->faker->time(),
+            'check_in_end' => $this->faker->time(),
+            'check_out_start' => $this->faker->time(),
+            'check_out_end' => $this->faker->time(),
         ];
     }
 }

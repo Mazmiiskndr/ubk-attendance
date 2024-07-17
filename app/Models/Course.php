@@ -26,6 +26,6 @@ class Course extends Model
 
     public function schedules()
     {
-        return $this->hasMany(CourseSchedule::class);
+        return $this->hasMany(CourseSchedule::class, 'course_id');
     }
 }

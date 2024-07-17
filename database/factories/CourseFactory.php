@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class CourseFactory extends Factory
 {
+    protected $model = Course::class;
     /**
      * Define the model's default state.
      *
@@ -17,7 +20,8 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->words(3, true),
+            'lecturer_id' => User::factory(), // Asumsi User adalah model yang mewakili lecturer
         ];
     }
 }
