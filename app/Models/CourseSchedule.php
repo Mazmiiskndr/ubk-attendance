@@ -11,8 +11,6 @@ class CourseSchedule extends Model
 
     protected $table = 'course_schedules';
     protected $guarded = [];
-    public $timestamps = false;
-
     protected $fillable = [
         'id',
         'course_id',

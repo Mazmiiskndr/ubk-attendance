@@ -11,8 +11,6 @@ class Course extends Model
 
     protected $table = 'courses';
     protected $guarded = [];
-    public $timestamps = false;
-
     protected $fillable = [
         'id',
         'name',
