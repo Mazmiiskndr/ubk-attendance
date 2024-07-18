@@ -57,13 +57,18 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
     }
 
     /**
-     * Get all course schedules with limit
+     * Get all course schedules with limit and optional course ID
+     * @param int|null $courseId
      * @param int|null $limit
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getCourseSchedules($limit = null)
+    public function getCourseSchedules($courseId = null, $limit = null)
     {
         $query = $this->courseScheduleModel->with(['course.lecturer'])->latest();
+
+        if ($courseId !== null) {
+            $query->where('course_id', $courseId);
+        }
 
         if ($limit !== null) {
             $query->limit($limit);
@@ -119,7 +124,7 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
     }
 
     /**
-     * Get the data formatted for DataTables.
+     * Get the data formatted for DataTables for course schedules.
      */
     public function getCourseDatatables()
     {
@@ -151,12 +156,14 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
     }
 
     /**
-     * Get the data formatted for DataTables.
+     * Get the data formatted for DataTables for course schedules.
+     * @param int|null $courseId
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getCourseSchedulesDatatables()
+    public function getCourseSchedulesDatatables($courseId = null)
     {
         // Retrieve the groups data from the group model
-        $data = $this->getCourseSchedules();
+        $data = $this->getCourseSchedules($courseId);
         // Return format the data for DataTables
         return $this->formatDataTablesResponse(
             $data,

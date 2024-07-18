@@ -36,15 +36,16 @@
     {{-- Start List DataTable --}}
     <div class="card-body">
 
-        {{-- @livewire('backend.course.datatables') --}}
+        @livewire('backend.course.schedule-datatables', ['courseId' => $course->id])
     </div>
     {{-- End List DataTable --}}
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js'
+    'resources/assets/js/datatable/datatables.min.js',
+    'resources/assets/js/backend/courses/course-schedules-management.js',
     ])
-    {{-- <script>
+    <script>
         function confirmDeleteBatch() {
             // Ambil semua courseId yang dicentang
             let courseIds = Array.from(document.querySelectorAll('.courses-checkbox:checked')).map(el => el.value);
@@ -85,7 +86,7 @@
             });
         }
 
-    </script> --}}
+    </script>
     @endpush
 </div>
 

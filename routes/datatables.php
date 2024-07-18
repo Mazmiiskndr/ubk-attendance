@@ -29,6 +29,6 @@ Route::prefix('livewire/backend/')->group(function () {
         ->name('student.getDatatable');
     Route::get('course/getDatatable', [CourseDatatables::class, 'getDatatable'])
         ->name('course.getDatatable');
-    Route::get('course-schedules/getDatatable', [ScheduleDatatables::class, 'getDatatable'])
+    Route::get('course-schedules/getDatatable/{courseId?}', [ScheduleDatatables::class, 'getDatatable'])
         ->name('course-schedules.getDatatable');
 });
