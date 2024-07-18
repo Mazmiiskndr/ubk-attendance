@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\DayOfWeek;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +26,30 @@ class CourseSchedule extends Model
     protected $casts = [
         'day' => DayOfWeek::class,
     ];
+
+    // Accessor for check_in_start
+    public function getCheckInStartAttribute($value)
+    {
+        return Carbon::createFromFormat('H:i:s', $value)->format('H : i');
+    }
+
+    // Accessor for check_in_end
+    public function getCheckInEndAttribute($value)
+    {
+        return Carbon::createFromFormat('H:i:s', $value)->format('H : i');
+    }
+
+    // Accessor for check_out_start
+    public function getCheckOutStartAttribute($value)
+    {
+        return Carbon::createFromFormat('H:i:s', $value)->format('H : i');
+    }
+
+    // Accessor for check_out_end
+    public function getCheckOutEndAttribute($value)
+    {
+        return Carbon::createFromFormat('H:i:s', $value)->format('H : i');
+    }
 
     public function course()
     {
