@@ -13,6 +13,15 @@ return new class extends Migration {
         Schema::create('course_schedules', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('course_id');
+            $table->enum('day', [
+                'Senin',
+                'Selasa',
+                'Rabu',
+                'Kamis',
+                'Jumat',
+                'Sabtu',
+                'Minggu'
+            ]);
             $table->time('check_in_start');
             $table->time('check_in_end');
             $table->time('check_out_start');

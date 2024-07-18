@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\DayOfWeek;
 use App\Models\Course;
 use App\Models\CourseSchedule;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,8 +20,10 @@ class CourseScheduleFactory extends Factory
      */
     public function definition(): array
     {
+        $days = DayOfWeek::cases();
         return [
             'course_id' => Course::factory(),
+            'day' => $this->faker->randomElement($days)->value,
             'check_in_start' => $this->faker->time(),
             'check_in_end' => $this->faker->time(),
             'check_out_start' => $this->faker->time(),
