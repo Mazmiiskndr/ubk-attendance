@@ -7,19 +7,19 @@
 
 @section('content')
 {{-- Is Allowed User To Detail Mata Kuliah --}}
-<h4 class="fw-bold py-3 mb-1">Detail Mata Kuliah</h4>
+<h4 class="fw-bold py-3 mb-1">Jadwal Mata Kuliah</h4>
 <!-- DataTable with Buttons -->
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="mb-1 mb-sm-0 text-center text-sm-start">
-                <h4 class="card-title">Tabel Detail Mata Kuliah</h4>
+                <h4 class="card-title">Tabel Jadwal Mata Kuliah</h4>
             </div>
             <div>
                 <div class="d-flex justify-content-sm-end flex-column flex-sm-row gap-1">
                     {{-- Start Button for Create New Detail Mata Kuliah --}}
                     <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0" data-bs-toggle="modal" data-bs-target="#createNewResume">
-                        <i class="tf-icons fas fa-plus-circle ti-xs me-1"></i>&nbsp; Tambah Data Detail Mata Kuliah
+                        <i class="tf-icons fas fa-plus-circle ti-xs me-1"></i>&nbsp; Tambah Data Jadwal Mata Kuliah
                     </x-button>
                     {{-- End Button for Create New Detail Mata Kuliah --}}
 
@@ -47,14 +47,14 @@
     ])
     <script>
         function confirmDeleteBatch() {
-            // Ambil semua courseId yang dicentang
-            let courseIds = Array.from(document.querySelectorAll('.courses-checkbox:checked')).map(el => el.value);
+            // Ambil semua v yang dicentang
+            let courseScheduleIds = Array.from(document.querySelectorAll('.course-schedules-checkbox:checked')).map(el => el.value);
 
-            if (courseIds.length > 0) {
+            if (courseScheduleIds.length > 0) {
                 showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
                     // Emit an event untuk menghapus siswa yang dicentang
-                    Livewire.dispatch('deleteBatchCourses', {
-                        courseIds: courseIds
+                    Livewire.dispatch('deleteBatchCourseSchedules', {
+                        courseScheduleIds: courseScheduleIds
                     });
                 });
             } else {
@@ -72,17 +72,17 @@
         }
 
         // Fungsi untuk menampilkan modal untuk MENGHAPUS!
-        function confirmDeleteCourse(courseId) {
+        function confirmDeleteCourse(courseScheduleId) {
             showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
-                Livewire.dispatch('confirmCourse', {
-                    courseId: courseId
+                Livewire.dispatch('confirmCourseSchedule', {
+                    courseScheduleId: courseScheduleId
                 });
             });
         }
 
-        function showCourse(courseId) {
-            Livewire.dispatch('requestCourseById', {
-                courseId: courseId
+        function showCourse(courseScheduleId) {
+            Livewire.dispatch('requestCourseScheduleById', {
+                courseScheduleId: courseScheduleId
             });
         }
 

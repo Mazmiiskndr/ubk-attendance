@@ -38,6 +38,14 @@ interface CourseRepository extends Repository
     public function deleteCourses($courseIds);
 
     /**
+     * Delete course Schedule by given IDs
+     * @param array|int $courseScheduleIds
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    public function deleteCourseSchedules($courseScheduleIds);
+
+    /**
      * Get the data formatted for DataTables.
      */
     public function getCourseDatatables();

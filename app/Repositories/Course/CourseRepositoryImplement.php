@@ -124,6 +124,27 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
     }
 
     /**
+     * Delete course Schedule by given IDs
+     * @param array|int $courseScheduleIds
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    public function deleteCourseSchedules($courseScheduleIds)
+    {
+        // Ensure $courseScheduleIds is an array
+        $courseScheduleIds = is_array($courseScheduleIds) ? $courseScheduleIds : [$courseScheduleIds];
+        // Fetch courses by IDs
+        $courseSchedules = $this->courseScheduleModel->whereIn('id', $courseScheduleIds)->get();
+
+        if ($courseSchedules->isEmpty()) {
+            throw new \InvalidArgumentException("Course Schedules with the given IDs cannot be found.");
+        }
+
+        // Delete the courses
+        $this->courseScheduleModel->whereIn('id', $courseScheduleIds)->delete();
+    }
+
+    /**
      * Get the data formatted for DataTables for course schedules.
      */
     public function getCourseDatatables()

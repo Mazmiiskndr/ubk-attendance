@@ -64,6 +64,17 @@ class CourseServiceImplement extends Service implements CourseService
   }
 
   /**
+   * Delete course Schedule by given IDs
+   * @param array|int $courseScheduleIds
+   * @return void
+   * @throws \InvalidArgumentException
+   */
+  public function deleteCourseSchedules($courseScheduleIds)
+  {
+    return $this->handleRepositoryCall('deleteCourseSchedules', [$courseScheduleIds]);
+  }
+
+  /**
    * Get the data formatted for DataTables.
    */
   public function getCourseDatatables()
