@@ -2,7 +2,7 @@
 @section('title', 'Detail Mata Kuliah')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatable/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
 @endpush
 
 @section('content')
@@ -18,7 +18,7 @@
             <div>
                 <div class="d-flex justify-content-sm-end flex-column flex-sm-row gap-1">
                     {{-- Start Button for Create New Detail Mata Kuliah --}}
-                    <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0" data-bs-toggle="modal" data-bs-target="#createNewResume">
+                    <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0" data-bs-toggle="modal" data-bs-target="#createNewSchedule">
                         <i class="tf-icons fas fa-plus-circle ti-xs me-1"></i>&nbsp; Tambah Data Jadwal Mata Kuliah
                     </x-button>
                     {{-- End Button for Create New Detail Mata Kuliah --}}
@@ -44,6 +44,7 @@
     @vite([
     'resources/assets/js/datatable/datatables.min.js',
     'resources/assets/js/backend/courses/course-schedules-management.js',
+    'resources/assets/vendor/libs/flatpickr/flatpickr.js'
     ])
     <script>
         function confirmDeleteBatch() {
@@ -62,7 +63,7 @@
                     icon: 'error'
                     , type: 'error'
                     , title: 'Oops...'
-                    , text: 'Anda harus memilih setidaknya satu mata kuliah untuk dihapus!'
+                    , text: 'Anda harus memilih setidaknya satu jadwal mata kuliah untuk dihapus!'
                     , customClass: {
                         confirmButton: 'btn btn-primary'
                         , buttonsStyling: false
@@ -90,9 +91,9 @@
     @endpush
 </div>
 
-{{-- START FORM CREATE MATA KULIAH --}}
-{{-- @livewire('backend.resumes.create') --}}
-{{-- END FORM CREATE MATA KULIAH --}}
+{{-- START FORM CREATE Jadwal MATA KULIAH --}}
+@livewire('backend.course.create-schedule', ['course' => $course])
+{{-- END FORM CREATE Jadwal MATA KULIAH --}}
 
 {{-- START FORM EDIT MATA KULIAH --}}
 {{-- @livewire('backend.resumes.edit') --}}

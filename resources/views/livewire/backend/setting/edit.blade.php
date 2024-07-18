@@ -25,11 +25,11 @@
                     </div>
                     <div class="modal-footer">
                         <x-button color="secondary" data-bs-dismiss="modal" aria-label="Close" click="closeModal">
-                            Close
+                            Tutup
                         </x-button>
 
                         <x-button type="submit" color="primary">
-                            Save Changes
+                            Simpan
                         </x-button>
                     </div>
                 </form>

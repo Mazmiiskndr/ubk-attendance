@@ -34,7 +34,7 @@ $value = $attributes->get('value');
     <!-- Select section -->
     <select {{ $selectAttributes }} {{ $wireModel }}>
         @if($placeholder == "true")
-        <option value="" style="color: #a5a5a5">-- Choose {{ $label }} -- </option>
+        <option value="" style="color: #a5a5a5">-- Pilih {{ $label }} -- </option>
         @endif
         @foreach ($options as $valueOption => $display)
         <option value="{{ $valueOption }}" {{ $valueOption == $data ? 'selected' : '' }}>{{ $display }}</option>

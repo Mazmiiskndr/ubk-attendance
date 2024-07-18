@@ -18,7 +18,7 @@
             <div>
                 <div class="d-flex justify-content-sm-end flex-column flex-sm-row gap-1">
                     {{-- Start Button for Create New Dosen --}}
-                    <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0" data-bs-toggle="modal" data-bs-target="#createNewResume">
+                    <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0">
                         <i class="tf-icons fas fa-plus-circle ti-xs me-1"></i>&nbsp; Tambah Data Dosen
                     </x-button>
                     {{-- End Button for Create New Dosen --}}
