@@ -53,6 +53,7 @@ class ScheduleDatatables extends Component
         }
     }
 
+    #[On('scheduleCreated')]
     public function refreshDataTable()
     {
         $this->dispatch('refreshDatatable');

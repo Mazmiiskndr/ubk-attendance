@@ -48,12 +48,11 @@ class CreateSchedule extends Component
         // Check if $schedule contains valid data or not.
         if ($schedule) {
             // Let other components know that a schedule was created
-            $this->dispatch('scheduleCreated', $schedule);
 
             // Notify the frontend of success
             $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Jadwal Mata Kuliah berhasil ditambahkan!']);
             // Let other components know that a setting was updated
-            $this->dispatch('settingUpdated', true);
+            $this->dispatch('scheduleCreated', $schedule);
         } else {
             // Notify the frontend of failure
             $this->dispatchErrorEvent('Gagal Menambahkan Jadwal Mata Kuliah');

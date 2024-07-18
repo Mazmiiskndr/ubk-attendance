@@ -64,8 +64,17 @@
                     });
                 }
             });
+
+            let myModal = new bootstrap.Modal(document.getElementById('createNewSchedule'));
+
+            // Event listener for hiding modal
+            Livewire.on('hide-modal', () => {
+                myModal.hide();
+            });
         });
 
     </script>
     @endpush
+
+
 </div>

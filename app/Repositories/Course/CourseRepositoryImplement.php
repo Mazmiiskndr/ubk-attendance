@@ -254,12 +254,12 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
         $user = $this->courseScheduleModel->updateOrCreate(
             ['id' => $data['id'] ?? null],
             [
-                'course_id ' => $data['course_id'],
+                'course_id' => $data['courseId'],
+                'check_in_start' => $data['checkInStart'],
+                'check_in_end' => $data['checkInEnd'],
+                'check_out_start' => $data['checkOutStart'],
+                'check_out_end' => $data['checkOutEnd'],
                 'day' => $data['day'],
-                'check_in_start' => $data['check_in_start'],
-                'check_in_end' => $data['check_in_end'],
-                'check_out_start' => $data['check_out_start'],
-                'check_out_end' => $data['check_out_end'],
             ]
         );
         return $user;
