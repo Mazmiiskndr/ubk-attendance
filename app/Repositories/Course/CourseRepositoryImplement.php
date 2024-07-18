@@ -264,8 +264,8 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
      */
     public function storeOrUpdateSchedule($data)
     {
-        // Create or update the user
-        $user = $this->courseScheduleModel->updateOrCreate(
+        // Create or update the schedule
+        $schedule = $this->courseScheduleModel->updateOrCreate(
             ['id' => $data['id'] ?? null],
             [
                 'course_id' => $data['courseId'],
@@ -276,6 +276,6 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
                 'day' => $data['day'],
             ]
         );
-        return $user;
+        return $schedule;
     }
 }

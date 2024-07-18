@@ -30,25 +30,49 @@ class CourseSchedule extends Model
     // Accessor for check_in_start
     public function getCheckInStartAttribute($value)
     {
-        return Carbon::createFromFormat('H:i:s', $value)->format('H : i');
+        return $value ? Carbon::parse($value)->format('H:i') : null;
+    }
+
+    // Mutator for check_in_start
+    public function setCheckInStartAttribute($value)
+    {
+        $this->attributes['check_in_start'] = Carbon::createFromFormat('H:i', $value)->format('H:i:s');
     }
 
     // Accessor for check_in_end
     public function getCheckInEndAttribute($value)
     {
-        return Carbon::createFromFormat('H:i:s', $value)->format('H : i');
+        return $value ? Carbon::parse($value)->format('H:i') : null;
+    }
+
+    // Mutator for check_in_end
+    public function setCheckInEndAttribute($value)
+    {
+        $this->attributes['check_in_end'] = Carbon::createFromFormat('H:i', $value)->format('H:i:s');
     }
 
     // Accessor for check_out_start
     public function getCheckOutStartAttribute($value)
     {
-        return Carbon::createFromFormat('H:i:s', $value)->format('H : i');
+        return $value ? Carbon::parse($value)->format('H:i') : null;
+    }
+
+    // Mutator for check_out_start
+    public function setCheckOutStartAttribute($value)
+    {
+        $this->attributes['check_out_start'] = Carbon::createFromFormat('H:i', $value)->format('H:i:s');
     }
 
     // Accessor for check_out_end
     public function getCheckOutEndAttribute($value)
     {
-        return Carbon::createFromFormat('H:i:s', $value)->format('H : i');
+        return $value ? Carbon::parse($value)->format('H:i') : null;
+    }
+
+    // Mutator for check_out_end
+    public function setCheckOutEndAttribute($value)
+    {
+        $this->attributes['check_out_end'] = Carbon::createFromFormat('H:i', $value)->format('H:i:s');
     }
 
     public function course()

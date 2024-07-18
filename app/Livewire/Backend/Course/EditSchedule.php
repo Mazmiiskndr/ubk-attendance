@@ -46,6 +46,31 @@ class EditSchedule extends Component
         return view('livewire.backend.course.edit-schedule');
     }
 
+    /**
+     * Update a course schedule.
+     * @param CourseService $courseService
+     * @return void
+     */
+    public function updateSchedule(CourseService $courseService)
+    {
+        $schedule = $this->form->storeOrUpdate($courseService);
+        // Check if $schedule contains valid data or not.
+        if ($schedule) {
+            // Let other components know that a schedule was updated
+            $this->dispatch('scheduleUpdated', $schedule);
+
+            // Notify the frontend of success
+            $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Jadwal Mata Kuliah berhasil di perbaharui!']);
+            // Let other components know that a setting was updated
+            $this->dispatch('scheduleUpdated', $schedule);
+        } else {
+            // Notify the frontend of failure
+            $this->dispatchErrorEvent('Gagal Mengubah Jadwal Mata Kuliah');
+        }
+        // Close the modal
+        $this->closeModal();
+    }
+
     public function resetFields()
     {
         $this->form->checkInStart = '';

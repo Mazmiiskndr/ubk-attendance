@@ -6,7 +6,7 @@
                     <h5 class="modal-title" id="modalCenterTitle">Tambah Data Jadwal Mata Kuliah</h5>
                     <x-button color="close" dismiss="true" click="closeModal" data-bs-dismiss="modal" aria-label="Close" />
                 </div>
-                <form wire:submit.prevent="storeNewSchedule" method="POST">
+                <form wire:submit.prevent="updateSchedule" method="POST">
                     <div class="modal-body">
 
                         <div class="row">
