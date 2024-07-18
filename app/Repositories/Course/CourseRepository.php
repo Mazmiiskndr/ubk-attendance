@@ -56,4 +56,24 @@ interface CourseRepository extends Repository
      * @return \Illuminate\Http\JsonResponse
      */
     public function getCourseSchedulesDatatables($courseId);
+
+    /**
+     * Get the validation rules for the form request.
+     * @param string|null $scheduleId The user ID.
+     * @return array The validation rules.
+     */
+    public function getValidationScheduleRules(?string $scheduleId);
+
+    /**
+     * Get the validation error messages for the form fields.
+     * @return array The validation error messages.
+     */
+    public function getValidationScheduleErrorMessages();
+
+    /**
+     * Store or update a CourseSchedule.
+     *
+     * @param array $data
+     */
+    public function storeOrUpdateSchedule($data);
 }

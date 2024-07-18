@@ -57,7 +57,7 @@ class Edit extends Component
             return redirect()->route('backend.students.index')->with('success', 'Data Mahasiswa berhasil di perbaharui!');
         } else {
             // Notify the frontend of failure
-            $this->dispatchErrorEvent('Gagal Mengubah Data Mahsiswa');
+            $this->dispatchErrorEvent('Gagal Mengubah Data Mahasiswa');
         }
         // Close the modal
         $this->closeModal();

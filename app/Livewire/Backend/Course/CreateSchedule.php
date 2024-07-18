@@ -3,6 +3,7 @@
 namespace App\Livewire\Backend\Course;
 
 use App\Livewire\Forms\Backend\Course\CreateScheduleForm;
+use App\Services\Course\CourseService;
 use App\Traits\{LivewireMessageEvents, CloseModalTrait};
 use Livewire\Component;
 
@@ -18,11 +19,17 @@ class CreateSchedule extends Component
      */
     public CreateScheduleForm $form;
 
+    public function updated($property)
+    {
+        $this->validateOnly($property);
+    }
+
     public function mount($course)
     {
         $this->course = $course;
         $this->courseId = $course->id;
         $this->lecturerId = $course->lecturer_id;
+        $this->form->courseId = $this->courseId;
     }
 
     public function render()
@@ -30,9 +37,29 @@ class CreateSchedule extends Component
         return view('livewire.backend.course.create-schedule');
     }
 
-    public function storeNewSchedule()
+    /**
+     * Store a new user.
+     * @param CourseService $courseService
+     * @return void
+     */
+    public function storeNewSchedule(CourseService $courseService)
     {
-        dd('TODO: Store new schedule');
+        $schedule = $this->form->storeOrUpdate($courseService);
+        // Check if $schedule contains valid data or not.
+        if ($schedule) {
+            // Let other components know that a schedule was created
+            $this->dispatch('scheduleCreated', $schedule);
+
+            // Notify the frontend of success
+            $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Jadwal Mata Kuliah berhasil ditambahkan!']);
+            // Let other components know that a setting was updated
+            $this->dispatch('settingUpdated', true);
+        } else {
+            // Notify the frontend of failure
+            $this->dispatchErrorEvent('Gagal Menambahkan Jadwal Mata Kuliah');
+        }
+        // Close the modal
+        $this->closeModal();
     }
 
     public function resetFields()

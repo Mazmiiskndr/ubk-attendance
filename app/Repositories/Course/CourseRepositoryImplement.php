@@ -6,6 +6,8 @@ use App\Models\CourseSchedule;
 use App\Traits\{DataTablesTrait, ActionsButtonTrait};
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Course;
+use App\Enums\DayOfWeek;
+use Illuminate\Validation\Rules\Enum;
 
 class CourseRepositoryImplement extends Eloquent implements CourseRepository
 {
@@ -202,5 +204,64 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
                 }
             ]
         );
+    }
+
+    /**
+     * Get the validation rules for the form request.
+     * @param string|null $scheduleId The user ID.
+     * @return array The validation rules.
+     */
+    public function getValidationScheduleRules(?string $scheduleId = null): array
+    {
+        return [
+            'checkInStart' => 'required|date_format:H:i',
+            'checkInEnd' => 'required|date_format:H:i',
+            'checkOutStart' => 'required|date_format:H:i',
+            'checkOutEnd' => 'required|date_format:H:i',
+            'day' => ['required', new Enum(DayOfWeek::class)],
+        ];
+    }
+
+    /**
+     * Get the validation error messages for the form fields.
+     * @return array The validation error messages.
+     */
+    public function getValidationScheduleErrorMessages(): array
+    {
+        return [
+            'checkInStart.required' => 'Mulai Jam Masuk tidak boleh kosong!',
+            'checkInStart.date_format' => 'Format Mulai Jam Masuk harus HH:MM!',
+            'checkInEnd.required' => 'Akhir Jam Masuk tidak boleh kosong!',
+            'checkInEnd.date_format' => 'Format Akhir Jam Masuk harus HH:MM!',
+            'checkOutStart.required' => 'Mulai Jam Keluar tidak boleh kosong!',
+            'checkOutStart.date_format' => 'Format Mulai Jam Keluar harus HH:MM!',
+            'checkOutEnd.required' => 'Akhir Jam Keluar tidak boleh kosong!',
+            'checkOutEnd.date_format' => 'Format Akhir Jam Keluar harus HH:MM!',
+            'day.required' => 'Hari tidak boleh kosong!',
+            'day.Enum' => 'Hari harus merupakan salah satu dari: Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu!',
+        ];
+    }
+
+    /**
+     * Store or update a CourseSchedule.
+     *
+     * @param array $data
+     * @return CourseSchedule
+     */
+    public function storeOrUpdateSchedule($data)
+    {
+        // Create or update the user
+        $user = $this->courseScheduleModel->updateOrCreate(
+            ['id' => $data['id'] ?? null],
+            [
+                'course_id ' => $data['course_id'],
+                'day' => $data['day'],
+                'check_in_start' => $data['check_in_start'],
+                'check_in_end' => $data['check_in_end'],
+                'check_out_start' => $data['check_out_start'],
+                'check_out_end' => $data['check_out_end'],
+            ]
+        );
+        return $user;
     }
 }
