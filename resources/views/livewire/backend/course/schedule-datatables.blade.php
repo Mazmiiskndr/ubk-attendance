@@ -6,7 +6,6 @@
                     <input class="form-check-input" style="border: 1px solid #8f8f8f;" type='checkbox' id='select-all-checkbox'>
                 </th>
                 <th><b>No</b></th>
-                <th><b>Dosen</b></th>
                 <th><b>Hari</b></th>
                 <th><b>Mulai Masuk</b></th>
                 <th><b>Akhir Masuk</b></th>

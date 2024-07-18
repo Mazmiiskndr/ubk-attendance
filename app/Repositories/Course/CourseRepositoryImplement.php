@@ -168,9 +168,6 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
         return $this->formatDataTablesResponse(
             $data,
             [
-                'lecturer' => function ($data) {
-                    return $data->course && $data->course->lecturer ? $data->course->lecturer->name : '-';
-                },
                 'action' => function ($data) {
                     $encodedId = base64_encode($data->id);
                     return $this->getActionButtons(

@@ -9,10 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
       className: 'text-center fw-semibold'
     },
     {
-      data: 'lecturer',
-      name: 'lecturer'
-    },
-    {
       data: 'day',
       name: 'day'
     },
