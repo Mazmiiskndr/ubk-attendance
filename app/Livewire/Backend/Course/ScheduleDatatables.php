@@ -20,6 +20,12 @@ class ScheduleDatatables extends Component
         return view('livewire.backend.course.schedule-datatables');
     }
 
+    #[On('requestCourseScheduleById')]
+    public function getSchedule($courseScheduleId)
+    {
+        $this->dispatch('deliverScheduleToEditComponent', $courseScheduleId);
+    }
+
     public function getDataTable(CourseService $courseService, $courseId = null)
     {
         return $courseService->getCourseSchedulesDatatables($courseId);

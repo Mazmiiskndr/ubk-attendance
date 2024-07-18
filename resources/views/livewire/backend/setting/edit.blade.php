@@ -60,8 +60,7 @@
 
             // Event listener for showing modal
             Livewire.on('show-modal', () => {
-                myModal.show();
-                setTimeout(initializeFlatpickr, 100); // Delay to ensure the modal is fully rendered
+                myModal.show(); // Delay to ensure the modal is fully rendered
             });
 
             // Event listener for hiding modal

@@ -102,6 +102,22 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
         return $course;
     }
 
+    /**
+     * Get course schedule by ID with role and optional course details
+     * @param int $courseScheduleId
+     * @return \Illuminate\Database\Eloquent\Model|mixed
+     * @throws \InvalidArgumentException
+     */
+    public function getCourseScheduleById($courseScheduleId)
+    {
+        $courseSchedule = $this->courseScheduleModel->with(['course.lecturer'])->find($courseScheduleId);
+
+        if (!$courseSchedule) {
+            throw new \InvalidArgumentException("Course Schedules ID {$courseScheduleId} cannot be found.");
+        }
+
+        return $courseSchedule;
+    }
 
     /**
      * Delete courses by given IDs
@@ -197,8 +213,6 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
                         $encodedId,
                         'showCourse',
                         'confirmDeleteCourse',
-                        'backend.course.edit',
-                        'link'
                     );
 
                 }

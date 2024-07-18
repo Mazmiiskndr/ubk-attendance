@@ -53,6 +53,17 @@ class CourseServiceImplement extends Service implements CourseService
   }
 
   /**
+   * Get course schedule by ID with role and optional course details
+   * @param int $courseScheduleId
+   * @return \Illuminate\Database\Eloquent\Model|mixed
+   * @throws \InvalidArgumentException
+   */
+  public function getCourseScheduleById($courseScheduleId)
+  {
+    return $this->handleRepositoryCall('getCourseScheduleById', [$courseScheduleId]);
+  }
+
+  /**
    * Delete courses by given IDs
    * @param array|int $courseIds
    * @return void

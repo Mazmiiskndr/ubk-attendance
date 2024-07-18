@@ -96,7 +96,7 @@
 {{-- END FORM CREATE Jadwal MATA KULIAH --}}
 
 {{-- START FORM EDIT MATA KULIAH --}}
-{{-- @livewire('backend.resumes.edit') --}}
+@livewire('backend.course.edit-schedule')
 {{-- END FORM EDIT MATA KULIAH --}}
 
 @endsection
