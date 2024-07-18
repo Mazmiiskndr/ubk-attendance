@@ -8,7 +8,7 @@ enum DayOfWeek: string
     case Tuesday = 'Selasa';
     case Wednesday = 'Rabu';
     case Thursday = 'Kamis';
-    case Friday = "Jum'at";
+    case Friday = "Jumat";
     case Saturday = 'Sabtu';
     case Sunday = 'Minggu';
 }
