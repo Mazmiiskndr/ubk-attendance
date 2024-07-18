@@ -31,6 +31,16 @@ class CourseServiceImplement extends Service implements CourseService
   }
 
   /**
+   * Get all course schedules with limit
+   * @param int|null $limit
+   * @return \Illuminate\Database\Eloquent\Collection|static[]
+   */
+  public function getCourseSchedules($limit = null)
+  {
+    return $this->handleRepositoryCall('getCourseSchedules', [$limit]);
+  }
+
+  /**
    * Get course by ID with role and optional course details
    * @param int $courseId
    * @return \Illuminate\Database\Eloquent\Model|mixed
@@ -59,4 +69,13 @@ class CourseServiceImplement extends Service implements CourseService
   {
     return $this->handleRepositoryCall('getCourseDatatables');
   }
+
+  /**
+   * Get the data formatted for DataTables.
+   */
+  public function getCourseSchedulesDatatables()
+  {
+    return $this->handleRepositoryCall('getCourseSchedulesDatatables');
+  }
+
 }

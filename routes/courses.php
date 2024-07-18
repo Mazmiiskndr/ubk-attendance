@@ -23,4 +23,5 @@ Route::middleware('auth')->name('backend.')->group(function () {
     Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
     Route::get('course/detail/{id}', [CourseController::class, 'show'])->name('course.show');
     Route::get('course/update/{id}', [CourseController::class, 'edit'])->name('course.edit');
+    Route::get('course-schedules/update/{id}', [CourseController::class, 'editSchedule'])->name('course-schedules.edit');
 });

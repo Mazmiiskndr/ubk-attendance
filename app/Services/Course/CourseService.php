@@ -14,6 +14,13 @@ interface CourseService extends BaseService
     public function getCourses($limit = null);
 
     /**
+     * Get all course schedules with limit
+     * @param int|null $limit
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getCourseSchedules($limit = null);
+
+    /**
      * Get course by ID with role and optional course details
      * @param int $courseId
      * @return \Illuminate\Database\Eloquent\Model|mixed
@@ -33,4 +40,9 @@ interface CourseService extends BaseService
      * Get the data formatted for DataTables.
      */
     public function getCourseDatatables();
+
+    /**
+     * Get the data formatted for DataTables.
+     */
+    public function getCourseSchedulesDatatables();
 }

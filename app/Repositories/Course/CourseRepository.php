@@ -14,6 +14,13 @@ interface CourseRepository extends Repository
     public function getCourses($limit);
 
     /**
+     * Get all course schedules with limit
+     * @param int|null $limit
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getCourseSchedules($limit);
+
+    /**
      * Get course by ID with role and optional course details
      * @param int $courseId
      * @return \Illuminate\Database\Eloquent\Model|mixed
@@ -33,4 +40,9 @@ interface CourseRepository extends Repository
      * Get the data formatted for DataTables.
      */
     public function getCourseDatatables();
+
+    /**
+     * Get the data formatted for DataTables.
+     */
+    public function getCourseSchedulesDatatables();
 }

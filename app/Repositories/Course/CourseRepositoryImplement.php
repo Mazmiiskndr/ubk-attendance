@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Course;
 
+use App\Models\CourseSchedule;
 use App\Traits\{DataTablesTrait, ActionsButtonTrait};
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Course;
@@ -15,10 +16,12 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
      * @property Course|mixed $courseModel;
      */
     protected $courseModel;
+    protected $courseScheduleModel;
 
-    public function __construct(Course $courseModel)
+    public function __construct(Course $courseModel, CourseSchedule $courseScheduleModel)
     {
         $this->courseModel = $courseModel;
+        $this->courseScheduleModel = $courseScheduleModel;
     }
 
     /**
@@ -51,6 +54,28 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
         }
 
         return $courses;
+    }
+
+    /**
+     * Get all course schedules with limit
+     * @param int|null $limit
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getCourseSchedules($limit = null)
+    {
+        $query = $this->courseScheduleModel->with(['course.lecturer'])->latest();
+
+        if ($limit !== null) {
+            $query->limit($limit);
+        }
+
+        $schedules = $query->get();
+
+        if ($schedules->isEmpty()) {
+            throw new \InvalidArgumentException("Course Schedules Data cannot be found.");
+        }
+
+        return $schedules;
     }
 
     /**
@@ -117,6 +142,35 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
                         'link',
                         'showDetail',
                         'backend.course.show',
+                        'link'
+                    );
+
+                }
+            ]
+        );
+    }
+
+    /**
+     * Get the data formatted for DataTables.
+     */
+    public function getCourseSchedulesDatatables()
+    {
+        // Retrieve the groups data from the group model
+        $data = $this->getCourseSchedules();
+        // Return format the data for DataTables
+        return $this->formatDataTablesResponse(
+            $data,
+            [
+                'lecturer' => function ($data) {
+                    return $data->course && $data->course->lecturer ? $data->course->lecturer->name : '-';
+                },
+                'action' => function ($data) {
+                    $encodedId = base64_encode($data->id);
+                    return $this->getActionButtons(
+                        $encodedId,
+                        'showCourse',
+                        'confirmDeleteCourse',
+                        'backend.course.edit',
                         'link'
                     );
 

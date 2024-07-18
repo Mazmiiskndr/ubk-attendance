@@ -39,4 +39,8 @@ class CourseController extends Controller
     {
         dd("TODO:");
     }
+    public function editSchedule()
+    {
+        dd("TODO:");
+    }
 }
