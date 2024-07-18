@@ -59,7 +59,7 @@ $configData = Helper::appClasses();
         </li>
 
         <!-- Settings Menu  -->
-        <li class="menu-item {{ request()->is('courses*') ? 'active' : '' }}">
+        <li class="menu-item {{ request()->is('courses*') || request()->is('course*') ? 'active' : '' }}">
             <a href="{{ route('backend.courses.index') }}" class="menu-link ">
                 <i class="menu-icon tf-icons ti ti-books"></i>
                 <div>Mata Kuliah</div>
