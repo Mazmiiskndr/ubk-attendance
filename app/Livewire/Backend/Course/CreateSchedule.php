@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Backend\Course;
 
+use App\Livewire\Forms\Backend\Course\CreateScheduleForm;
 use App\Traits\{LivewireMessageEvents, CloseModalTrait};
 use Livewire\Component;
 
@@ -9,7 +10,13 @@ class CreateSchedule extends Component
 {
     use LivewireMessageEvents, CloseModalTrait;
 
-    public $course, $checkInStart, $checkInEnd, $day, $checkOutStart, $checkOutEnd, $lecturerId, $courseId;
+    public $course, $lecturerId, $courseId;
+
+    /**
+     * The CreateScheduleForm instance associated with this object.
+     * @var CreateScheduleForm
+     */
+    public CreateScheduleForm $form;
 
     public function mount($course)
     {
@@ -23,13 +30,17 @@ class CreateSchedule extends Component
         return view('livewire.backend.course.create-schedule');
     }
 
+    public function storeNewSchedule()
+    {
+        dd('TODO: Store new schedule');
+    }
+
     public function resetFields()
     {
-        $this->checkInStart = '';
-        $this->checkInEnd = '';
-        $this->day = '';
-        $this->checkOutStart = '';
-        $this->checkOutEnd = '';
-        $this->lecturerId = '';
+        $this->form->checkInStart = '';
+        $this->form->checkInEnd = '';
+        $this->form->day = '';
+        $this->form->checkOutStart = '';
+        $this->form->checkOutEnd = '';
     }
 }
