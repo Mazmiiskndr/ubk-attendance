@@ -97,7 +97,7 @@
 {{-- END FORM CREATE MATA KULIAH --}}
 
 {{-- START FORM EDIT MATA KULIAH --}}
-{{-- @livewire('backend.resumes.edit') --}}
+@livewire('backend.course.edit-course')
 {{-- END FORM EDIT MATA KULIAH --}}
 
 @endsection

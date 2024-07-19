@@ -52,7 +52,7 @@ class Datatables extends Component
         }
     }
 
-    #[On(['courseCreated'])]
+    #[On(['courseCreated', 'courseUpdated'])]
     public function refreshDataTable()
     {
         $this->dispatch('refreshDatatable');
