@@ -166,7 +166,7 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
                         'showCourse',
                         'confirmDeleteCourse',
                         'backend.course.edit',
-                        'link',
+                        null,
                         'showDetail',
                         'backend.course.show',
                         'link'

@@ -18,6 +18,12 @@ class Datatables extends Component
         return $courseService->getCourseDatatables();
     }
 
+    #[On('requestCourseById')]
+    public function getSchedule($courseId)
+    {
+        $this->dispatch('deliverCourseToEditComponent', $courseId);
+    }
+
     #[On('confirmCourse')]
     public function deleteCourse(CourseService $courseService, $courseId)
     {
