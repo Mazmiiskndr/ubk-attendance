@@ -35,25 +35,11 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
     {
         $query = $this->courseModel->with(['lecturer', 'schedules'])->latest();
 
-        // if ($roleAlias !== null) {
-        //     $role = $this->roleModel->where('name_alias', $roleAlias)->first();
-
-        //     if ($role) {
-        //         $query->where('role_id', $role->id);
-        //     } else {
-        //         throw new \InvalidArgumentException("Role with alias '{$roleAlias}' cannot be found.");
-        //     }
-        // }
-
         if ($limit !== null) {
             $query->limit($limit);
         }
 
         $courses = $query->get();
-
-        if ($courses->isEmpty()) {
-            throw new \InvalidArgumentException("Courses Data cannot be found.");
-        }
 
         return $courses;
     }
@@ -78,9 +64,6 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
 
         $schedules = $query->get();
 
-        if ($schedules->isEmpty()) {
-            throw new \InvalidArgumentException("Course Schedules Data cannot be found.");
-        }
 
         return $schedules;
     }
@@ -203,6 +186,9 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
     {
         // Retrieve the groups data from the group model
         $data = $this->getCourseSchedules($courseId);
+        if ($data->isEmpty()) {
+            return datatables()->of(collect())->make(true);
+        }
         // Return format the data for DataTables
         return $this->formatDataTablesResponse(
             $data,
@@ -257,7 +243,32 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
     }
 
     /**
-     * Store or update a CourseSchedule.
+     * Get the validation rules for the form request.
+     * @param string|null $courseId The user ID.
+     * @return array The validation rules.
+     */
+    public function getValidationCourseRules(?string $courseId = null): array
+    {
+        return [
+            'name' => 'required',
+            'lecturerId' => 'required',
+        ];
+    }
+
+    /**
+     * Get the validation error messages for the form fields.
+     * @return array The validation error messages.
+     */
+    public function getValidationCourseErrorMessages(): array
+    {
+        return [
+            'name.required' => 'Nama Mata Kuliah tidak boleh kosong!',
+            'lecturerId.required' => 'Nama Dosen tidak boleh kosong!',
+        ];
+    }
+
+    /**
+     * Store or update a Schedule.
      *
      * @param array $data
      * @return CourseSchedule
@@ -277,5 +288,24 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
             ]
         );
         return $schedule;
+    }
+
+    /**
+     * Store or update a Course.
+     *
+     * @param array $data
+     * @return CourseSchedule
+     */
+    public function storeOrUpdateCourse($data)
+    {
+        // Create or update the course
+        $course = $this->courseModel->updateOrCreate(
+            ['id' => $data['id'] ?? null],
+            [
+                'name' => $data['name'],
+                'lecturer_id' => $data['lecturerId'],
+            ]
+        );
+        return $course;
     }
 }

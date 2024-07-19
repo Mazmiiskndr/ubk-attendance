@@ -18,7 +18,7 @@
             <div>
                 <div class="d-flex justify-content-sm-end flex-column flex-sm-row gap-1">
                     {{-- Start Button for Create New Mata Kuliah --}}
-                    <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0">
+                    <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0" data-bs-toggle="modal" data-bs-target="#createNewCourse">
                         <i class="tf-icons fas fa-plus-circle ti-xs me-1"></i>&nbsp; Tambah Data Mata Kuliah
                     </x-button>
                     {{-- End Button for Create New Mata Kuliah --}}
@@ -35,8 +35,10 @@
 
     {{-- Start List DataTable --}}
     <div class="card-body">
+        <label class="form-label" for="multicol-country">Country</label>
 
         @livewire('backend.course.datatables')
+
     </div>
     {{-- End List DataTable --}}
 
@@ -91,7 +93,7 @@
 </div>
 
 {{-- START FORM CREATE MATA KULIAH --}}
-{{-- @livewire('backend.resumes.create') --}}
+@livewire('backend.course.create-course')
 {{-- END FORM CREATE MATA KULIAH --}}
 
 {{-- START FORM EDIT MATA KULIAH --}}

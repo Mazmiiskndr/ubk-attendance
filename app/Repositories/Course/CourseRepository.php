@@ -84,4 +84,25 @@ interface CourseRepository extends Repository
      * @param array $data
      */
     public function storeOrUpdateSchedule($data);
+
+    /**
+     * Get the validation rules for the form request.
+     * @param string|null $courseId The user ID.
+     * @return array The validation rules.
+     */
+    public function getValidationCourseRules(?string $courseId);
+
+    /**
+     * Get the validation error messages for the form fields.
+     * @return array The validation error messages.
+     */
+    public function getValidationCourseErrorMessages();
+
+    /**
+     * Store or update a Course.
+     *
+     * @param array $data
+     * @return CourseSchedule
+     */
+    public function storeOrUpdateCourse($data);
 }

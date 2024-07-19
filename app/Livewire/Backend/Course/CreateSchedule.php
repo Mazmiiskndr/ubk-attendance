@@ -38,7 +38,7 @@ class CreateSchedule extends Component
     }
 
     /**
-     * Store a new user.
+     * Store a new schedule.
      * @param CourseService $courseService
      * @return void
      */

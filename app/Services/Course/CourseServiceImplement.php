@@ -132,4 +132,33 @@ class CourseServiceImplement extends Service implements CourseService
     return $this->handleRepositoryCall('storeOrUpdateSchedule', [$data]);
   }
 
+  /**
+   * Get the validation rules for the form request.
+   * @param string|null $courseId The user ID.
+   * @return array The validation rules.
+   */
+  public function getValidationCourseRules(?string $courseId = null)
+  {
+    return $this->handleRepositoryCall('getValidationCourseRules', [$courseId]);
+  }
+
+  /**
+   * Get the validation error messages for the form fields.
+   * @return array The validation error messages.
+   */
+  public function getValidationCourseErrorMessages()
+  {
+    return $this->handleRepositoryCall('getValidationCourseErrorMessages');
+  }
+
+  /**
+   * Store or update a Course.
+   *
+   * @param array $data
+   */
+  public function storeOrUpdateCourse($data)
+  {
+    return $this->handleRepositoryCall('storeOrUpdateCourse', [$data]);
+  }
+
 }
