@@ -14,7 +14,7 @@
                                 <x-input-field id="name" label="Nama Mata Kuliah" model="form.name" placeholder="Nama Mata Kuliah.." required />
                             </div>
                             <div class="mt-3 col-md-12">
-                                <x-select-field id="lecturerId" label="Nama Dosen" model="form.lecturerId" required :options="$lecturers->pluck('name', 'id')->toArray()" class="select2 form-select" data-allow-clear="true" />
+                                <x-select-field id="lecturerId" label="Nama Dosen" model="form.lecturerId" required :options="$lecturers ? $lecturers->pluck('name', 'id')->toArray() : []" class="select2 form-select" data-allow-clear="true" />
                             </div>
                         </div>
 

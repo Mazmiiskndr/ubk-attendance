@@ -3,6 +3,7 @@
 namespace App\Livewire\Backend\Student;
 
 use App\Livewire\Forms\Backend\Student\CreateForm;
+use App\Services\Kelas\KelasService;
 use App\Services\User\UserService;
 use App\Traits\{CloseModalTrait, LivewireMessageEvents};
 use Livewire\Component;
@@ -21,6 +22,13 @@ class Create extends Component
      * @var CreateForm
      */
     public CreateForm $form;
+
+    public $kelas;
+
+    public function mount(KelasService $kelasService)
+    {
+        $this->kelas = $kelasService->getKelas();
+    }
 
     public function updated($property)
     {
@@ -66,7 +74,7 @@ class Create extends Component
         $this->form->phoneNumber = '';
         $this->form->gender = '';
         $this->form->semester = '';
-        $this->form->class = '';
+        $this->form->classId = '';
         $this->form->images = '';
         $this->form->address = '';
     }

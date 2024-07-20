@@ -14,7 +14,7 @@ class UpdateForm extends Form
     /**
      * The properties of a user object.
      */
-    public $name, $identNumber, $email, $phoneNumber, $gender, $birthDate, $semester, $class, $images, $address, $idStudent, $existingImage;
+    public $name, $identNumber, $email, $phoneNumber, $gender, $birthDate, $semester, $classId, $images, $address, $idStudent, $existingImage;
 
     public function setStudent($student)
     {
@@ -26,7 +26,7 @@ class UpdateForm extends Form
         $this->gender = $student->userDetail->gender;
         $this->birthDate = $student->userDetail->birthdate;
         $this->semester = $student->userDetail->semester;
-        $this->class = $student->userDetail->class;
+        $this->classId = $student->userDetail->kelas->id;
         $this->address = $student->userDetail->address;
         $this->existingImage = $student->images;
     }

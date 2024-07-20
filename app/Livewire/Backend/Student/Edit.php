@@ -3,6 +3,7 @@
 namespace App\Livewire\Backend\Student;
 
 use App\Livewire\Forms\Backend\Student\UpdateForm;
+use App\Services\Kelas\KelasService;
 use App\Services\User\UserService;
 use App\Traits\{CloseModalTrait, LivewireMessageEvents};
 use Livewire\Component;
@@ -22,10 +23,11 @@ class Edit extends Component
      */
     public UpdateForm $form;
 
-    public $student;
+    public $student, $kelas;
 
-    public function mount($student)
+    public function mount(KelasService $kelasService, $student)
     {
+        $this->kelas = $kelasService->getKelas();
         $this->form->setStudent($student);
         $this->student = $student;
     }
@@ -75,7 +77,7 @@ class Edit extends Component
         $this->form->phoneNumber = '';
         $this->form->gender = '';
         $this->form->semester = '';
-        $this->form->class = '';
+        $this->form->classId = '';
         $this->form->images = '';
         $this->form->address = '';
     }

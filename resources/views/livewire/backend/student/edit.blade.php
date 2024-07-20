@@ -21,13 +21,13 @@
                     <x-select-field id="gender" label="Jenis Kelamin" model="form.gender" required :options="['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan']" placeholder="true" data="{{ $student->userDetail->gender }}" />
                 </div>
                 <div class="mb-3 col-md-6 col-sm-12">
-                    <x-input-field id="birthDate" label="Tanggal Lahir" model="form.birthDate" placeholder="Tanggal Lahir.." required value="{{ $student->userDetail->birthdate }}" />
+                    <x-select-field id="classId" label="Kelas" model="form.classId" required :options="$kelas ? $kelas->pluck('name', 'id')->toArray() : []" class="select2 form-select" data-allow-clear="true" />
                 </div>
                 <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                     <x-input-field type="number" id="semester" label="Semester" model="form.semester" placeholder="Semester.." required min="1" max="50" value="{{ $student->userDetail->semester }}" />
                 </div>
                 <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
-                    <x-input-field type="text" id="class" label="Kelas" model="form.class" placeholder="Kelas.." required value="{{ $student->userDetail->class }}" />
+                    <x-input-field id="birthDate" label="Tanggal Lahir" model="form.birthDate" placeholder="Tanggal Lahir.." required value="{{ $student->userDetail->birthdate }}" />
                 </div>
                 <div class="mb-3 col-lg-4 col-md-12 col-sm-12">
                     <x-input-field type="file" id="images" label="Gambar" model="form.images" placeholder="Gambar.." />

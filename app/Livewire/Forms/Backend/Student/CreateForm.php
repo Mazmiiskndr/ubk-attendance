@@ -13,7 +13,7 @@ class CreateForm extends Form
     /**
      * The properties of a user object.
      */
-    public $name, $identNumber, $email, $phoneNumber, $gender, $birthDate, $semester, $class, $images, $address;
+    public $name, $identNumber, $email, $phoneNumber, $gender, $birthDate, $semester, $classId, $images, $address;
 
     /**
      * Get the validation rules for the model.

@@ -47,6 +47,10 @@
                         @endif
                     </li>
                     <li class="mb-2 pt-1">
+                        <span class="fw-medium me-1">Kelas:</span>
+                        <span>{{ $student->userDetail->kelas->name ?? '-' }}</span>
+                    </li>
+                    <li class="mb-2 pt-1">
                         <span class="fw-medium me-1">No Telepon:</span>
                         <span>{{ $student->userDetail->phone_number ?? '-' }}</span>
                     </li>

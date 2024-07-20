@@ -26,7 +26,7 @@ class UserDetail extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function course(): BelongsTo
+    public function kelas(): BelongsTo
     {
         return $this->belongsTo(Kelas::class, 'class_id');
     }
