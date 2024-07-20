@@ -8,7 +8,7 @@
                     <x-input-field id="name" label="Nama Lengkap" model="form.name" placeholder="Nama Lengkap.." required />
                 </div>
                 <div class="mb-3 col-md-6 col-sm-12">
-                    <x-input-field id="identNumber" label="NIP (Nomor Induk Pegawai)" model="form.identNumber" placeholder="NIP (Nomor Induk Pegawai).." required tooltip="NIM yang di masukkan akan digunakan sebagai username dan password." />
+                    <x-input-field id="identNumber" label="NIP (Nomor Induk Pegawai)" model="form.identNumber" placeholder="NIP (Nomor Induk Pegawai).." required tooltip="NIP yang di masukkan akan digunakan sebagai username dan password." />
                 </div>
                 <div class="mb-3 col-md-6 col-sm-12">
                     <x-input-field type="email" id="email" label="Email" model="form.email" placeholder="Email.." required />
@@ -16,14 +16,8 @@
                 <div class="mb-3 col-md-6 col-sm-12">
                     <x-input-field id="phoneNumber" label="No. Telepon" model="form.phoneNumber" placeholder="No. Telepon.." required />
                 </div>
-                <div class="mb-3 col-md-6 col-sm-12">
-                    <x-select-field id="gender" label="Jenis Kelamin" model="form.gender" required :options="['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan']" placeholder="true" />
-                </div>
-                {{-- <div class="mb-3 col-md-6 col-sm-12">
-                    <x-select-field id="classId" label="Kelas" model="form.classId" required :options="$kelas ? $kelas->pluck('name', 'id')->toArray() : []" class="select2 form-select" data-allow-clear="true" />
-                </div> --}}
                 <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
-                    <x-input-field type="number" id="semester" label="Semester" model="form.semester" placeholder="Semester.." required min="1" max="50" />
+                    <x-select-field id="gender" label="Jenis Kelamin" model="form.gender" required :options="['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan']" placeholder="true" />
                 </div>
                 <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                     <x-input-field id="birthDate" label="Tanggal Lahir" model="form.birthDate" placeholder="Tanggal Lahir.." required />
