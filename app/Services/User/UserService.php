@@ -64,5 +64,11 @@ interface UserService extends BaseService
      */
     public function getValidationErrorMessages();
 
-    public function storeOrUpdateUser($data);
+    /**
+     * Store or update a user.
+     *
+     * @param array $data
+     * @param string $roleAlias
+     */
+    public function storeOrUpdateUser($data, $roleAlias = 'mahasiswa');
 }

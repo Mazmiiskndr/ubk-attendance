@@ -103,8 +103,14 @@ class UserServiceImplement extends Service implements UserService
         return $this->handleRepositoryCall('getValidationErrorMessages');
     }
 
-    public function storeOrUpdateUser($data)
+    /**
+     * Store or update a user.
+     *
+     * @param array $data
+     * @param string $roleAlias
+     */
+    public function storeOrUpdateUser($data, $roleAlias = 'mahasiswa')
     {
-        return $this->handleRepositoryCall('storeOrUpdateUser', [$data]);
+        return $this->handleRepositoryCall('storeOrUpdateUser', [$data, $roleAlias]);
     }
 }

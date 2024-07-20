@@ -51,7 +51,7 @@ class CreateForm extends Form
             $validated['images'] = 'default.png'; // Default image
         }
         // Attempt to create the new user
-        $user = $userService->storeOrUpdateUser($validated);
+        $user = $userService->storeOrUpdateUser($validated, 'dosen');
         // Reset the form for the next user
         $this->reset();
         return $user;

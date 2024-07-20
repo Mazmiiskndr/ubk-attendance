@@ -322,9 +322,10 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
      * Store or update a user.
      *
      * @param array $data
+     * @param string $roleAlias
      * @return User
      */
-    public function storeOrUpdateUser($data)
+    public function storeOrUpdateUser($data, $roleAlias = 'mahasiswa')
     {
         // Create or update the user
         $user = $this->userModel->updateOrCreate(
@@ -336,7 +337,7 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
                 'images' => $data['images'] ?? 'default.png', // Default image is 'default.png
                 'password' => Hash::make($data['identNumber']), // Default password is identNumber
                 'status' => 1, // You can change the default status as needed
-                'role_id' => $this->getRoleIdByName('mahasiswa'), // Set role as mahasiswa
+                'role_id' => $this->getRoleIdByName($roleAlias), // Set role as mahasiswa
             ]
         );
 

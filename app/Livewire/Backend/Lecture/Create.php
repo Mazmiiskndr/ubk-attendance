@@ -46,7 +46,7 @@ class Create extends Component
             $this->dispatch('lectureCreated', $user);
 
             // Notify the frontend of success
-            return redirect()->route('backend.students.index')->with('success', 'Data Dosen berhasil ditambahkan!');
+            return redirect()->route('backend.lecturers.index')->with('success', 'Data Dosen berhasil ditambahkan!');
         } else {
             // Notify the frontend of failure
             $this->dispatchErrorEvent('Gagal Menambahkan Data Dosen');
