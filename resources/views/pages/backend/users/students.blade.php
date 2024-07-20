@@ -89,13 +89,4 @@
     </script>
     @endpush
 </div>
-
-{{-- START FORM CREATE MAHASISWA --}}
-{{-- @livewire('backend.resumes.create') --}}
-{{-- END FORM CREATE MAHASISWA --}}
-
-{{-- START FORM EDIT MAHASISWA --}}
-{{-- @livewire('backend.resumes.edit') --}}
-{{-- END FORM EDIT MAHASISWA --}}
-
 @endsection

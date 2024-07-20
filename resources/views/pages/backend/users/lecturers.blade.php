@@ -89,13 +89,4 @@
     </script>
     @endpush
 </div>
-
-{{-- START FORM CREATE DOSEN --}}
-@livewire('backend.lecture.create')
-{{-- END FORM CREATE DOSEN --}}
-
-{{-- START FORM EDIT DOSEN --}}
-@livewire('backend.lecture.edit')
-{{-- END FORM EDIT DOSEN --}}
-
 @endsection
