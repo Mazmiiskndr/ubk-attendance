@@ -53,9 +53,10 @@ interface UserRepository extends Repository
     /**
      * Get the validation rules for the form request.
      * @param string|null $userId The user ID.
+     * @param string|null $roleAlias The user role alias.
      * @return array The validation rules.
      */
-    public function getValidationRules(?string $userId);
+    public function getValidationRules(?string $userId, $roleAlias);
 
     /**
      * Get the validation error messages for the form fields.

@@ -233,14 +233,15 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     /**
      * Get the validation rules for the form request.
      * @param string|null $userId The user ID.
+     * @param string|null $roleAlias The user role alias.
      * @return array The validation rules.
      */
-    public function getValidationRules(?string $userId = null): array
+    public function getValidationRules(?string $userId = null, $roleAlias = null): array
     {
         // Initialize password rule based on userId
-        $passwordRule = $userId ? 'nullable|min:6|confirmed' : 'required|min:6|confirmed';
+        // $passwordRule = $userId ? 'nullable|min:6|confirmed' : 'required|min:6|confirmed';
         // Username and Email rules for unique validation
-        $usernameRule = $userId ? 'required|min:5|max:32|regex:/^\S*$/u|unique:users,username' : 'nullable|min:5|max:32|regex:/^\S*$/u|unique:users,username';
+        // $usernameRule = $userId ? 'required|min:5|max:32|regex:/^\S*$/u|unique:users,username' : 'nullable|min:5|max:32|regex:/^\S*$/u|unique:users,username';
         $identNumberRule = 'required|numeric|unique:user_details,ident_number';
 
         // Username and Email rules for unique validation
@@ -253,6 +254,14 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
             $identNumberRule .= ",$userId,user_id";
         }
 
+        // Determine the validation rules for semester and classId based on roleAlias
+        $semesterRule = 'required|integer|min:1';
+        $classIdRule = 'required|min:1';
+
+        if ($roleAlias === 'dosen') {
+            $semesterRule = 'nullable|integer|min:1';
+            $classIdRule = 'nullable|min:1';
+        }
 
         return [
             'name' => 'required|min:1',
@@ -263,8 +272,8 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
             'phoneNumber' => 'required|numeric|digits_between:10,15',
             'gender' => 'required',
             'birthDate' => 'required|date',
-            'semester' => 'required|integer|min:1',
-            'classId' => 'required|min:1',
+            'semester' => $semesterRule,
+            'classId' => $classIdRule,
             'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
             'address' => 'required|max:255',
             // 'username' => $usernameRule,

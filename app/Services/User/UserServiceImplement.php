@@ -86,11 +86,12 @@ class UserServiceImplement extends Service implements UserService
     /**
      * Get the validation rules for the form request.
      * @param string|null $userId The user ID.
+     * @param string|null $roleAlias The user role alias.
      * @return array The validation rules.
      */
-    public function getValidationRules(?string $userId = null)
+    public function getValidationRules(?string $userId = null, $roleAlias = null)
     {
-        return $this->handleRepositoryCall('getValidationRules', [$userId]);
+        return $this->handleRepositoryCall('getValidationRules', [$userId, $roleAlias]);
     }
 
     /**
