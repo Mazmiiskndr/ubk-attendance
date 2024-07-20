@@ -40,6 +40,45 @@ class KelasRepositoryImplement extends Eloquent implements KelasRepository
     }
 
     /**
+     * Get kelas by ID
+     * @param int $kelasId
+     * @return \Illuminate\Database\Eloquent\Model|mixed
+     * @throws \InvalidArgumentException
+     */
+    public function getKelasById($kelasId)
+    {
+        $kelas = $this->kelasModel->find($kelasId);
+
+        if (!$kelas) {
+            throw new \InvalidArgumentException("Kelas ID {$kelasId} cannot be found.");
+        }
+
+        return $kelas;
+    }
+
+    /**
+     * Delete kelas by given IDs
+     * @param array|int $courseIds
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    public function deleteKelas($courseIds)
+    {
+        // Ensure $courseIds is an array
+        $courseIds = is_array($courseIds) ? $courseIds : [$courseIds];
+
+        // Fetch kelas by IDs
+        $kelas = $this->kelasModel->whereIn('id', $courseIds)->get();
+
+        if ($kelas->isEmpty()) {
+            throw new \InvalidArgumentException("Kelas with the given IDs cannot be found.");
+        }
+
+        // Delete the kelas
+        $this->kelasModel->whereIn('id', $courseIds)->delete();
+    }
+
+    /**
      * Get the data formatted for DataTables for course kelas.
      * @return \Illuminate\Http\JsonResponse
      */
@@ -66,5 +105,46 @@ class KelasRepositoryImplement extends Eloquent implements KelasRepository
                 }
             ]
         );
+    }
+
+    /**
+     * Get the validation rules for the form request.
+     * @param string|null $kelasId The user ID.
+     * @return array The validation rules.
+     */
+    public function getValidationRules(?string $kelasId = null): array
+    {
+        return [
+            'name' => 'required',
+        ];
+    }
+
+    /**
+     * Get the validation error messages for the form fields.
+     * @return array The validation error messages.
+     */
+    public function getValidationErrorMessages(): array
+    {
+        return [
+            'name.required' => 'Nama Kelas tidak boleh kosong!',
+        ];
+    }
+
+    /**
+     * Store or update a Kelas.
+     *
+     * @param array $data
+     * @return Kelas
+     */
+    public function storeOrUpdateKelas($data)
+    {
+        // Create or update the kelas
+        $kelas = $this->kelasModel->updateOrCreate(
+            ['id' => $data['id'] ?? null],
+            [
+                'name' => $data['name'],
+            ]
+        );
+        return $kelas;
     }
 }
