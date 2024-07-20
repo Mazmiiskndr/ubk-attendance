@@ -35,6 +35,14 @@ $configData = Helper::appClasses();
             </a>
         </li>
 
+        <!-- Courses Menu  -->
+        <li class="menu-item {{ request()->is('courses*') || request()->is('course*') ? 'active' : '' }}">
+            <a href="{{ route('backend.courses.index') }}" class="menu-link ">
+                <i class="menu-icon tf-icons ti ti-books"></i>
+                <div>Mata Kuliah</div>
+            </a>
+        </li>
+
         <!-- User Menu Item -->
         <li class="menu-item {{ request()->is('users*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -57,14 +65,6 @@ $configData = Helper::appClasses();
             </ul>
         </li>
 
-        <!-- Courses Menu  -->
-        <li class="menu-item {{ request()->is('courses*') || request()->is('course*') ? 'active' : '' }}">
-            <a href="{{ route('backend.courses.index') }}" class="menu-link ">
-                <i class="menu-icon tf-icons ti ti-books"></i>
-                <div>Mata Kuliah</div>
-            </a>
-        </li>
-
         <!-- Settings Menu  -->
         <li class="menu-item {{ request()->is('settings*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -79,7 +79,7 @@ $configData = Helper::appClasses();
                         <div>Server</div>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->is('settings/class') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->is('settings/kelas') ? 'active' : '' }}">
                     <a href="{{ route('backend.kelas.index') }}" class="menu-link ml-4">
                         <div>Kelas</div>
                     </a>
