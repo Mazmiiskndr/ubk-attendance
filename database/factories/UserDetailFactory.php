@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Kelas;
 use App\Models\User;
 use App\Models\UserDetail;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,7 +24,7 @@ class UserDetailFactory extends Factory
             'user_id' => User::factory(),
             'ident_number' => $this->faker->numerify('##########'),
             'gender' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
-            'class' => $this->faker->randomElement(['A', 'B', 'C', 'D']),
+            'class_id' => Kelas::factory(),
             'semester' => random_int(1, 14),
             'phone_number' => $this->faker->phoneNumber,
             'birthdate' => $this->faker->date(),

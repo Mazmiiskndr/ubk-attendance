@@ -28,6 +28,6 @@ class UserDetail extends Model
 
     public function course(): BelongsTo
     {
-        return $this->belongsTo(Course::class, 'class_id');
+        return $this->belongsTo(Kelas::class, 'class_id');
     }
 }

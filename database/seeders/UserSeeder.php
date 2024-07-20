@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Kelas;
 use App\Models\Role;
 use App\Models\UserDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -45,6 +46,8 @@ class UserSeeder extends Seeder
             ],
         ];
 
+        $kelas = Kelas::first(); // Ambil ID kelas pertama
+
         foreach ($admins as $key => $value) {
             $role = Role::create([
                 'name' => $value['role_name'],
@@ -61,13 +64,13 @@ class UserSeeder extends Seeder
             ]);
 
             // Check if the user is a mahasiswa and create user detail
-            if ($value['role_name_alias'] === 'mahasiswa') {
+            if ($value['role_name_alias'] === 'mahasiswa' && $kelas) {
                 UserDetail::create([
                     'user_id' => $user->id,
+                    'class_id' => $kelas->id,
                     'gender' => 'Laki-laki',
                     'ident_number' => '7101200006',
                     'phone_number' => '082118923691',
-                    'class' => "B",
                     'semester' => 7,
                     'birthdate' => "2001-01-06",
                     'address' => "Perum Griya Mitra Batik Jl. Batik Keris E148",
