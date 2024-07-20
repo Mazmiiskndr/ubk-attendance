@@ -6,8 +6,8 @@
 @endpush
 
 @section('content')
-{{-- Is Allowed User To List Dosen --}}
-<h4 class="fw-bold py-3 mb-1">List Dosen</h4>
+@livewire('backend.lecture.cards')
+
 <!-- DataTable with Buttons -->
 <div class="card">
     <div class="card-header">
