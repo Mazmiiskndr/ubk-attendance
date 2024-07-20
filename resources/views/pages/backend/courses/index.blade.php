@@ -35,8 +35,6 @@
 
     {{-- Start List DataTable --}}
     <div class="card-body">
-        <label class="form-label" for="multicol-country">Country</label>
-
         @livewire('backend.course.datatables')
 
     </div>
