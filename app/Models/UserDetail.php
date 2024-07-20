@@ -28,6 +28,15 @@ class UserDetail extends Model
 
     public function kelas(): BelongsTo
     {
-        return $this->belongsTo(Kelas::class, 'class_id');
+        return $this->belongsTo(Kelas::class, 'class_id')->withDefault(function ($kelas, $model) {
+            $kelas->id = '-';
+            $kelas->name = '-';
+        });
+    }
+
+    // Accessor for class name
+    public function getClassNameAttribute()
+    {
+        return $this->kelas->name ?? '-';
     }
 }

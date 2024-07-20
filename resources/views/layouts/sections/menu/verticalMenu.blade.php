@@ -57,7 +57,7 @@ $configData = Helper::appClasses();
                         <div>List Mahasiswa</div>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->is('users/lecturers') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->is('users/lecturers*') || request()->is('users/lecture/*') ? 'active' : '' }}">
                     <a href="{{ route('backend.lecturers.index') }}" class="menu-link ml-4">
                         <div>List Dosen</div>
                     </a>

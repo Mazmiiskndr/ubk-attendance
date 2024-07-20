@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('class_id')->nullable();
             $table->string('gender', 10)->nullable();
             $table->string('ident_number', 15)->nullable();
             $table->integer('semester')->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->foreign('class_id')
                 ->references('id')
                 ->on('kelas')
-                ->onDelete('cascade')
+                ->onDelete('set null')
                 ->onUpdate('cascade');
 
             $table->foreign('user_id')
