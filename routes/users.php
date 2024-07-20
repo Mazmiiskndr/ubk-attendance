@@ -25,6 +25,7 @@ Route::middleware('auth')->prefix('users')->name('backend.')->group(function () 
     Route::get('student/detail/{id}', [UserController::class, 'showStudent'])->name('student.show');
     Route::get('student/update/{id}', [UserController::class, 'editStudent'])->name('student.edit');
     Route::get('lecturers', [UserController::class, 'lecturers'])->name('lecturers.index');
+    Route::get('lecturers/create', [UserController::class, 'createLecture'])->name('lecturers.create');
     Route::get('lecture/detail/{id}', [UserController::class, 'showLecture'])->name('lecture.show');
     Route::get('lecture/update/{id}', [UserController::class, 'editLecture'])->name('lecture.edit');
 });

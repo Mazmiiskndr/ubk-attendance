@@ -25,7 +25,6 @@
                     {{-- End Button for Create New Mahasiswa --}}
 
                     {{-- Start Button for Delete Batch --}}
-                    {{-- TODO: DELETE BATCH --}}
                     <x-button type="button" color="label-danger btn-sm" onclick="confirmDeleteBatch()">
                         <i class="tf-icons fas fa-trash-alt ti-xs me-1"></i>&nbsp; Hapus Massal
                     </x-button>

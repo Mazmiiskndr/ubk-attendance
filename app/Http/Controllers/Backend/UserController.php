@@ -60,6 +60,11 @@ class UserController extends Controller
         return view('pages.backend.users.lecturers');
     }
 
+    public function createLecture()
+    {
+        return view('pages.backend.users.lecture-create');
+    }
+
     public function showLecture($encodedId)
     {
         dd("TODO: Implement showLecture method");
