@@ -12,9 +12,9 @@ class UserDetail extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'user_id',
+        'class_id',
         'gender',
         'ident_number',
-        'class',
         'semester',
         'phone_number',
         'birthdate',
@@ -24,5 +24,10 @@ class UserDetail extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class, 'class_id');
     }
 }
