@@ -21,4 +21,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->name('backend.')->group(function () {
     // Route for list portfolios page
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::get('settings/kelas', [SettingController::class, 'kelas'])->name('kelas.index');
 });

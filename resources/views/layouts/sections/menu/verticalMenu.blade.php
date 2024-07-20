@@ -80,7 +80,7 @@ $configData = Helper::appClasses();
                     </a>
                 </li>
                 <li class="menu-item {{ request()->is('settings/class') ? 'active' : '' }}">
-                    <a href="" class="menu-link ml-4">
+                    <a href="{{ route('backend.kelas.index') }}" class="menu-link ml-4">
                         <div>Kelas</div>
                     </a>
                 </li>
