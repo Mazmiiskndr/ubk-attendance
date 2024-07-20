@@ -188,6 +188,49 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     }
 
     /**
+     * Get the data formatted for DataTables.
+     */
+    public function getLectureDatatables()
+    {
+        // Retrieve the groups data from the group model
+        $data = $this->getUsers("dosen", null);
+        // Return format the data for DataTables
+        return $this->formatDataTablesResponse(
+            $data,
+            [
+                'status' => function ($data) {
+                    $status = $data->status == 1 ? 'Aktif' : 'Tidak Aktif';
+                    $labelClass = $data->status == 1 ? 'bg-label-success' : 'bg-label-danger';
+                    return '<span class="badge ' . $labelClass . '">' . $status . '</span>';
+                },
+                'ident_number' => function ($data) {
+                    return $data->userDetail ? $data->userDetail->ident_number : '-';
+                },
+                'phone_number' => function ($data) {
+                    return $data->userDetail ? $data->userDetail->phone_number : '-';
+                },
+                'created_at' => function ($data) {
+                    return date('d-M-Y H:i', strtotime($data->created_at));
+                },
+                'action' => function ($data) {
+                    $encodedId = base64_encode($data->id);
+                    return $this->getActionButtons(
+                        $encodedId,
+                        'showLecture',
+                        'confirmDeleteLecture',
+                        'backend.lecture.edit',
+                        'link',
+                        'showDetail',
+                        'backend.lecture.show',
+                        'link'
+                    );
+
+                }
+            ]
+        );
+    }
+
+    /**
      * Get the validation rules for the form request.
      * @param string|null $userId The user ID.
      * @return array The validation rules.

@@ -3,7 +3,8 @@
 use App\Livewire\Backend\{
     Setting\Datatables as SettingDatatables,
     Setting\KelasDatatables as KelasDatatables,
-    Student\Datatables as UserDatatables,
+    Student\Datatables as StudentDatatables,
+    Lecture\Datatables as LectureDatatables,
     Course\Datatables as CourseDatatables,
     Course\ScheduleDatatables as ScheduleDatatables,
 };
@@ -24,14 +25,27 @@ use Illuminate\Support\Facades\Route;
 // Grouping datatable routes
 Route::prefix('livewire/backend/')->group(function () {
     // Route for list what i dos page
+    // Setting Datatables
     Route::get('setting/getDatatable', [SettingDatatables::class, 'getDatatable'])
         ->name('setting.getDatatable');
+
+    // Kelas Datatables
     Route::get('kelas/getDatatable', [KelasDatatables::class, 'getDatatable'])
         ->name('kelas.getDatatable');
-    Route::get('student/getDatatable', [UserDatatables::class, 'getDatatable'])
+
+    // Student Datatables
+    Route::get('student/getDatatable', [StudentDatatables::class, 'getDatatable'])
         ->name('student.getDatatable');
+
+    // Lecture Datatables
+    Route::get('lecture/getDatatable', [LectureDatatables::class, 'getDatatable'])
+        ->name('lecture.getDatatable');
+
+    // Course Datatables
     Route::get('course/getDatatable', [CourseDatatables::class, 'getDatatable'])
         ->name('course.getDatatable');
+
+    // Course Schedule Datatables
     Route::get('course-schedules/getDatatable/{courseId?}', [ScheduleDatatables::class, 'getDatatable'])
         ->name('course-schedules.getDatatable');
 });

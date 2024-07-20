@@ -36,12 +36,57 @@
     {{-- Start List DataTable --}}
     <div class="card-body">
 
-        {{-- @livewire('backend.resumes.datatables') --}}
+        @livewire('backend.lecture.datatables')
     </div>
     {{-- End List DataTable --}}
 
     @push('scripts')
-    @vite(['resources/assets/js/datatable/datatables.min.js'])
+    @vite([
+    'resources/assets/js/datatable/datatables.min.js',
+    'resources/assets/js/backend/users/lecturers-management.js'
+    ])
+    <script>
+        function confirmDeleteBatch() {
+            // Ambil semua lectureId yang dicentang
+            let lectureIds = Array.from(document.querySelectorAll('.lecturers-checkbox:checked')).map(el => el.value);
+
+            if (lectureIds.length > 0) {
+                showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
+                    // Emit an event untuk menghapus siswa yang dicentang
+                    Livewire.dispatch('deleteBatchLecturers', {
+                        lectureIds: lectureIds
+                    });
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error'
+                    , type: 'error'
+                    , title: 'Oops...'
+                    , text: 'Anda harus memilih setidaknya satu dosen untuk dihapus!'
+                    , customClass: {
+                        confirmButton: 'btn btn-primary'
+                        , buttonsStyling: false
+                    }
+                });
+            }
+        }
+
+        // Fungsi untuk menampilkan modal untuk MENGHAPUS!
+        function confirmDeleteLecture(lectureId) {
+            showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
+                Livewire.dispatch('confirmLecture', {
+                    lectureId: lectureId
+                });
+            });
+        }
+
+        function showLecture(lectureId) {
+            Livewire.dispatch('requestLectureById', {
+                lectureId: lectureId
+            });
+        }
+
+    </script>
     @endpush
 </div>
 

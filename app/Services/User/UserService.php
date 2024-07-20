@@ -20,6 +20,11 @@ interface UserService extends BaseService
     public function getStudentDatatables();
 
     /**
+     * Get the data formatted for DataTables.
+     */
+    public function getLectureDatatables();
+
+    /**
      * Count users with optional role alias, status, and gender
      * @param string|null $roleAlias
      * @param int|null $status

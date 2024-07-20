@@ -65,6 +65,14 @@ class UserServiceImplement extends Service implements UserService
     }
 
     /**
+     * Get the data formatted for DataTables.
+     */
+    public function getLectureDatatables()
+    {
+        return $this->handleRepositoryCall('getLectureDatatables');
+    }
+
+    /**
      * Get user by ID with role and optional user details
      * @param int $userId
      * @return \Illuminate\Database\Eloquent\Model|mixed
