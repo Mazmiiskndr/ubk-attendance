@@ -35,7 +35,6 @@ $configData = Helper::appClasses();
             </a>
         </li>
 
-        <!-- Dashboard Menu  -->
         <!-- User Menu Item -->
         <li class="menu-item {{ request()->is('users*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -58,19 +57,34 @@ $configData = Helper::appClasses();
             </ul>
         </li>
 
-        <!-- Settings Menu  -->
+        <!-- Courses Menu  -->
         <li class="menu-item {{ request()->is('courses*') || request()->is('course*') ? 'active' : '' }}">
             <a href="{{ route('backend.courses.index') }}" class="menu-link ">
                 <i class="menu-icon tf-icons ti ti-books"></i>
                 <div>Mata Kuliah</div>
             </a>
         </li>
+
         <!-- Settings Menu  -->
-        <li class="menu-item {{ request()->is('settings*') ? 'active' : '' }}">
-            <a href="{{ route('backend.settings.index') }}" class="menu-link ">
+        <li class="menu-item {{ request()->is('settings*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-settings"></i>
                 <div>Pengaturan</div>
             </a>
+
+            <!-- Submenu for User -->
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->is('settings') ? 'active' : '' }}">
+                    <a href="{{ route('backend.settings.index') }}" class="menu-link ml-4">
+                        <div>Server</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->is('settings/class') ? 'active' : '' }}">
+                    <a href="" class="menu-link ml-4">
+                        <div>Kelas</div>
+                    </a>
+                </li>
+            </ul>
         </li>
 
         @else
