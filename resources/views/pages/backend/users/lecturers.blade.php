@@ -91,11 +91,11 @@
 </div>
 
 {{-- START FORM CREATE DOSEN --}}
-{{-- @livewire('backend.resumes.create') --}}
+@livewire('backend.lecture.create')
 {{-- END FORM CREATE DOSEN --}}
 
 {{-- START FORM EDIT DOSEN --}}
-{{-- @livewire('backend.resumes.edit') --}}
+@livewire('backend.lecture.edit')
 {{-- END FORM EDIT DOSEN --}}
 
 @endsection
