@@ -92,11 +92,11 @@
 </div>
 
 {{-- START FORM CREATE KELAS --}}
-{{-- @livewire('backend.kelas.create-kelas') --}}
+@livewire('backend.setting.create-kelas')
 {{-- END FORM CREATE KELAS --}}
 
 {{-- START FORM EDIT KELAS --}}
-{{-- @livewire('backend.kelas.edit-kelas') --}}
+@livewire('backend.setting.edit-kelas')
 {{-- END FORM EDIT KELAS --}}
 
 @endsection
