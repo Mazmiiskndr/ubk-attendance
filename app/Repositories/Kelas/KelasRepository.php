@@ -12,4 +12,10 @@ interface KelasRepository extends Repository
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getKelas($limit);
+
+    /**
+     * Get the data formatted for DataTables for course kelas.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getKelasDatatables();
 }

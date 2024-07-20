@@ -12,4 +12,10 @@ interface KelasService extends BaseService
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getKelas($limit = null);
+
+    /**
+     * Get the data formatted for DataTables for course kelas.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getKelasDatatables();
 }

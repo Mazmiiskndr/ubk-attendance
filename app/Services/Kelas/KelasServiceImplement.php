@@ -29,4 +29,13 @@ class KelasServiceImplement extends Service implements KelasService
   {
     return $this->handleRepositoryCall('getKelas', [$limit]);
   }
+
+  /**
+   * Get the data formatted for DataTables for course kelas.
+   * @return \Illuminate\Http\JsonResponse
+   */
+  public function getKelasDatatables()
+  {
+    return $this->handleRepositoryCall('getKelasDatatables');
+  }
 }

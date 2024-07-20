@@ -2,6 +2,7 @@
 
 use App\Livewire\Backend\{
     Setting\Datatables as SettingDatatables,
+    Setting\KelasDatatables as KelasDatatables,
     Student\Datatables as UserDatatables,
     Course\Datatables as CourseDatatables,
     Course\ScheduleDatatables as ScheduleDatatables,
@@ -25,6 +26,8 @@ Route::prefix('livewire/backend/')->group(function () {
     // Route for list what i dos page
     Route::get('setting/getDatatable', [SettingDatatables::class, 'getDatatable'])
         ->name('setting.getDatatable');
+    Route::get('kelas/getDatatable', [KelasDatatables::class, 'getDatatable'])
+        ->name('kelas.getDatatable');
     Route::get('student/getDatatable', [UserDatatables::class, 'getDatatable'])
         ->name('student.getDatatable');
     Route::get('course/getDatatable', [CourseDatatables::class, 'getDatatable'])
