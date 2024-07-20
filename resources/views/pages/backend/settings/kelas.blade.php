@@ -18,7 +18,7 @@
             <div>
                 <div class="d-flex justify-content-sm-end flex-column flex-sm-row gap-1">
                     {{-- Start Button for Create New Kelas --}}
-                    <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0" data-bs-toggle="modal" data-bs-target="#createNewCourse">
+                    <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0" data-bs-toggle="modal" data-bs-target="#createNewKelas">
                         <i class="tf-icons fas fa-plus-circle ti-xs me-1"></i>&nbsp; Tambah Data Kelas
                     </x-button>
                     {{-- End Button for Create New Kelas --}}
@@ -41,21 +41,21 @@
     </div>
     {{-- End List DataTable --}}
 
-    {{-- @push('scripts')
+    @push('scripts')
     @vite([
     'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/courses/courses-management.js'
+    'resources/assets/js/backend/settings/kelas-management.js'
     ])
     <script>
         function confirmDeleteBatch() {
-            // Ambil semua courseId yang dicentang
-            let courseIds = Array.from(document.querySelectorAll('.courses-checkbox:checked')).map(el => el.value);
+            // Ambil semua kelasId yang dicentang
+            let kelasIds = Array.from(document.querySelectorAll('.kelas-checkbox:checked')).map(el => el.value);
 
-            if (courseIds.length > 0) {
+            if (kelasIds.length > 0) {
                 showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
                     // Emit an event untuk menghapus siswa yang dicentang
-                    Livewire.dispatch('deleteBatchCourses', {
-                        courseIds: courseIds
+                    Livewire.dispatch('deleteBatchKelas', {
+                        kelasIds: kelasIds
                     });
                 });
             } else {
@@ -73,30 +73,30 @@
         }
 
         // Fungsi untuk menampilkan modal untuk MENGHAPUS!
-        function confirmDeleteCourse(courseId) {
+        function confirmDeleteKelas(kelasId) {
             showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
-                Livewire.dispatch('confirmCourse', {
-                    courseId: courseId
+                Livewire.dispatch('confirmKelas', {
+                    kelasId: kelasId
                 });
             });
         }
 
-        function showCourse(courseId) {
-            Livewire.dispatch('requestCourseById', {
-                courseId: courseId
+        function showKelas(kelasId) {
+            Livewire.dispatch('requestKelasById', {
+                kelasId: kelasId
             });
         }
 
     </script>
-    @endpush --}}
+    @endpush
 </div>
 
 {{-- START FORM CREATE KELAS --}}
-{{-- @livewire('backend.course.create-course') --}}
+{{-- @livewire('backend.kelas.create-kelas') --}}
 {{-- END FORM CREATE KELAS --}}
 
 {{-- START FORM EDIT KELAS --}}
-{{-- @livewire('backend.course.edit-course') --}}
+{{-- @livewire('backend.kelas.edit-kelas') --}}
 {{-- END FORM EDIT KELAS --}}
 
 @endsection
