@@ -51,6 +51,10 @@
                         <span>{{ $student->userDetail->kelas->name ?? '-' }}</span>
                     </li>
                     <li class="mb-2 pt-1">
+                        <span class="fw-medium me-1">Semester:</span>
+                        <span>{{ $student->userDetail->semester ?? '-' }}</span>
+                    </li>
+                    <li class="mb-2 pt-1">
                         <span class="fw-medium me-1">No Telepon:</span>
                         <span>{{ $student->userDetail->phone_number ?? '-' }}</span>
                     </li>
@@ -67,7 +71,6 @@
                         <span>{{ $student->userDetail->address ?? "-" }}</span>
                     </li>
                 </ul>
-                {{-- TODO: --}}
                 <hr>
                 <div class="d-flex justify-content-center">
                     <a href="{{ route('backend.student.edit',base64_encode($student->id)) }}" class="btn btn-primary me-3"><i class="fa fa-edit"></i>&nbsp;Edit</a>

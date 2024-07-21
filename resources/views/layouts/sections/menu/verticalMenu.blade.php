@@ -44,6 +44,30 @@ $configData = Helper::appClasses();
         </li>
 
         <!-- User Menu Item -->
+        <li class="menu-item {{ request()->is('attendances*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-fingerprint"></i>
+                <div>Absensi</div>
+            </a>
+
+            <!-- Submenu for User -->
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->is('attendances/students*') || request()->is('attendances/student/*') ? 'active' : '' }}">
+                    {{-- TODO: --}}
+                    <a href="#" class="menu-link ml-4">
+                        <div>Mahasiswa</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->is('attendances/lecturers*') || request()->is('attendances/lecture/*') ? 'active' : '' }}">
+                    {{-- TODO: --}}
+                    <a href="#" class="menu-link ml-4">
+                        <div>Dosen</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- User Menu Item -->
         <li class="menu-item {{ request()->is('users*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-users"></i>
