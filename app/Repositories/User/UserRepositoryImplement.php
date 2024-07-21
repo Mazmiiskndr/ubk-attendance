@@ -19,13 +19,13 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
      */
     protected $userModel;
     protected $roleModel;
-    protected $userDetailMOdel;
+    protected $userDetailModel;
 
-    public function __construct(User $userModel, Role $roleModel, UserDetail $userDetailMOdel)
+    public function __construct(User $userModel, Role $roleModel, UserDetail $userDetailModel)
     {
         $this->userModel = $userModel;
         $this->roleModel = $roleModel;
-        $this->userDetailMOdel = $userDetailMOdel;
+        $this->userDetailModel = $userDetailModel;
     }
 
     /**
@@ -238,47 +238,33 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
      */
     public function getValidationRules(?string $userId = null, $roleAlias = null): array
     {
-        // Initialize password rule based on userId
-        // $passwordRule = $userId ? 'nullable|min:6|confirmed' : 'required|min:6|confirmed';
-        // Username and Email rules for unique validation
-        // $usernameRule = $userId ? 'required|min:5|max:32|regex:/^\S*$/u|unique:users,username' : 'nullable|min:5|max:32|regex:/^\S*$/u|unique:users,username';
         $identNumberRule = 'required|numeric|unique:user_details,ident_number';
-
-        // Username and Email rules for unique validation
         $emailRule = 'required|email|max:100|unique:users,email';
-        // $usernameRule = 'required|min:5|max:32|regex:/^\S*$/u|unique:users,username';
 
         if ($userId !== null) {
-            // $usernameRule .= ",$userId,id";
             $emailRule .= ",$userId,id";
             $identNumberRule .= ",$userId,user_id";
         }
 
-        // Determine the validation rules for semester and classId based on roleAlias
-        $semesterRule = 'required|integer|min:1';
-        $classIdRule = 'required|min:1';
-
-        if ($roleAlias === 'dosen') {
-            $semesterRule = 'nullable|integer|min:1';
-            $classIdRule = 'nullable|min:1';
-        }
-
-        return [
+        // Initialize base rules
+        $rules = [
             'name' => 'required|min:1',
             'identNumber' => $identNumberRule,
             'email' => $emailRule,
-            // 'username' => $usernameRule,
-            // 'password' => $passwordRule,
             'phoneNumber' => 'required|numeric|digits_between:10,15',
             'gender' => 'required',
             'birthDate' => 'required|date',
-            'semester' => $semesterRule,
-            'classId' => $classIdRule,
             'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
             'address' => 'required|max:255',
-            // 'username' => $usernameRule,
-            // 'password' => $passwordRule
         ];
+
+        // Add additional rules for non-dosen roles
+        if ($roleAlias !== 'dosen') {
+            $rules['semester'] = 'required|integer|min:1';
+            $rules['classId'] = 'required|min:1';
+        }
+
+        return $rules;
     }
 
     /**
@@ -329,7 +315,7 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     {
         // Create or update the user
         $user = $this->userModel->updateOrCreate(
-            ['id' => $data['idStudent'] ?? null],
+            ['id' => $data['id'] ?? null],
             [
                 'name' => $data['name'],
                 'username' => $data['identNumber'], // Assuming identNumber is used as username
@@ -337,22 +323,29 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
                 'images' => $data['images'] ?? 'default.png', // Default image is 'default.png
                 'password' => Hash::make($data['identNumber']), // Default password is identNumber
                 'status' => 1, // You can change the default status as needed
-                'role_id' => $this->getRoleIdByName($roleAlias), // Set role as mahasiswa
+                'role_id' => $this->getRoleIdByName($roleAlias), // Set role based on roleAlias
             ]
         );
 
+        // Prepare the data for user detail
+        $userDetailData = [
+            'gender' => $data['gender'],
+            'ident_number' => $data['identNumber'],
+            'phone_number' => $data['phoneNumber'],
+            'birthdate' => $data['birthDate'],
+            'address' => $data['address'],
+        ];
+
+        // Add semester and classId only if role is mahasiswa
+        if ($roleAlias === 'mahasiswa') {
+            $userDetailData['semester'] = $data['semester'];
+            $userDetailData['class_id'] = $data['classId'];
+        }
+
         // Create or update the user detail
-        $this->userDetailMOdel->updateOrCreate(
+        $this->userDetailModel->updateOrCreate(
             ['user_id' => $user->id],
-            [
-                'gender' => $data['gender'],
-                'ident_number' => $data['identNumber'],
-                'semester' => $data['semester'],
-                'class_id' => $data['classId'],
-                'phone_number' => $data['phoneNumber'],
-                'birthdate' => $data['birthDate'],
-                'address' => $data['address'],
-            ]
+            $userDetailData
         );
 
         return $user;

@@ -21,5 +21,4 @@
 @vite(['resources/assets/vendor/libs/flatpickr/flatpickr.js'])
 @endpush
 </div>
-
 @endsection

@@ -71,7 +71,7 @@ class UpdateForm extends Form
             $validated['images'] = $this->existingImage; // Default image
         }
         // Sertakan idStudent dalam data yang divalidasi
-        $validated['idStudent'] = $this->idStudent;
+        $validated['id'] = $this->idStudent;
 
         // Coba buat atau perbarui pengguna
         $user = $userService->storeOrUpdateUser($validated);
