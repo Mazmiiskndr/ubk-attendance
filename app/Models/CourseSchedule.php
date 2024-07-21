@@ -6,6 +6,7 @@ use App\Enums\DayOfWeek;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 
 class CourseSchedule extends Model
 {
@@ -36,7 +37,7 @@ class CourseSchedule extends Model
     // Mutator for check_in_start
     public function setCheckInStartAttribute($value)
     {
-        $this->attributes['check_in_start'] = Carbon::createFromFormat('H:i:s', $value)->format('H:i:s');
+        $this->attributes['check_in_start'] = $this->parseTime($value);
     }
 
     // Accessor for check_in_end
@@ -48,7 +49,7 @@ class CourseSchedule extends Model
     // Mutator for check_in_end
     public function setCheckInEndAttribute($value)
     {
-        $this->attributes['check_in_end'] = Carbon::createFromFormat('H:i:s', $value)->format('H:i:s');
+        $this->attributes['check_in_end'] = $this->parseTime($value);
     }
 
     // Accessor for check_out_start
@@ -60,7 +61,7 @@ class CourseSchedule extends Model
     // Mutator for check_out_start
     public function setCheckOutStartAttribute($value)
     {
-        $this->attributes['check_out_start'] = Carbon::createFromFormat('H:i:s', $value)->format('H:i:s');
+        $this->attributes['check_out_start'] = $this->parseTime($value);
     }
 
     // Accessor for check_out_end
@@ -72,7 +73,17 @@ class CourseSchedule extends Model
     // Mutator for check_out_end
     public function setCheckOutEndAttribute($value)
     {
-        $this->attributes['check_out_end'] = Carbon::createFromFormat('H:i:s', $value)->format('H:i:s');
+        $this->attributes['check_out_end'] = $this->parseTime($value);
+    }
+
+    // Method to parse time
+    private function parseTime($value)
+    {
+        try {
+            return Carbon::createFromFormat('H:i', $value)->format('H:i:s');
+        } catch (InvalidArgumentException $e) {
+            throw new InvalidArgumentException("Error: Not enough data available to satisfy format. Ensure the time format is 'H:i'.");
+        }
     }
 
     public function course()

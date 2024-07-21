@@ -24,10 +24,10 @@ class CourseScheduleFactory extends Factory
         return [
             'course_id' => Course::factory(),
             'day' => $this->faker->randomElement($days)->value,
-            'check_in_start' => $this->faker->time(),
-            'check_in_end' => $this->faker->time(),
-            'check_out_start' => $this->faker->time(),
-            'check_out_end' => $this->faker->time(),
+            'check_in_start' => $this->faker->time('H:i'),
+            'check_in_end' => $this->faker->time('H:i'),
+            'check_out_start' => $this->faker->time('H:i'),
+            'check_out_end' => $this->faker->time('H:i'),
         ];
     }
 }

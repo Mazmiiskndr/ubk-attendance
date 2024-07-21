@@ -43,29 +43,55 @@ $configData = Helper::appClasses();
             </a>
         </li>
 
-        <!-- User Menu Item -->
+        <!-- Attendances Item -->
         <li class="menu-item {{ request()->is('attendances*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-fingerprint"></i>
-                <div>Absensi</div>
+                <div>Presensi</div>
             </a>
 
             <!-- Submenu for User -->
             <ul class="menu-sub">
+                <!-- Submenu for Students -->
                 <li class="menu-item {{ request()->is('attendances/students*') || request()->is('attendances/student/*') ? 'active' : '' }}">
-                    {{-- TODO: --}}
-                    <a href="#" class="menu-link ml-4">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle ml-4">
                         <div>Mahasiswa</div>
                     </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item {{ request()->is('attendances/students/date*') ? 'active' : '' }}" style="margin-right: 20px;">
+                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                                <div>Pertanggal</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('attendances/students/month*') ? 'active' : '' }}" style="margin-right: 20px;">
+                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                                <div>Perbulan</div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+
+                <!-- Submenu for Lecturers -->
                 <li class="menu-item {{ request()->is('attendances/lecturers*') || request()->is('attendances/lecture/*') ? 'active' : '' }}">
-                    {{-- TODO: --}}
-                    <a href="#" class="menu-link ml-4">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle ml-4">
                         <div>Dosen</div>
                     </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item {{ request()->is('attendances/lecturers/date*') ? 'active' : '' }}" style="margin-right: 20px;">
+                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                                <div>Pertanggal</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('attendances/lecturers/month*') ? 'active' : '' }}" style="margin-right: 20px;">
+                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                                <div>Perbulan</div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>
+
 
         <!-- User Menu Item -->
         <li class="menu-item {{ request()->is('users*') ? 'active open' : '' }}">
