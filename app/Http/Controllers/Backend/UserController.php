@@ -67,36 +67,34 @@ class UserController extends Controller
 
     public function showLecture($encodedId)
     {
-        dd("TODO: Implement showLecture method");
-        // try {
-        //     $id = base64_decode($encodedId);
-        //     if (!$id) {
-        //         throw new \InvalidArgumentException("Invalid ID provided.");
-        //     }
+        try {
+            $id = base64_decode($encodedId);
+            if (!$id) {
+                throw new \InvalidArgumentException("Invalid ID provided.");
+            }
 
-        //     $lecture = $this->userService->getUserById($id);
-        //     return view('pages.backend.users.show-lecture', compact('lecture'));
-        // } catch (\InvalidArgumentException $e) {
-        //     // Handle the exception, for example by redirecting back with an error message
-        //     return redirect()->back()->with('error', $e->getMessage());
-        // }
+            $lecture = $this->userService->getUserById($id);
+            return view('pages.backend.users.show-lecture', compact('lecture'));
+        } catch (\InvalidArgumentException $e) {
+            // Handle the exception, for example by redirecting back with an error message
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function editLecture($encodedId)
     {
-        dd("TODO: Implement editLecture method");
-        // try {
-        //     $id = base64_decode($encodedId);
-        //     if (!$id) {
-        //         throw new \InvalidArgumentException("Invalid ID provided.");
-        //     }
+        try {
+            $id = base64_decode($encodedId);
+            if (!$id) {
+                throw new \InvalidArgumentException("Invalid ID provided.");
+            }
 
-        //     $lecture = $this->userService->getUserById($id);
-        //     return view('pages.backend.users.edit-lecture', compact('lecture'));
-        // } catch (\InvalidArgumentException $e) {
-        //     // Handle the exception, for example by redirecting back with an error message
-        //     return redirect()->back()->with('error', $e->getMessage());
-        // }
+            $lecture = $this->userService->getUserById($id);
+            return view('pages.backend.users.edit-lecture', compact('lecture'));
+        } catch (\InvalidArgumentException $e) {
+            // Handle the exception, for example by redirecting back with an error message
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
 }

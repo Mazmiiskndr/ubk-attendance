@@ -1,5 +1,5 @@
 @extends('layouts/layoutMaster')
-@section('title', 'Edit Mahasiswa')
+@section('title', 'Edit Dosen')
 
 @push('styles')
 @vite(['resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
@@ -7,12 +7,12 @@
 
 @section('content')
 <h4 class="py-3 mb-2">
-    <span class="text-muted fw-light">List Mahasiswa /</span> Edit Mahasiswa
+    <span class="text-muted fw-light">List Dosen /</span> Edit Dosen
 </h4>
 
 <div class="row">
     <div class="col-md-12">
-        @livewire('backend.student.edit', ['student' => $student])
+        @livewire('backend.lecture.edit', ['lecture' => $lecture])
     </div>
 </div>
 
