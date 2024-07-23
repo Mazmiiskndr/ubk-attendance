@@ -33,6 +33,7 @@ class RouteServiceProvider extends ServiceProvider
             $this->registerUsersRoutes();
             $this->registerSettingsRoutes();
             $this->registerCoursesRoutes();
+            $this->registerAttendancesRoutes();
             $this->registerDatatablesRoutes();
         });
     }
@@ -90,6 +91,17 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/courses.php'));
+    }
+
+    /**
+     * Register routes for the attendances section.
+     * @return void
+     */
+    protected function registerAttendancesRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/attendances.php'));
     }
 
     /**
