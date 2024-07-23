@@ -12,12 +12,12 @@ class AttendanceController extends Controller
         return view('pages.backend.attendances.students.date');
     }
 
-    public function editStudentAttendanceByDate()
+    public function editStudentAttendanceByDate($id)
     {
         dd("TODO:");
     }
 
-    public function detailStudentAttendanceByDate()
+    public function detailStudentAttendanceByDate($id)
     {
         dd("TODO:");
     }
@@ -27,12 +27,12 @@ class AttendanceController extends Controller
         return view('pages.backend.attendances.students.month');
     }
 
-    public function editStudentAttendanceByMonth()
+    public function editStudentAttendanceByMonth($id)
     {
         dd("TODO:");
     }
 
-    public function detailStudentAttendanceByMonth()
+    public function detailStudentAttendanceByMonth($id)
     {
         dd("TODO:");
     }

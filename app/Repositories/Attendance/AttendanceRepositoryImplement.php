@@ -97,6 +97,18 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
         return $this->formatDataTablesResponse(
             $data,
             [
+                'check_in' => function ($data) {
+                    return date("H:i", strtotime($data->check_in)) ?? '-';
+                },
+                'check_out' => function ($data) {
+                    return date("H:i", strtotime($data->check_out)) ?? '-';
+                },
+                'attendance_date' => function ($data) {
+                    return date("Y-m-d", strtotime($data->attendance_date)) ?? '-';
+                },
+                'status' => function ($data) {
+                    return $data->status ?? '-';
+                },
                 'student' => function ($data) {
                     return $data->user ? $data->user->name : '-';
                 },
@@ -107,10 +119,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         'showAttendance',
                         // 'confirmDeleteCourse',
                         null,
-                        'attendances.students.date.edit',
+                        'backend.attendances.students.date.edit',
                         null,
                         'showDetail',
-                        'attendances.students.date.show',
+                        'backend.attendances.students.date.show',
                         'link'
                     );
 

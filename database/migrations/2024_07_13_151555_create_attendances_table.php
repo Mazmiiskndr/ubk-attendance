@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+
     /**
      * Run the migrations.
      */
@@ -14,17 +15,17 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('course_schedule_id');
-            $table->dateTime('check_in');
-            $table->dateTime('check_out')->nullable();
-            $table->dateTime('attendance_date');
+            $table->time('check_in');
+            $table->time('check_out')->nullable();
+            $table->date('attendance_date');
             $table->string('image_in', 191)->nullable();
             $table->string('image_out', 191)->nullable();
             $table->enum('status', [
-                'H',
-                'S',
-                'I',
-                'T',
-                'A'
+                'H', // Hadir
+                'S', // Sakit
+                'I', // Izin
+                'T', // Terlambat
+                'A'  // Alpha
             ]);
             $table->text('remarks')->nullable();
             $table->timestamps();

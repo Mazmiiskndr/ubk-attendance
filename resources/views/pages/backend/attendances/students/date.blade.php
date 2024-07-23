@@ -22,13 +22,14 @@
 
     {{-- Start List DataTable --}}
     <div class="card-body">
-        {{-- @livewire('backend.course.datatables') --}}
+        @livewire('backend.attendance.student.date-datatables')
     </div>
     {{-- End List DataTable --}}
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js'
+    'resources/assets/js/datatable/datatables.min.js',
+    'resources/assets/js/backend/attendances/student-by-date-management.js'
     ])
     {{-- <script>
         function confirmDeleteBatch() {

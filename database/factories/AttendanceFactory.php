@@ -22,8 +22,8 @@ class AttendanceFactory extends Factory
         return [
             'user_id' => User::factory(),
             'course_schedule_id' => CourseSchedule::factory(),
-            'check_in' => $this->faker->dateTimeThisMonth(),
-            'check_out' => $this->faker->optional()->dateTimeThisMonth(),
+            'check_in' => $this->faker->time(),
+            'check_out' => $this->faker->optional()->time(),
             'attendance_date' => $this->faker->dateTimeThisMonth(),
             'image_in' => $this->faker->optional()->imageUrl(),
             'image_out' => $this->faker->optional()->imageUrl(),
