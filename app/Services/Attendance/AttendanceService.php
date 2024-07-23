@@ -29,5 +29,5 @@ interface AttendanceService extends BaseService
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function deleteCourses($attendanceIds);
+    public function deleteAttendances($attendanceIds);
 }

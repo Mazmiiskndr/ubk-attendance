@@ -29,5 +29,5 @@ interface AttendanceRepository extends Repository
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function deleteCourses($attendanceIds);
+    public function deleteAttendances($attendanceIds);
 }

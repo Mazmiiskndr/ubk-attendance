@@ -49,7 +49,7 @@ class AttendanceServiceImplement extends Service implements AttendanceService
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function deleteCourses($attendanceIds)
+    public function deleteAttendances($attendanceIds)
     {
         return $this->handleRepositoryCall('deleteCourses', [$attendanceIds]);
     }

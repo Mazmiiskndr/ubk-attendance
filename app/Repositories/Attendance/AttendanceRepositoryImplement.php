@@ -68,7 +68,7 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function deleteCourses($attendanceIds)
+    public function deleteAttendances($attendanceIds)
     {
         // Ensure $attendanceIds is an array
         $attendanceIds = is_array($attendanceIds) ? $attendanceIds : [$attendanceIds];
