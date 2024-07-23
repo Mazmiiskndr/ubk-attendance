@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Attendance;
 
+use App\Enums\AttendanceStatus;
 use App\Traits\{DataTablesTrait, ActionsButtonTrait};
 use Carbon\Carbon;
 use LaravelEasyRepository\Implementations\Eloquent;
@@ -98,16 +99,24 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
             $data,
             [
                 'check_in' => function ($data) {
-                    return date("H:i", strtotime($data->check_in)) ?? '-';
+                    return date("H:i:s", strtotime($data->check_in)) ?? '-';
                 },
                 'check_out' => function ($data) {
-                    return date("H:i", strtotime($data->check_out)) ?? '-';
+                    return date("H:i:s", strtotime($data->check_out)) ?? '-';
                 },
                 'attendance_date' => function ($data) {
                     return date("Y-m-d", strtotime($data->attendance_date)) ?? '-';
                 },
                 'status' => function ($data) {
-                    return $data->status ?? '-';
+                    $status = AttendanceStatus::from($data->status);
+                    $labelClass = match ($status) {
+                        AttendanceStatus::Hadir => 'bg-success',
+                        AttendanceStatus::Sakit => 'bg-warning',
+                        AttendanceStatus::Izin => 'bg-info',
+                        AttendanceStatus::Terlambat => 'bg-secondary',
+                        AttendanceStatus::Alpha => 'bg-danger',
+                    };
+                    return '<span class="badge ' . $labelClass . '">' . $status->name . '</span>';
                 },
                 'student' => function ($data) {
                     return $data->user ? $data->user->name : '-';
@@ -125,7 +134,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         'backend.attendances.students.date.show',
                         'link'
                     );
-
                 }
             ]
         );
