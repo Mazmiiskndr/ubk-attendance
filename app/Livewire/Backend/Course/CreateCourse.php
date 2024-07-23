@@ -22,7 +22,15 @@ class CreateCourse extends Component
 
     public function mount(UserService $userService)
     {
-        $this->lecturers = $userService->getUsers('dosen');
+        $lectureId = auth()->user()->id;
+        $roleAlias = auth()->user()->role->name_alias;
+        if ($roleAlias == 'dosen') {
+            $lecturer = $userService->getUserById($lectureId);
+            $this->lecturers = collect([$lecturer]);
+            $this->form->lecturerId = $lectureId;
+        } else {
+            $this->lecturers = $userService->getUsers('dosen');
+        }
     }
 
     public function updated($property)
@@ -62,6 +70,12 @@ class CreateCourse extends Component
     public function resetFields()
     {
         $this->form->name = '';
-        $this->form->lecturerId = '';
+        $lectureId = auth()->user()->id;
+        $roleAlias = auth()->user()->role->name_alias;
+        if ($roleAlias == 'dosen') {
+            $this->form->lecturerId = $lectureId;
+        } else {
+            $this->form->lecturerId = '';
+        }
     }
 }

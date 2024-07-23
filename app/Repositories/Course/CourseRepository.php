@@ -7,11 +7,12 @@ use LaravelEasyRepository\Repository;
 interface CourseRepository extends Repository
 {
     /**
-     * Get all course with limit
+     * Get all courses with optional limit and lecture ID
      * @param int|null $limit
+     * @param int|null $lectureId
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getCourses($limit);
+    public function getCourses($limit, $lectureId);
 
     /**
      * Get all course schedules with limit and optional course ID

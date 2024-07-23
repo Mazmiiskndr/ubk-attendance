@@ -21,13 +21,14 @@ class CourseServiceImplement extends Service implements CourseService
   }
 
   /**
-   * Get all course with limit
+   * Get all courses with optional limit and lecture ID
    * @param int|null $limit
+   * @param int|null $lectureId
    * @return \Illuminate\Database\Eloquent\Collection|static[]
    */
-  public function getCourses($limit = null)
+  public function getCourses($limit = null, $lectureId = null)
   {
-    return $this->handleRepositoryCall('getCourses', [$limit]);
+    return $this->handleRepositoryCall('getCourses', [$limit, $lectureId]);
   }
 
   /**
