@@ -2,12 +2,14 @@
 
 namespace App\Repositories\Attendance;
 
+use App\Traits\{DataTablesTrait, ActionsButtonTrait};
 use Carbon\Carbon;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Attendance;
 
 class AttendanceRepositoryImplement extends Eloquent implements AttendanceRepository
 {
+    use DataTablesTrait, ActionsButtonTrait;
     /**
      * Model class to be used in this repository for the common methods inside Eloquent
      * Don't remove or change $this->model variable name
@@ -84,5 +86,37 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
         $this->attendanceModel->whereIn('id', $attendanceIds)->delete();
     }
 
+    /**
+     * Get the data formatted for DataTables for course schedules.
+     */
+    public function getDatatablesByDate()
+    {
+        // Mengambil data kehadiran berdasarkan tanggal hari ini
+        $today = Carbon::today()->toDateString();
+        $data = $this->getAttendances(null, null, $today);
+        // Return format the data for DataTables
+        return $this->formatDataTablesResponse(
+            $data,
+            [
+                'student' => function ($data) {
+                    return $data->user ? $data->user->name : '-';
+                },
+                'action' => function ($data) {
+                    $encodedId = base64_encode($data->id);
+                    return $this->getActionButtons(
+                        $encodedId,
+                        'showAttendance',
+                        // 'confirmDeleteCourse',
+                        null,
+                        'attendances.students.date.edit',
+                        null,
+                        'showDetail',
+                        'attendances.students.date.show',
+                        'link'
+                    );
 
+                }
+            ]
+        );
+    }
 }

@@ -12,8 +12,28 @@ class AttendanceController extends Controller
         return view('pages.backend.attendances.students.date');
     }
 
+    public function editStudentAttendanceByDate()
+    {
+        dd("TODO:");
+    }
+
+    public function detailStudentAttendanceByDate()
+    {
+        dd("TODO:");
+    }
+
     public function showStudentAttendanceByMonth()
     {
         return view('pages.backend.attendances.students.month');
+    }
+
+    public function editStudentAttendanceByMonth()
+    {
+        dd("TODO:");
+    }
+
+    public function detailStudentAttendanceByMonth()
+    {
+        dd("TODO:");
     }
 }
