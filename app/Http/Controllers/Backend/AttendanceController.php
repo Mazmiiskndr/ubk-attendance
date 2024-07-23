@@ -11,6 +11,7 @@ class AttendanceController extends Controller
     {
         return view('pages.backend.attendances.students.date');
     }
+
     public function showStudentAttendanceByMonth()
     {
         return view('pages.backend.attendances.students.month');

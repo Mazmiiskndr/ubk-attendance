@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\{Role, Setting, User, UserDetail};
+use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\CourseSchedule;
 use App\Models\Kelas;
@@ -35,5 +36,7 @@ class DatabaseSeeder extends Seeder
             ->count(10)
             ->has(CourseSchedule::factory()->count(3), 'schedules') // Menggunakan nama relasi 'schedules'
             ->create();
+
+        Attendance::factory()->count(10)->create();
     }
 }

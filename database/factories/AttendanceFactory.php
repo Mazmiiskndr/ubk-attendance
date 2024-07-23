@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\AttendanceStatus;
+use App\Models\{User, CourseSchedule};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,10 +16,19 @@ class AttendanceFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
+        $attendanceStatus = AttendanceStatus::cases();
         return [
-            //
+            'user_id' => User::factory(),
+            'course_schedule_id' => CourseSchedule::factory(),
+            'check_in' => $this->faker->dateTimeThisMonth(),
+            'check_out' => $this->faker->optional()->dateTimeThisMonth(),
+            'attendance_date' => $this->faker->dateTimeThisMonth(),
+            'image_in' => $this->faker->optional()->imageUrl(),
+            'image_out' => $this->faker->optional()->imageUrl(),
+            'status' => $this->faker->randomElement($attendanceStatus)->value,
+            'remarks' => $this->faker->optional()->text(),
         ];
     }
 }

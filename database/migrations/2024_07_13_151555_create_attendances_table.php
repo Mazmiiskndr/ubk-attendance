@@ -19,7 +19,13 @@ return new class extends Migration {
             $table->dateTime('attendance_date');
             $table->string('image_in', 191)->nullable();
             $table->string('image_out', 191)->nullable();
-            $table->string('status');
+            $table->enum('status', [
+                'H',
+                'S',
+                'I',
+                'T',
+                'A'
+            ]);
             $table->text('remarks')->nullable();
             $table->timestamps();
 
