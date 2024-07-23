@@ -91,9 +91,41 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
      */
     public function getDatatablesByDate()
     {
-        // Mengambil data kehadiran berdasarkan tanggal hari ini
         $today = Carbon::today()->toDateString();
         $data = $this->getAttendances(null, null, $today);
+        // Return format the data for DataTables
+        return $this->formatDataTablesResponse(
+            $data,
+            [
+                'student' => function ($data) {
+                    return $data->user ? $data->user->name : '-';
+                },
+                'action' => function ($data) {
+                    $encodedId = base64_encode($data->id);
+                    return $this->getActionButtons(
+                        $encodedId,
+                        'showAttendance',
+                        // 'confirmDeleteCourse',
+                        null,
+                        'attendances.students.date.edit',
+                        null,
+                        'showDetail',
+                        'attendances.students.date.show',
+                        'link'
+                    );
+
+                }
+            ]
+        );
+    }
+
+    /**
+     * Get the data formatted for DataTables for course schedules.
+     */
+    public function getDatatablesByMonth()
+    {
+        $month = Carbon::now()->format('Y-m');
+        $data = $this->getAttendances(null, null, null, $month);
         // Return format the data for DataTables
         return $this->formatDataTablesResponse(
             $data,

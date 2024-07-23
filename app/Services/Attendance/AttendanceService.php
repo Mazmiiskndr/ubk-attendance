@@ -30,4 +30,14 @@ interface AttendanceService extends BaseService
      * @throws \InvalidArgumentException
      */
     public function deleteAttendances($attendanceIds);
+
+    /**
+     * Get the data formatted for DataTables for course schedules.
+     */
+    public function getDatatablesByDate();
+
+    /**
+     * Get the data formatted for DataTables for course schedules.
+     */
+    public function getDatatablesByMonth();
 }

@@ -53,4 +53,20 @@ class AttendanceServiceImplement extends Service implements AttendanceService
     {
         return $this->handleRepositoryCall('deleteCourses', [$attendanceIds]);
     }
+
+    /**
+     * Get the data formatted for DataTables for course schedules.
+     */
+    public function getDatatablesByDate()
+    {
+        return $this->handleRepositoryCall('getDatatablesByDate');
+    }
+
+    /**
+     * Get the data formatted for DataTables for course schedules.
+     */
+    public function getDatatablesByMonth()
+    {
+        return $this->handleRepositoryCall('getDatatablesByMonth');
+    }
 }
