@@ -22,17 +22,17 @@ class AttendanceController extends Controller
         dd("TODO:");
     }
 
-    public function showStudentAttendanceByMonth()
+    public function showStudentAttendanceByWeek()
     {
-        return view('pages.backend.attendances.students.month');
+        return view('pages.backend.attendances.students.week');
     }
 
-    public function editStudentAttendanceByMonth($id)
+    public function editStudentAttendanceByWeek($id)
     {
         dd("TODO:");
     }
 
-    public function detailStudentAttendanceByMonth($id)
+    public function detailStudentAttendanceByWeek($id)
     {
         dd("TODO:");
     }

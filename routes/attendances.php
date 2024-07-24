@@ -20,7 +20,7 @@ Route::middleware('auth')->name('backend.')->group(function () {
     Route::get('attendances/students/date/update/{id}', [AttendanceController::class, 'editStudentAttendanceByDate'])->name('attendances.students.date.edit');
     Route::get('attendances/students/date/detail/{id}', [AttendanceController::class, 'detailStudentAttendanceByDate'])->name('attendances.students.date.show');
 
-    Route::get('attendances/students/month', [AttendanceController::class, 'showStudentAttendanceByMonth'])->name('attendances.students.month');
-    Route::get('attendances/students/month/update/{id}', [AttendanceController::class, 'editStudentAttendanceByMonth'])->name('attendances.students.month.edit');
-    Route::get('attendances/students/month/detail/{id}', [AttendanceController::class, 'detailStudentAttendanceByMonth'])->name('attendances.students.month.show');
+    Route::get('attendances/students/week', [AttendanceController::class, 'showStudentAttendanceByWeek'])->name('attendances.students.week');
+    Route::get('attendances/students/week/update/{id}', [AttendanceController::class, 'editStudentAttendanceByWeek'])->name('attendances.students.week.edit');
+    Route::get('attendances/students/week/detail/{id}', [AttendanceController::class, 'detailStudentAttendanceByWeek'])->name('attendances.students.week.show');
 });

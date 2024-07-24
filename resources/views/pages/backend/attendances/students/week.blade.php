@@ -1,5 +1,5 @@
 @extends('layouts/layoutMaster')
-@section('title', 'Presensi Mahasiswa Perbulan')
+@section('title', 'Presensi Mahasiswa Perminggu')
 
 @push('styles')
 @vite(['resources/assets/js/datatable/datatables.min.css'])
@@ -8,27 +8,37 @@
 @section('content')
 {{-- Is Allowed User To List Presensi Mahasiswa --}}
 <h4 class="py-3">
-    <span class="text-muted fw-light">Presensi / Mahasiswa /</span> Perbulan
+    <span class="text-muted fw-light">Presensi / Mahasiswa /</span> Perminggu
 </h4>
 <!-- DataTable with Buttons -->
+@php
+use Carbon\Carbon;
+
+$startOfWeek = Carbon::now()->startOfWeek(Carbon::MONDAY)->format('Y/m/d');
+$endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY)->format('Y/m/d');
+@endphp
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="mb-1 mb-sm-0 text-center text-sm-start">
-                <h4 class="card-title">Tabel Presensi Mahasiswa Perbulan</h4>
+                <h4 class="card-title">Tabel Presensi Mahasiswa Perminggu</h4>
+            </div>
+            <div>
+                <h5 class="card-title">Menampilkan Tanggal: {{ $startOfWeek }} - {{ $endOfWeek }}</h5>
             </div>
         </div>
     </div>
 
     {{-- Start List DataTable --}}
     <div class="card-body">
-        {{-- @livewire('backend.course.datatables') --}}
+        @livewire('backend.attendance.student.month-datatables')
     </div>
     {{-- End List DataTable --}}
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js'
+    'resources/assets/js/datatable/datatables.min.js',
+    'resources/assets/js/backend/attendances/student-by-month-management.js'
     ])
     {{-- <script>
         function confirmDeleteBatch() {

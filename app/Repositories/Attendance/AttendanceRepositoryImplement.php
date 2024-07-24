@@ -24,14 +24,15 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     }
 
     /**
-     * Get all attendance with optional limit, user ID, date, and month
+     * Get all attendance with optional limit, user ID, date, start of week, and end of week
      * @param int|null $limit
      * @param int|null $userId
      * @param string|null $date
-     * @param string|null $month
+     * @param string|null $startOfWeek
+     * @param string|null $endOfWeek
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getAttendances($limit = null, $userId = null, $date = null, $month = null)
+    public function getAttendances($limit = null, $userId = null, $date = null, $startOfWeek = null, $endOfWeek = null)
     {
         $query = $this->attendanceModel->with(['user', 'courseSchedule.course'])->latest();
 
@@ -43,8 +44,8 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
             $query->whereDate('attendance_date', $date);
         }
 
-        if ($month !== null) {
-            $query->whereMonth('attendance_date', Carbon::parse($month)->month);
+        if ($startOfWeek !== null && $endOfWeek !== null) {
+            $query->whereBetween('attendance_date', [$startOfWeek, $endOfWeek]);
         }
 
         if ($limit !== null) {
@@ -94,15 +95,18 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     {
         $today = Carbon::today()->toDateString();
         $data = $this->getAttendances(null, null, $today);
+        if ($data->isEmpty()) {
+            return datatables()->of(collect())->make(true);
+        }
         // Return format the data for DataTables
         return $this->formatDataTablesResponse(
             $data,
             [
                 'check_in' => function ($data) {
-                    return date("H:i:s", strtotime($data->check_in)) ?? '-';
+                    return $data->check_in ?? '-';
                 },
                 'check_out' => function ($data) {
-                    return date("H:i:s", strtotime($data->check_out)) ?? '-';
+                    return $data->check_out ?? '-';
                 },
                 'attendance_date' => function ($data) {
                     return date("Y-m-d", strtotime($data->attendance_date)) ?? '-';
@@ -140,35 +144,110 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     }
 
     /**
-     * Get the data formatted for DataTables for course schedules.
+     * Get the data formatted for DataTables for attendances by month.
      */
-    public function getDatatablesByMonth()
+    public function getDatatablesByWeek()
     {
-        $month = Carbon::now()->format('Y-m');
-        $data = $this->getAttendances(null, null, null, $month);
+        $startOfWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
+        $endOfWeek = Carbon::now()->endOfWeek()->format('Y-m-d');
+        $groupedData = $this->getAttendances(null, null, null, $startOfWeek, $endOfWeek)->groupBy('user_id');
+        if ($groupedData->isEmpty()) {
+            return datatables()->of(collect())->make(true);
+        }
+        $daysInWeek = 7;
+        $formattedData = $groupedData->map(function ($attendances, $userId) use ($daysInWeek, $startOfWeek) {
+            $user = $attendances->first()->user;
+            $row = [
+                'student' => $user->name,
+                'id' => $user->id,
+                'A' => 0,
+                'T' => 0,
+                'S' => 0,
+                'I' => 0,
+                'H' => 0,
+            ];
+
+            for ($i = 0; $i < $daysInWeek; $i++) {
+                $day = Carbon::parse($startOfWeek)->addDays($i)->format('Y-m-d');
+                $attendance = $attendances->filter(function ($att) use ($day) {
+                    return Carbon::parse($att->attendance_date)->format('Y-m-d') === $day;
+                })->first();
+                $status = $attendance ? $attendance->status : 'A';
+
+                $row["day_" . ($i + 1)] = $status;
+                // Increment the count for each status
+                switch ($status) {
+                    case 'A':
+                        $row['A']++;
+                        break;
+                    case 'T':
+                        $row['T']++;
+                        break;
+                    case 'S':
+                        $row['S']++;
+                        break;
+                    case 'I':
+                        $row['I']++;
+                        break;
+                    case 'H':
+                        $row['H']++;
+                        break;
+                    default:
+                        $row['A']++;
+                        break;
+                }
+            }
+
+            return $row;
+        })->values();
+
         // Return format the data for DataTables
         return $this->formatDataTablesResponse(
-            $data,
+            $formattedData,
             [
                 'student' => function ($data) {
-                    return $data->user ? $data->user->name : '-';
+                    return $data['student'];
+                },
+                'id' => function ($data) {
+                    return $data['id'];
+                },
+                ...array_map(function ($day) {
+                    return function ($data) use ($day) {
+                        return $data["day_$day"];
+                    };
+                }, range(1, $daysInWeek)),
+                'A' => function ($data) {
+                    return $data['A'];
+                },
+                'T' => function ($data) {
+                    return $data['T'];
+                },
+                'S' => function ($data) {
+                    return $data['S'];
+                },
+                'I' => function ($data) {
+                    return $data['I'];
+                },
+                'H' => function ($data) {
+                    return $data['H'];
                 },
                 'action' => function ($data) {
-                    $encodedId = base64_encode($data->id);
+                    $encodedId = base64_encode($data['id']);
                     return $this->getActionButtons(
                         $encodedId,
                         'showAttendance',
-                        // 'confirmDeleteCourse',
                         null,
-                        'attendances.students.date.edit',
+                        'backend.attendances.students.date.edit',
                         null,
                         'showDetail',
-                        'attendances.students.date.show',
+                        'backend.attendances.students.date.show',
                         'link'
                     );
-
                 }
             ]
         );
     }
+
+
+
 }

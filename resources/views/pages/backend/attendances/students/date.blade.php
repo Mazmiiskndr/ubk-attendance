@@ -17,6 +17,12 @@
             <div class="mb-1 mb-sm-0 text-center text-sm-start">
                 <h4 class="card-title">Tabel Presensi Mahasiswa Pertanggal</h4>
             </div>
+            <div>
+                <h5 class="card-title">Menampilkan Tanggal : {{ date("Y/m/d") }}</h5>
+                {{-- <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0" data-bs-toggle="modal" data-bs-target="#createNewCourse">
+                    <i class="tf-icons fas fa-plus-circle ti-xs me-1"></i>&nbsp; Tambah Data Mata Kuliah
+                </x-button> --}}
+            </div>
         </div>
     </div>
 

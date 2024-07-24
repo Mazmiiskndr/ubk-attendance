@@ -61,9 +61,9 @@ $configData = Helper::appClasses();
                                 <div>Pertanggal</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('attendances/students/month*') ? 'active' : '' }}" style="margin-right: 20px;">
-                            <a href="{{ route('backend.attendances.students.month') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
-                                <div>Perbulan</div>
+                        <li class="menu-item {{ request()->is('attendances/students/week*') ? 'active' : '' }}" style="margin-right: 20px;">
+                            <a href="{{ route('backend.attendances.students.week') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                                <div>Perminggu</div>
                             </a>
                         </li>
                     </ul>
@@ -80,9 +80,9 @@ $configData = Helper::appClasses();
                                 <div>Pertanggal</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('attendances/lecturers/month*') ? 'active' : '' }}" style="margin-right: 20px;">
+                        <li class="menu-item {{ request()->is('attendances/lecturers/week*') ? 'active' : '' }}" style="margin-right: 20px;">
                             <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
-                                <div>Perbulan</div>
+                                <div>Perminggu</div>
                             </a>
                         </li>
                     </ul>
@@ -150,9 +150,9 @@ $configData = Helper::appClasses();
                         <div>Pertanggal</div>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->is('attendances/students/month*') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->is('attendances/students/week*') ? 'active' : '' }}">
                     <a href="#" class="menu-link ml-4">
-                        <div>Perbulan</div>
+                        <div>Perminggu</div>
                     </a>
                 </li>
             </ul>
@@ -195,9 +195,9 @@ $configData = Helper::appClasses();
                                 <div>Pertanggal</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('attendances/students/month*') ? 'active' : '' }}" style="margin-right: 20px;">
+                        <li class="menu-item {{ request()->is('attendances/students/week*') ? 'active' : '' }}" style="margin-right: 20px;">
                             <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
-                                <div>Perbulan</div>
+                                <div>Perminggu</div>
                             </a>
                         </li>
                     </ul>
@@ -214,9 +214,9 @@ $configData = Helper::appClasses();
                                 <div>Pertanggal</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('attendances/lecturers/month*') ? 'active' : '' }}" style="margin-right: 20px;">
+                        <li class="menu-item {{ request()->is('attendances/lecturers/week*') ? 'active' : '' }}" style="margin-right: 20px;">
                             <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
-                                <div>Perbulan</div>
+                                <div>Perminggu</div>
                             </a>
                         </li>
                     </ul>

@@ -7,14 +7,15 @@ use LaravelEasyRepository\Repository;
 interface AttendanceRepository extends Repository
 {
     /**
-     * Get all attendance with optional limit, user ID, date, and month
+     * Get all attendance with optional limit, user ID, date, start of week, and end of week
      * @param int|null $limit
      * @param int|null $userId
      * @param string|null $date
-     * @param string|null $month
+     * @param string|null $startOfWeek
+     * @param string|null $endOfWeek
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getAttendances($limit, $userId, $date, $month);
+    public function getAttendances($limit, $userId, $date, $startOfWeek, $endOfWeek);
 
     /**
      * Get attendance by ID
@@ -39,5 +40,5 @@ interface AttendanceRepository extends Repository
     /**
      * Get the data formatted for DataTables for course schedules.
      */
-    public function getDatatablesByMonth();
+    public function getDatatablesByWeek();
 }
