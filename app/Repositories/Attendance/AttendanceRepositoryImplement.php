@@ -101,7 +101,13 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     public function getDatatablesStudentByDate()
     {
         $today = Carbon::today()->toDateString();
-        $data = $this->getAttendances(null, null, $today, null, null, 'mahasiswa');
+        $currentUser = auth()->user();
+        $userId = null;
+        if ($currentUser->role->name_alias == 'mahasiswa') {
+            $userId = $currentUser->id;
+        }
+
+        $data = $this->getAttendances(null, $userId, $today, null, null, 'mahasiswa');
         if ($data->isEmpty()) {
             return datatables()->of(collect())->make(true);
         }
@@ -157,7 +163,12 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     {
         $startOfWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
         $endOfWeek = Carbon::now()->endOfWeek()->format('Y-m-d');
-        $groupedData = $this->getAttendances(null, null, null, $startOfWeek, $endOfWeek, 'mahasiswa')->groupBy('user_id');
+        $currentUser = auth()->user();
+        $userId = null;
+        if ($currentUser->role->name_alias == 'mahasiswa') {
+            $userId = $currentUser->id;
+        }
+        $groupedData = $this->getAttendances(null, $userId, null, $startOfWeek, $endOfWeek, 'mahasiswa')->groupBy('user_id');
         if ($groupedData->isEmpty()) {
             return datatables()->of(collect())->make(true);
         }
@@ -261,7 +272,12 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     {
         $startOfMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
         $endOfMonth = Carbon::now()->endOfMonth()->format('Y-m-d');
-        $groupedData = $this->getAttendances(null, null, null, $startOfMonth, $endOfMonth, 'mahasiswa')->groupBy('user_id');
+        $currentUser = auth()->user();
+        $userId = null;
+        if ($currentUser->role->name_alias == 'mahasiswa') {
+            $userId = $currentUser->id;
+        }
+        $groupedData = $this->getAttendances(null, $userId, null, $startOfMonth, $endOfMonth, 'mahasiswa')->groupBy('user_id');
 
         if ($groupedData->isEmpty()) {
             return datatables()->of(collect())->make(true);
@@ -373,7 +389,12 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     public function getDatatablesLectureByDate()
     {
         $today = Carbon::today()->toDateString();
-        $data = $this->getAttendances(null, null, $today, null, null, 'dosen');
+        $currentUser = auth()->user();
+        $userId = null;
+        if ($currentUser->role->name_alias == 'dosen') {
+            $userId = $currentUser->id;
+        }
+        $data = $this->getAttendances(null, $userId, $today, null, null, 'dosen');
         if ($data->isEmpty()) {
             return datatables()->of(collect())->make(true);
         }
@@ -429,7 +450,12 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     {
         $startOfWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
         $endOfWeek = Carbon::now()->endOfWeek()->format('Y-m-d');
-        $groupedData = $this->getAttendances(null, null, null, $startOfWeek, $endOfWeek, 'dosen')->groupBy('user_id');
+        $currentUser = auth()->user();
+        $userId = null;
+        if ($currentUser->role->name_alias == 'dosen') {
+            $userId = $currentUser->id;
+        }
+        $groupedData = $this->getAttendances(null, $userId, null, $startOfWeek, $endOfWeek, 'dosen')->groupBy('user_id');
         if ($groupedData->isEmpty()) {
             return datatables()->of(collect())->make(true);
         }
@@ -533,7 +559,12 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     {
         $startOfMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
         $endOfMonth = Carbon::now()->endOfMonth()->format('Y-m-d');
-        $groupedData = $this->getAttendances(null, null, null, $startOfMonth, $endOfMonth, 'dosen')->groupBy('user_id');
+        $currentUser = auth()->user();
+        $userId = null;
+        if ($currentUser->role->name_alias == 'dosen') {
+            $userId = $currentUser->id;
+        }
+        $groupedData = $this->getAttendances(null, $userId, null, $startOfMonth, $endOfMonth, 'dosen')->groupBy('user_id');
 
         if ($groupedData->isEmpty()) {
             return datatables()->of(collect())->make(true);
