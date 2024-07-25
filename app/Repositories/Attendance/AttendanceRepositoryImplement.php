@@ -143,13 +143,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                     return $this->getActionButtons(
                         $encodedId,
                         'showAttendance',
-                        // 'confirmDeleteCourse',
-                        null,
-                        'backend.attendances.students.date.edit',
-                        null,
-                        'showDetail',
-                        'backend.attendances.students.date.show',
-                        'link'
                     );
                 }
             ]
@@ -430,13 +423,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                     return $this->getActionButtons(
                         $encodedId,
                         'showAttendance',
-                        // 'confirmDeleteCourse',
-                        null,
-                        'backend.attendances.lecturers.date.edit',
-                        null,
-                        'showDetail',
-                        'backend.attendances.lecturers.date.show',
-                        'link'
                     );
                 }
             ]

@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
       name: 'action',
       orderable: false,
       searchable: false,
-      width: '150px',
+      width: '80px',
       className: 'text-center'
     }
   ];
