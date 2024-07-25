@@ -265,11 +265,11 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
             $row = [
                 'id' => $user->id,
                 'student' => $user->name,
-                'week_1' => '',
-                'week_2' => '',
-                'week_3' => '',
-                'week_4' => '',
-                'week_5' => '',
+                'week_1' => '-',
+                'week_2' => '-',
+                'week_3' => '-',
+                'week_4' => '-',
+                'week_5' => '-',
                 'total_present' => 0,
                 'total_absent' => 0,
                 'total_late' => 0,
@@ -285,16 +285,20 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                     return Carbon::parse($att->attendance_date)->between($startOfWeek, $endOfWeek);
                 });
 
-                $statuses = $weeklyAttendances->groupBy('status')->map->count();
-                $row["week_" . ($i + 1)] = $statuses->map(function ($count, $status) {
-                    return "$status: $count";
-                })->implode(', ');
+                if ($weeklyAttendances->isNotEmpty()) {
+                    $statuses = $weeklyAttendances->groupBy('status')->map->count();
+                    $row["week_" . ($i + 1)] = $statuses->map(function ($count, $status) {
+                        return "$status: $count";
+                    })->implode(', ');
 
-                $row['total_present'] += $statuses->get('H', 0);
-                $row['total_absent'] += $statuses->get('A', 0);
-                $row['total_late'] += $statuses->get('T', 0);
-                $row['total_sick'] += $statuses->get('S', 0);
-                $row['total_leave'] += $statuses->get('I', 0);
+                    $row['total_present'] += $statuses->get('H', 0);
+                    $row['total_absent'] += $statuses->get('A', 0);
+                    $row['total_late'] += $statuses->get('T', 0);
+                    $row['total_sick'] += $statuses->get('S', 0);
+                    $row['total_leave'] += $statuses->get('I', 0);
+                } else {
+                    $row["week_" . ($i + 1)] = '-';
+                }
             }
 
             return $row;
