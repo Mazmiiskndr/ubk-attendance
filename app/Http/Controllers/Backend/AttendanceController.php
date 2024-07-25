@@ -36,4 +36,19 @@ class AttendanceController extends Controller
     {
         dd("TODO:");
     }
+
+    public function showStudentAttendanceByMonth()
+    {
+        return view('pages.backend.attendances.students.month');
+    }
+
+    public function editStudentAttendanceByMonth($id)
+    {
+        dd("TODO:");
+    }
+
+    public function detailStudentAttendanceByMonth($id)
+    {
+        dd("TODO:");
+    }
 }

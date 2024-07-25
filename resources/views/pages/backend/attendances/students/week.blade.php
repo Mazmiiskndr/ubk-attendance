@@ -31,14 +31,14 @@ $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY)->format('Y/m/d');
 
     {{-- Start List DataTable --}}
     <div class="card-body">
-        @livewire('backend.attendance.student.month-datatables')
+        @livewire('backend.attendance.student.week-datatables')
     </div>
     {{-- End List DataTable --}}
 
     @push('scripts')
     @vite([
     'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/attendances/student-by-month-management.js'
+    'resources/assets/js/backend/attendances/student-by-week-management.js'
     ])
     {{-- <script>
         function confirmDeleteBatch() {
