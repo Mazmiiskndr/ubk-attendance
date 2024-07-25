@@ -14,6 +14,6 @@ class DateDatatables extends Component
 
     public function getDataTable(AttendanceService $attendanceService)
     {
-        return $attendanceService->getDatatablesByDate();
+        return $attendanceService->getDatatablesStudentByDate();
     }
 }

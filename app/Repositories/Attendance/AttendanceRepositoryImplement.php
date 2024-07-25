@@ -91,7 +91,7 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     /**
      * Get the data formatted for DataTables for course schedules.
      */
-    public function getDatatablesByDate()
+    public function getDatatablesStudentByDate()
     {
         $today = Carbon::today()->toDateString();
         $data = $this->getAttendances(null, null, $today);
@@ -146,7 +146,7 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     /**
      * Get the data formatted for DataTables for attendances by week.
      */
-    public function getDatatablesByWeek()
+    public function getDatatablesStudentByWeek()
     {
         $startOfWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
         $endOfWeek = Carbon::now()->endOfWeek()->format('Y-m-d');
@@ -250,7 +250,7 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     /**
      * Get the data formatted for DataTables for attendances by month.
      */
-    public function getDatatablesByMonth()
+    public function getDatatablesStudentByMonth()
     {
         $startOfMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
         $endOfMonth = Carbon::now()->endOfMonth()->format('Y-m-d');

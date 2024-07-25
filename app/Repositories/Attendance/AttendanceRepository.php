@@ -35,15 +35,15 @@ interface AttendanceRepository extends Repository
     /**
      * Get the data formatted for DataTables for attendances by date.
      */
-    public function getDatatablesByDate();
+    public function getDatatablesStudentByDate();
 
     /**
      * Get the data formatted for DataTables for attendances by week.
      */
-    public function getDatatablesByWeek();
+    public function getDatatablesStudentByWeek();
 
     /**
      * Get the data formatted for DataTables for attendances by month.
      */
-    public function getDatatablesByMonth();
+    public function getDatatablesStudentByMonth();
 }

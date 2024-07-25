@@ -58,24 +58,24 @@ class AttendanceServiceImplement extends Service implements AttendanceService
     /**
      * Get the data formatted for DataTables for attendances by date.
      */
-    public function getDatatablesByDate()
+    public function getDatatablesStudentByDate()
     {
-        return $this->handleRepositoryCall('getDatatablesByDate');
+        return $this->handleRepositoryCall('getDatatablesStudentByDate');
     }
 
     /**
      * Get the data formatted for DataTables for attendances by week.
      */
-    public function getDatatablesByWeek()
+    public function getDatatablesStudentByWeek()
     {
-        return $this->handleRepositoryCall('getDatatablesByWeek');
+        return $this->handleRepositoryCall('getDatatablesStudentByWeek');
     }
 
     /**
      * Get the data formatted for DataTables for attendances by month.
      */
-    public function getDatatablesByMonth()
+    public function getDatatablesStudentByMonth()
     {
-        return $this->handleRepositoryCall('getDatatablesByMonth');
+        return $this->handleRepositoryCall('getDatatablesStudentByMonth');
     }
 }
