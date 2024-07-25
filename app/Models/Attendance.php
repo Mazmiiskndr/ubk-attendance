@@ -25,10 +25,10 @@ class Attendance extends Model
     ];
 
     protected $casts = [
-        'check_in' => 'datetime:H:i',
-        'check_out' => 'datetime:H:i',
         'attendance_date' => 'date',
     ];
+
+
 
     /**
      * Define the relationship with the User model

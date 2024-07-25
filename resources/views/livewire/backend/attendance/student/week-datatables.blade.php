@@ -1,4 +1,4 @@
-<div wire:ignore class="table">
+<div wire:ignore class="table text-nowrap">
     <table class="table table-hover table-bordered" id="myTable" data-route="{{ route('attendances.students.week.getDatatable') }}" aria-describedby="myStudentByWeekTables">
         <thead>
             <tr>
