@@ -254,10 +254,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         $encodedId,
                         'showAttendance',
                         null,
-                        'backend.attendances.students.date.edit',
+                        'backend.attendances.students.week.edit',
                         null,
                         'showDetail',
-                        'backend.attendances.students.date.show',
+                        'backend.attendances.students.week.show',
                         'link'
                     );
                 }
@@ -372,10 +372,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         $encodedId,
                         'showAttendance',
                         null,
-                        'backend.attendances.students.date.edit',
+                        'backend.attendances.students.month.edit',
                         null,
                         'showDetail',
-                        'backend.attendances.students.date.show',
+                        'backend.attendances.students.month.show',
                         'link'
                     );
                 }
@@ -541,10 +541,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         $encodedId,
                         'showAttendance',
                         null,
-                        'backend.attendances.lecturers.date.edit',
+                        'backend.attendances.lecturers.week.edit',
                         null,
                         'showDetail',
-                        'backend.attendances.lecturers.date.show',
+                        'backend.attendances.lecturers.week.show',
                         'link'
                     );
                 }
@@ -659,10 +659,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         $encodedId,
                         'showAttendance',
                         null,
-                        'backend.attendances.lecturers.date.edit',
+                        'backend.attendances.lecturers.month.edit',
                         null,
                         'showDetail',
-                        'backend.attendances.lecturers.date.show',
+                        'backend.attendances.lecturers.month.show',
                         'link'
                     );
                 }
