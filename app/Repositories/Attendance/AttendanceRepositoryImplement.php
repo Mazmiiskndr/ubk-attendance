@@ -144,7 +144,7 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     }
 
     /**
-     * Get the data formatted for DataTables for attendances by month.
+     * Get the data formatted for DataTables for attendances by week.
      */
     public function getDatatablesByWeek()
     {
@@ -248,6 +248,113 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
         );
     }
 
+    /**
+     * Get the data formatted for DataTables for attendances by month.
+     */
+    public function getDatatablesByMonth()
+    {
+        $startOfMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $endOfMonth = Carbon::now()->endOfMonth()->format('Y-m-d');
+        $groupedData = $this->getAttendances(null, null, null, $startOfMonth, $endOfMonth)->groupBy('user_id');
 
+        if ($groupedData->isEmpty()) {
+            return datatables()->of(collect())->make(true);
+        }
+
+        $formattedData = $groupedData->map(function ($attendances, $userId) use ($startOfMonth, $endOfMonth) {
+            $user = $attendances->first()->user;
+            $row = [
+                'id' => $user->id,
+                'student' => $user->name,
+                'week_1' => '',
+                'week_2' => '',
+                'week_3' => '',
+                'week_4' => '',
+                'week_5' => '',
+                'total_present' => 0,
+                'total_absent' => 0,
+                'total_late' => 0,
+                'total_sick' => 0,
+                'total_leave' => 0,
+            ];
+
+            for ($i = 0; $i < 5; $i++) {
+                $startOfWeek = Carbon::parse($startOfMonth)->addWeeks($i)->startOfWeek()->format('Y-m-d');
+                $endOfWeek = Carbon::parse($startOfMonth)->addWeeks($i)->endOfWeek()->format('Y-m-d');
+
+                $weeklyAttendances = $attendances->filter(function ($att) use ($startOfWeek, $endOfWeek) {
+                    return Carbon::parse($att->attendance_date)->between($startOfWeek, $endOfWeek);
+                });
+
+                $statuses = $weeklyAttendances->groupBy('status')->map->count();
+                $row["week_" . ($i + 1)] = $statuses->map(function ($count, $status) {
+                    return "$status: $count";
+                })->implode(', ');
+
+                $row['total_present'] += $statuses->get('H', 0);
+                $row['total_absent'] += $statuses->get('A', 0);
+                $row['total_late'] += $statuses->get('T', 0);
+                $row['total_sick'] += $statuses->get('S', 0);
+                $row['total_leave'] += $statuses->get('I', 0);
+            }
+
+            return $row;
+        })->values();
+
+        return $this->formatDataTablesResponse(
+            $formattedData,
+            [
+                'student' => function ($data) {
+                    return $data['student'];
+                },
+                'id' => function ($data) {
+                    return $data['id'];
+                },
+                'week_1' => function ($data) {
+                    return $data['week_1'];
+                },
+                'week_2' => function ($data) {
+                    return $data['week_2'];
+                },
+                'week_3' => function ($data) {
+                    return $data['week_3'];
+                },
+                'week_4' => function ($data) {
+                    return $data['week_4'];
+                },
+                'week_5' => function ($data) {
+                    return $data['week_5'];
+                },
+                'total_present' => function ($data) {
+                    return $data['total_present'];
+                },
+                'total_absent' => function ($data) {
+                    return $data['total_absent'];
+                },
+                'total_late' => function ($data) {
+                    return $data['total_late'];
+                },
+                'total_sick' => function ($data) {
+                    return $data['total_sick'];
+                },
+                'total_leave' => function ($data) {
+                    return $data['total_leave'];
+                },
+                'action' => function ($data) {
+                    $encodedId = base64_encode($data['id']);
+                    return $this->getActionButtons(
+                        $encodedId,
+                        'showAttendance',
+                        null,
+                        'backend.attendances.students.date.edit',
+                        null,
+                        'showDetail',
+                        'backend.attendances.students.date.show',
+                        'link'
+                    );
+                }
+            ]
+        );
+    }
 
 }

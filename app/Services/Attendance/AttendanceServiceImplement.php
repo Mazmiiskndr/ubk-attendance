@@ -56,7 +56,7 @@ class AttendanceServiceImplement extends Service implements AttendanceService
     }
 
     /**
-     * Get the data formatted for DataTables for course schedules.
+     * Get the data formatted for DataTables for attendances by date.
      */
     public function getDatatablesByDate()
     {
@@ -64,10 +64,18 @@ class AttendanceServiceImplement extends Service implements AttendanceService
     }
 
     /**
-     * Get the data formatted for DataTables for course schedules.
+     * Get the data formatted for DataTables for attendances by week.
      */
     public function getDatatablesByWeek()
     {
         return $this->handleRepositoryCall('getDatatablesByWeek');
+    }
+
+    /**
+     * Get the data formatted for DataTables for attendances by month.
+     */
+    public function getDatatablesByMonth()
+    {
+        return $this->handleRepositoryCall('getDatatablesByMonth');
     }
 }

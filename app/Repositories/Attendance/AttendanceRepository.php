@@ -33,12 +33,17 @@ interface AttendanceRepository extends Repository
     public function deleteAttendances($attendanceIds);
 
     /**
-     * Get the data formatted for DataTables for course schedules.
+     * Get the data formatted for DataTables for attendances by date.
      */
     public function getDatatablesByDate();
 
     /**
-     * Get the data formatted for DataTables for course schedules.
+     * Get the data formatted for DataTables for attendances by week.
      */
     public function getDatatablesByWeek();
+
+    /**
+     * Get the data formatted for DataTables for attendances by month.
+     */
+    public function getDatatablesByMonth();
 }
