@@ -14,6 +14,6 @@ class MonthDatatables extends Component
 
     public function getDataTable(AttendanceService $attendanceService)
     {
-        return $attendanceService->getDatatablesByWeek();
+        return $attendanceService->getDatatablesByMonth();
     }
 }

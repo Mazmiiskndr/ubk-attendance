@@ -172,29 +172,28 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                 $attendance = $attendances->filter(function ($att) use ($day) {
                     return Carbon::parse($att->attendance_date)->format('Y-m-d') === $day;
                 })->first();
-                $status = $attendance ? $attendance->status : 'A';
+                $status = $attendance ? $attendance->status : '-';
 
                 $row["day_" . ($i + 1)] = $status;
                 // Increment the count for each status
-                switch ($status) {
-                    case 'A':
-                        $row['A']++;
-                        break;
-                    case 'T':
-                        $row['T']++;
-                        break;
-                    case 'S':
-                        $row['S']++;
-                        break;
-                    case 'I':
-                        $row['I']++;
-                        break;
-                    case 'H':
-                        $row['H']++;
-                        break;
-                    default:
-                        $row['A']++;
-                        break;
+                if ($status !== '-') {
+                    switch ($status) {
+                        case 'A':
+                            $row['A']++;
+                            break;
+                        case 'T':
+                            $row['T']++;
+                            break;
+                        case 'S':
+                            $row['S']++;
+                            break;
+                        case 'I':
+                            $row['I']++;
+                            break;
+                        case 'H':
+                            $row['H']++;
+                            break;
+                    }
                 }
             }
 

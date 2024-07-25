@@ -9,6 +9,7 @@ use App\Livewire\Backend\{
     Course\ScheduleDatatables as ScheduleDatatables,
     Attendance\Student\DateDatatables as StudentDateDatatables,
     Attendance\Student\MonthDatatables as StudentMonthDatatables,
+    Attendance\Student\WeekDatatables as StudentWeekDatatables,
 };
 use Illuminate\Support\Facades\Route;
 
@@ -58,4 +59,8 @@ Route::prefix('livewire/backend/')->group(function () {
     // Attendances Student By Month Datatables
     Route::get('attendances/students/month/getDatatable', [StudentMonthDatatables::class, 'getDatatable'])
         ->name('attendances.students.month.getDatatable');
+
+    // Attendances Student By Week Datatables
+    Route::get('attendances/students/week/getDatatable', [StudentWeekDatatables::class, 'getDatatable'])
+        ->name('attendances.students.week.getDatatable');
 });

@@ -1,5 +1,5 @@
 <div wire:ignore class="table">
-    <table class="table table-hover table-bordered" id="myTable" data-route="{{ route('attendances.students.month.getDatatable') }}" aria-describedby="myStudentByDateTables">
+    <table class="table table-hover table-bordered" id="myTable" data-route="{{ route('attendances.students.week.getDatatable') }}" aria-describedby="myStudentByWeekTables">
         <thead>
             <tr>
                 <th rowspan="2" class="text-center fw-bold">No</th>
