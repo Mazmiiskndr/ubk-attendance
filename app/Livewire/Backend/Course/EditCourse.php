@@ -39,8 +39,6 @@ class EditCourse extends Component
     /**
      * The properties of a courses object.
      */
-    // public $checkInStart, $checkInEnd, $day, $checkOutStart, $checkOutEnd, $courseId, $courseId;
-
     #[On('deliverCourseToEditComponent')]
     public function receiveAndProcessCourse(CourseService $courseService, $courseId)
     {
