@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalCenterTitle">Tambah Data Jadwal Mata Kuliah</h5>
+                    <h5 class="modal-title" id="modalCenterTitle">Edit Data Jadwal Mata Kuliah</h5>
                     <x-button color="close" dismiss="true" click="closeModal" data-bs-dismiss="modal" aria-label="Close" />
                 </div>
                 <form wire:submit.prevent="updateCourse" method="POST">
