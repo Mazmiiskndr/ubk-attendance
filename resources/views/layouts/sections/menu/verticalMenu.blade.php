@@ -75,23 +75,23 @@ $configData = Helper::appClasses();
                 </li>
 
                 <!-- Submenu for Lecturers -->
-                <li class="menu-item {{ request()->is('attendances/lecturers*') || request()->is('attendances/lecture/*') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->is('attendances/lecturers*') || request()->is('attendances/lecture/*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle ml-4">
                         <div>Dosen</div>
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item {{ request()->is('attendances/lecturers/date*') ? 'active' : '' }}" style="margin-right: 20px;">
-                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                            <a href="{{ route('backend.attendances.lecturers.date') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
                                 <div>Pertanggal</div>
                             </a>
                         </li>
                         <li class="menu-item {{ request()->is('attendances/lecturers/week*') ? 'active' : '' }}" style="margin-right: 20px;">
-                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                            <a href="{{ route('backend.attendances.lecturers.week') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
                                 <div>Perminggu</div>
                             </a>
                         </li>
                         <li class="menu-item {{ request()->is('attendances/lecturers/month*') ? 'active' : '' }}" style="margin-right: 20px;">
-                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                            <a href="{{ route('backend.attendances.lecturers.month') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
                                 <div>Perbulan</div>
                             </a>
                         </li>
@@ -200,7 +200,7 @@ $configData = Helper::appClasses();
             <!-- Submenu for User -->
             <ul class="menu-sub">
                 <!-- Submenu for Students -->
-                <li class="menu-item {{ request()->is('attendances/students*') || request()->is('attendances/student/*') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->is('attendances/students*') || request()->is('attendances/student/*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle ml-4">
                         <div>Mahasiswa</div>
                     </a>
@@ -224,23 +224,23 @@ $configData = Helper::appClasses();
                 </li>
 
                 <!-- Submenu for Lecturers -->
-                <li class="menu-item {{ request()->is('attendances/lecturers*') || request()->is('attendances/lecture/*') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->is('attendances/lecturers*') || request()->is('attendances/lecture/*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle ml-4">
                         <div>Dosen</div>
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item {{ request()->is('attendances/lecturers/date*') ? 'active' : '' }}" style="margin-right: 20px;">
-                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                            <a href="{{ route('backend.attendances.lecturers.date') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
                                 <div>Pertanggal</div>
                             </a>
                         </li>
                         <li class="menu-item {{ request()->is('attendances/lecturers/week*') ? 'active' : '' }}" style="margin-right: 20px;">
-                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                            <a href="{{ route('backend.attendances.lecturers.week') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
                                 <div>Perminggu</div>
                             </a>
                         </li>
                         <li class="menu-item {{ request()->is('attendances/lecturers/month*') ? 'active' : '' }}" style="margin-right: 20px;">
-                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                            <a href="{{ route('backend.attendances.lecturers.month') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
                                 <div>Perbulan</div>
                             </a>
                         </li>
