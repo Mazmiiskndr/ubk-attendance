@@ -191,6 +191,7 @@ $configData = Helper::appClasses();
         </li>
 
         <!-- Attendances Item -->
+        <!-- Attendances Item -->
         <li class="menu-item {{ request()->is('attendances*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-fingerprint"></i>
@@ -206,17 +207,17 @@ $configData = Helper::appClasses();
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item {{ request()->is('attendances/students/date*') ? 'active' : '' }}" style="margin-right: 20px;">
-                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                            <a href="{{ route('backend.attendances.students.date') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
                                 <div>Pertanggal</div>
                             </a>
                         </li>
                         <li class="menu-item {{ request()->is('attendances/students/week*') ? 'active' : '' }}" style="margin-right: 20px;">
-                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                            <a href="{{ route('backend.attendances.students.week') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
                                 <div>Perminggu</div>
                             </a>
                         </li>
                         <li class="menu-item {{ request()->is('attendances/students/month*') ? 'active' : '' }}" style="margin-right: 20px;">
-                            <a href="#" class="menu-link ml-4" style="position: relative; left: 1rem;">
+                            <a href="{{ route('backend.attendances.students.month') }}" class="menu-link ml-4" style="position: relative; left: 1rem;">
                                 <div>Perbulan</div>
                             </a>
                         </li>
