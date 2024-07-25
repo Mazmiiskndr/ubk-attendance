@@ -24,15 +24,16 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     }
 
     /**
-     * Get all attendance with optional limit, user ID, date, start of week, and end of week
+     * Get all attendance with optional limit, user ID, date, start of week, end of week, and role alias
      * @param int|null $limit
      * @param int|null $userId
      * @param string|null $date
      * @param string|null $startOfWeek
      * @param string|null $endOfWeek
+     * @param string|null $roleAlias
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getAttendances($limit = null, $userId = null, $date = null, $startOfWeek = null, $endOfWeek = null)
+    public function getAttendances($limit = null, $userId = null, $date = null, $startOfWeek = null, $endOfWeek = null, $roleAlias = null)
     {
         $query = $this->attendanceModel->with(['user', 'courseSchedule.course'])->latest();
 
@@ -46,6 +47,12 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
 
         if ($startOfWeek !== null && $endOfWeek !== null) {
             $query->whereBetween('attendance_date', [$startOfWeek, $endOfWeek]);
+        }
+
+        if ($roleAlias !== null) {
+            $query->whereHas('user.role', function ($query) use ($roleAlias) {
+                $query->where('name_alias', $roleAlias);
+            });
         }
 
         if ($limit !== null) {
@@ -89,12 +96,12 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     }
 
     /**
-     * Get the data formatted for DataTables for course schedules.
+     * Get the data formatted for DataTables for student by date.
      */
     public function getDatatablesStudentByDate()
     {
         $today = Carbon::today()->toDateString();
-        $data = $this->getAttendances(null, null, $today);
+        $data = $this->getAttendances(null, null, $today, null, null, 'mahasiswa');
         if ($data->isEmpty()) {
             return datatables()->of(collect())->make(true);
         }
@@ -150,7 +157,7 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     {
         $startOfWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
         $endOfWeek = Carbon::now()->endOfWeek()->format('Y-m-d');
-        $groupedData = $this->getAttendances(null, null, null, $startOfWeek, $endOfWeek)->groupBy('user_id');
+        $groupedData = $this->getAttendances(null, null, null, $startOfWeek, $endOfWeek, 'mahasiswa')->groupBy('user_id');
         if ($groupedData->isEmpty()) {
             return datatables()->of(collect())->make(true);
         }
@@ -254,7 +261,7 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     {
         $startOfMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
         $endOfMonth = Carbon::now()->endOfMonth()->format('Y-m-d');
-        $groupedData = $this->getAttendances(null, null, null, $startOfMonth, $endOfMonth)->groupBy('user_id');
+        $groupedData = $this->getAttendances(null, null, null, $startOfMonth, $endOfMonth, 'mahasiswa')->groupBy('user_id');
 
         if ($groupedData->isEmpty()) {
             return datatables()->of(collect())->make(true);
@@ -353,6 +360,278 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         null,
                         'showDetail',
                         'backend.attendances.students.date.show',
+                        'link'
+                    );
+                }
+            ]
+        );
+    }
+
+    /**
+     * Get the data formatted for DataTables for lecture by date.
+     */
+    public function getDatatablesLectureByDate()
+    {
+        $today = Carbon::today()->toDateString();
+        $data = $this->getAttendances(null, null, $today, null, null, 'dosen');
+        if ($data->isEmpty()) {
+            return datatables()->of(collect())->make(true);
+        }
+        // Return format the data for DataTables
+        return $this->formatDataTablesResponse(
+            $data,
+            [
+                'check_in' => function ($data) {
+                    return $data->check_in ?? '-';
+                },
+                'check_out' => function ($data) {
+                    return $data->check_out ?? '-';
+                },
+                'attendance_date' => function ($data) {
+                    return date("Y-m-d", strtotime($data->attendance_date)) ?? '-';
+                },
+                'status' => function ($data) {
+                    $status = AttendanceStatus::from($data->status);
+                    $labelClass = match ($status) {
+                        AttendanceStatus::Hadir => 'bg-success',
+                        AttendanceStatus::Sakit => 'bg-warning',
+                        AttendanceStatus::Izin => 'bg-info',
+                        AttendanceStatus::Terlambat => 'bg-secondary',
+                        AttendanceStatus::Alpha => 'bg-danger',
+                    };
+                    return '<span class="badge ' . $labelClass . '">' . $status->name . '</span>';
+                },
+                'lecture' => function ($data) {
+                    return $data->user ? $data->user->name : '-';
+                },
+                'action' => function ($data) {
+                    $encodedId = base64_encode($data->id);
+                    return $this->getActionButtons(
+                        $encodedId,
+                        'showAttendance',
+                        // 'confirmDeleteCourse',
+                        null,
+                        'backend.attendances.lecturers.date.edit',
+                        null,
+                        'showDetail',
+                        'backend.attendances.lecturers.date.show',
+                        'link'
+                    );
+                }
+            ]
+        );
+    }
+
+    /**
+     * Get the data formatted for DataTables for attendances by week for lecture.
+     */
+    public function getDatatablesLectureByWeek()
+    {
+        $startOfWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
+        $endOfWeek = Carbon::now()->endOfWeek()->format('Y-m-d');
+        $groupedData = $this->getAttendances(null, null, null, $startOfWeek, $endOfWeek, 'dosen')->groupBy('user_id');
+        if ($groupedData->isEmpty()) {
+            return datatables()->of(collect())->make(true);
+        }
+        $daysInWeek = 7;
+        $formattedData = $groupedData->map(function ($attendances, $userId) use ($daysInWeek, $startOfWeek) {
+            $user = $attendances->first()->user;
+            $row = [
+                'lecture' => $user->name,
+                'id' => $user->id,
+                'A' => 0,
+                'T' => 0,
+                'S' => 0,
+                'I' => 0,
+                'H' => 0,
+            ];
+
+            for ($i = 0; $i < $daysInWeek; $i++) {
+                $day = Carbon::parse($startOfWeek)->addDays($i)->format('Y-m-d');
+                $attendance = $attendances->filter(function ($att) use ($day) {
+                    return Carbon::parse($att->attendance_date)->format('Y-m-d') === $day;
+                })->first();
+                $status = $attendance ? $attendance->status : '-';
+
+                $row["day_" . ($i + 1)] = $status;
+                // Increment the count for each status
+                if ($status !== '-') {
+                    switch ($status) {
+                        case 'A':
+                            $row['A']++;
+                            break;
+                        case 'T':
+                            $row['T']++;
+                            break;
+                        case 'S':
+                            $row['S']++;
+                            break;
+                        case 'I':
+                            $row['I']++;
+                            break;
+                        case 'H':
+                            $row['H']++;
+                            break;
+                    }
+                }
+            }
+
+            return $row;
+        })->values();
+
+        // Return format the data for DataTables
+        return $this->formatDataTablesResponse(
+            $formattedData,
+            [
+                'lecture' => function ($data) {
+                    return $data['lecture'];
+                },
+                'id' => function ($data) {
+                    return $data['id'];
+                },
+                ...array_map(function ($day) {
+                    return function ($data) use ($day) {
+                        return $data["day_$day"];
+                    };
+                }, range(1, $daysInWeek)),
+                'A' => function ($data) {
+                    return $data['A'];
+                },
+                'T' => function ($data) {
+                    return $data['T'];
+                },
+                'S' => function ($data) {
+                    return $data['S'];
+                },
+                'I' => function ($data) {
+                    return $data['I'];
+                },
+                'H' => function ($data) {
+                    return $data['H'];
+                },
+                'action' => function ($data) {
+                    $encodedId = base64_encode($data['id']);
+                    return $this->getActionButtons(
+                        $encodedId,
+                        'showAttendance',
+                        null,
+                        'backend.attendances.lecturers.date.edit',
+                        null,
+                        'showDetail',
+                        'backend.attendances.lecturers.date.show',
+                        'link'
+                    );
+                }
+            ]
+        );
+    }
+
+    /**
+     * Get the data formatted for DataTables for attendances by month for lecture.
+     */
+    public function getDatatablesLectureByMonth()
+    {
+        $startOfMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $endOfMonth = Carbon::now()->endOfMonth()->format('Y-m-d');
+        $groupedData = $this->getAttendances(null, null, null, $startOfMonth, $endOfMonth, 'dosen')->groupBy('user_id');
+
+        if ($groupedData->isEmpty()) {
+            return datatables()->of(collect())->make(true);
+        }
+
+        $formattedData = $groupedData->map(function ($attendances, $userId) use ($startOfMonth, $endOfMonth) {
+            $user = $attendances->first()->user;
+            $row = [
+                'id' => $user->id,
+                'lecture' => $user->name,
+                'week_1' => '-',
+                'week_2' => '-',
+                'week_3' => '-',
+                'week_4' => '-',
+                'week_5' => '-',
+                'total_present' => 0,
+                'total_absent' => 0,
+                'total_late' => 0,
+                'total_sick' => 0,
+                'total_leave' => 0,
+            ];
+
+            for ($i = 0; $i < 5; $i++) {
+                $startOfWeek = Carbon::parse($startOfMonth)->addWeeks($i)->startOfWeek()->format('Y-m-d');
+                $endOfWeek = Carbon::parse($startOfMonth)->addWeeks($i)->endOfWeek()->format('Y-m-d');
+
+                $weeklyAttendances = $attendances->filter(function ($att) use ($startOfWeek, $endOfWeek) {
+                    return Carbon::parse($att->attendance_date)->between($startOfWeek, $endOfWeek);
+                });
+
+                if ($weeklyAttendances->isNotEmpty()) {
+                    $statuses = $weeklyAttendances->groupBy('status')->map->count();
+                    $row["week_" . ($i + 1)] = $statuses->map(function ($count, $status) {
+                        return "$status: $count";
+                    })->implode(', ');
+
+                    $row['total_present'] += $statuses->get('H', 0);
+                    $row['total_absent'] += $statuses->get('A', 0);
+                    $row['total_late'] += $statuses->get('T', 0);
+                    $row['total_sick'] += $statuses->get('S', 0);
+                    $row['total_leave'] += $statuses->get('I', 0);
+                } else {
+                    $row["week_" . ($i + 1)] = '-';
+                }
+            }
+
+            return $row;
+        })->values();
+
+        return $this->formatDataTablesResponse(
+            $formattedData,
+            [
+                'lecture' => function ($data) {
+                    return $data['lecture'];
+                },
+                'id' => function ($data) {
+                    return $data['id'];
+                },
+                'week_1' => function ($data) {
+                    return $data['week_1'];
+                },
+                'week_2' => function ($data) {
+                    return $data['week_2'];
+                },
+                'week_3' => function ($data) {
+                    return $data['week_3'];
+                },
+                'week_4' => function ($data) {
+                    return $data['week_4'];
+                },
+                'week_5' => function ($data) {
+                    return $data['week_5'];
+                },
+                'total_present' => function ($data) {
+                    return $data['total_present'];
+                },
+                'total_absent' => function ($data) {
+                    return $data['total_absent'];
+                },
+                'total_late' => function ($data) {
+                    return $data['total_late'];
+                },
+                'total_sick' => function ($data) {
+                    return $data['total_sick'];
+                },
+                'total_leave' => function ($data) {
+                    return $data['total_leave'];
+                },
+                'action' => function ($data) {
+                    $encodedId = base64_encode($data['id']);
+                    return $this->getActionButtons(
+                        $encodedId,
+                        'showAttendance',
+                        null,
+                        'backend.attendances.lecturers.date.edit',
+                        null,
+                        'showDetail',
+                        'backend.attendances.lecturers.date.show',
                         'link'
                     );
                 }
