@@ -143,10 +143,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                     $encodedId = base64_encode($data->id);
                     return $this->getActionButtons(
                         $encodedId,
-                        'showAttendance',
+                        (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'showAttendance' : null,
                         // 'confirmDeleteCourse',
                         null,
-                        'backend.attendances.students.date.edit',
+                        (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'backend.attendances.students.date.edit' : null,
                         null,
                         'showDetail',
                         'backend.attendances.students.date.show',
@@ -253,9 +253,9 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                     $encodedId = base64_encode($data['id']);
                     return $this->getActionButtons(
                         $encodedId,
-                        'showAttendance',
+                        (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'showAttendance' : null,
                         null,
-                        'backend.attendances.students.week.edit',
+                        (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'backend.attendances.students.week.edit' : null,
                         null,
                         'showDetail',
                         'backend.attendances.students.week.show',
@@ -371,9 +371,9 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                     $encodedId = base64_encode($data['id']);
                     return $this->getActionButtons(
                         $encodedId,
-                        'showAttendance',
+                        (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'showAttendance' : null,
                         null,
-                        'backend.attendances.students.month.edit',
+                        (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'backend.attendances.students.month.edit' : null,
                         null,
                         'showDetail',
                         'backend.attendances.students.month.show',
