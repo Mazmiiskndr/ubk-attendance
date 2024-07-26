@@ -17,7 +17,7 @@ class ShowByWeek extends Component
     }
 
     #[On('searchByWeek')]
-    public function setDate($value)
+    public function setDates($value)
     {
         $this->startDate = $value['startDate'];
         $this->endDate = $value['endDate'];
