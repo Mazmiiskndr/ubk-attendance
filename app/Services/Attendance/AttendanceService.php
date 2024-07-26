@@ -62,4 +62,24 @@ interface AttendanceService extends BaseService
      * Get the data formatted for DataTables for attendances by month for lecture.
      */
     public function getDatatablesLectureByMonth();
+
+    /**
+     * Get the validation rules for the form request.
+     * @param string|null $attendanceId The user ID.
+     * @return array The validation rules.
+     */
+    public function getValidationRules(?string $attendanceId = null);
+
+    /**
+     * Get the validation error messages for the form fields.
+     * @return array The validation error messages.
+     */
+    public function getValidationErrorMessages();
+
+    /**
+     * Store or update a Attendance.
+     *
+     * @param array $data
+     */
+    public function storeOrUpdate($data);
 }

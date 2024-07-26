@@ -21,6 +21,11 @@ class EditSchedule extends Component
      */
     public UpdateScheduleForm $form;
 
+    public function updated($property)
+    {
+        $this->validateOnly($property);
+    }
+
     /**
      * The properties of a schedules object.
      */
@@ -56,9 +61,6 @@ class EditSchedule extends Component
         $schedule = $this->form->storeOrUpdate($courseService);
         // Check if $schedule contains valid data or not.
         if ($schedule) {
-            // Let other components know that a schedule was updated
-            $this->dispatch('scheduleUpdated', $schedule);
-
             // Notify the frontend of success
             $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Jadwal Mata Kuliah berhasil di perbaharui!']);
             // Let other components know that a setting was updated

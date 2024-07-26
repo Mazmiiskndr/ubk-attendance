@@ -22,6 +22,11 @@ class EditDate extends Component
      */
     public UpdateDateForm $form;
 
+    public function updated($property)
+    {
+        $this->validateOnly($property);
+    }
+
     public function render()
     {
         return view('livewire.backend.attendance.student.edit-date');
@@ -43,6 +48,28 @@ class EditDate extends Component
             $this->form->setAttendance($attendance);
         }
         $this->dispatch('show-modal');
+    }
+
+    /**
+     * Update a attendance.
+     * @param AttendanceService $attendanceService
+     * @return void
+     */
+    public function updateAttendanceDate(AttendanceService $attendanceService)
+    {
+        $attendance = $this->form->storeOrUpdate($attendanceService);
+        // Check if $attendance contains valid data or not.
+        if ($attendance) {
+            // Notify the frontend of success
+            $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Presensi Mahasiswa Pertanggal berhasil di perbaharui!']);
+            // Let other components know that a setting was updated
+            $this->dispatch('attendanceUpdated', $attendance);
+        } else {
+            // Notify the frontend of failure
+            $this->dispatchErrorEvent('Gagal Mengubah Presensi Mahasiswa Pertanggal');
+        }
+        // Close the modal
+        $this->closeModal();
     }
 
     public function resetFields()

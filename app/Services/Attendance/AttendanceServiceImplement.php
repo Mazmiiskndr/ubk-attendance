@@ -103,4 +103,33 @@ class AttendanceServiceImplement extends Service implements AttendanceService
     {
         return $this->handleRepositoryCall('getDatatablesLectureByMonth');
     }
+
+    /**
+     * Get the validation rules for the form request.
+     * @param string|null $attendanceId The user ID.
+     * @return array The validation rules.
+     */
+    public function getValidationRules(?string $attendanceId = null)
+    {
+        return $this->handleRepositoryCall('getValidationRules', [$attendanceId]);
+    }
+
+    /**
+     * Get the validation error messages for the form fields.
+     * @return array The validation error messages.
+     */
+    public function getValidationErrorMessages()
+    {
+        return $this->handleRepositoryCall('getValidationErrorMessages');
+    }
+
+    /**
+     * Store or update a Attendance.
+     *
+     * @param array $data
+     */
+    public function storeOrUpdate($data)
+    {
+        return $this->handleRepositoryCall('storeOrUpdate', [$data]);
+    }
 }

@@ -27,6 +27,11 @@ class EditCourse extends Component
      */
     public $lecturers;
 
+    public function updated($property)
+    {
+        $this->validateOnly($property);
+    }
+
     /**
      * Initialize component state.
      */
@@ -69,8 +74,6 @@ class EditCourse extends Component
         $course = $this->form->storeOrUpdate($courseService);
         // Check if $course contains valid data or not.
         if ($course) {
-            // Let other components know that a course was updated
-            $this->dispatch('courseUpdated', $course);
 
             // Notify the frontend of success
             $this->dispatch('show-toast', ['type' => 'success', 'message' => 'Jadwal Mata Kuliah berhasil di perbaharui!']);

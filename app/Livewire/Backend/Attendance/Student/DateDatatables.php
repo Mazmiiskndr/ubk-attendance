@@ -23,4 +23,10 @@ class DateDatatables extends Component
     {
         $this->dispatch('deliverAttendanceToEditComponent', $attendanceId);
     }
+
+    #[On(['attendanceUpdated'])]
+    public function refreshDataTable()
+    {
+        $this->dispatch('refreshDatatable');
+    }
 }

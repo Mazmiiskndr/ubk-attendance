@@ -6,7 +6,7 @@
                     <h5 class="modal-title" id="modalCenterTitle">Edit Presensi Mahasiswa Pertanggal</h5>
                     <x-button color="close" dismiss="true" click="closeModal" data-bs-dismiss="modal" aria-label="Close" />
                 </div>
-                <form wire:submit.prevent="updateCourse" method="POST">
+                <form wire:submit.prevent="updateAttendanceDate" method="POST">
                     <div class="modal-body">
 
                         <div class="row">

@@ -5,6 +5,7 @@ namespace App\Repositories\Attendance;
 use App\Enums\AttendanceStatus;
 use App\Traits\{DataTablesTrait, ActionsButtonTrait};
 use Carbon\Carbon;
+use Illuminate\Validation\Rules\Enum;
 use LaravelEasyRepository\Implementations\Eloquent;
 use App\Models\Attendance;
 
@@ -668,6 +669,49 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                 }
             ]
         );
+    }
+
+    /**
+     * Get the validation rules for the form request.
+     * @param string|null $attendanceId The user ID.
+     * @return array The validation rules.
+     */
+    public function getValidationRules(?string $attendanceId = null): array
+    {
+        return [
+            'status' => ['required', new Enum(AttendanceStatus::class)],
+            'remarks' => 'nullable',
+        ];
+    }
+
+    /**
+     * Get the validation error messages for the form fields.
+     * @return array The validation error messages.
+     */
+    public function getValidationErrorMessages(): array
+    {
+        return [
+            'status.required' => 'Status tidak boleh kosong!',
+            'status.Enum' => 'Status harus merupakan salah satu dari: Hadir, Sakit, Izin, Terlambat dan Aplha!',
+        ];
+    }
+
+    /**
+     * Store or update a Attendance.
+     *
+     * @param array $data
+     */
+    public function storeOrUpdate($data)
+    {
+        // Create or update the attendance
+        $attendance = $this->attendanceModel->updateOrCreate(
+            ['id' => $data['id'] ?? null],
+            [
+                'status' => $data['status'],
+                'remarks' => $data['remarks'],
+            ]
+        );
+        return $attendance;
     }
 
 }
