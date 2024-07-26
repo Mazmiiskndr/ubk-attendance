@@ -18,15 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { data: 'total_absent', name: 'total_absent', className: 'text-center' },
     { data: 'total_late', name: 'total_late', className: 'text-center' },
     { data: 'total_sick', name: 'total_sick', className: 'text-center' },
-    { data: 'total_leave', name: 'total_leave', className: 'text-center' },
-    {
-      data: 'action',
-      name: 'action',
-      orderable: false,
-      searchable: false,
-      width: '100px',
-      className: 'text-center'
-    }
+    { data: 'total_leave', name: 'total_leave', className: 'text-center' }
   ];
 
   if (!$.fn.dataTable.isDataTable('#myTable')) {

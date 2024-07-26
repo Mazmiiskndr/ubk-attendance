@@ -14,7 +14,6 @@
                 <th class="text-center fw-bold">T</th>
                 <th class="text-center fw-bold">S</th>
                 <th class="text-center fw-bold">I</th>
-                <th class="text-center fw-bold">Aksi</th>
             </tr>
         </thead>
     </table>

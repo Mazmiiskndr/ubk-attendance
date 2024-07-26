@@ -144,7 +144,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                     return $this->getActionButtons(
                         $encodedId,
                         (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'showAttendance' : null,
-                        // 'confirmDeleteCourse',
                         null,
                         (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'backend.attendances.students.date.edit' : null,
                     );
@@ -244,19 +243,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                 },
                 'H' => function ($data) {
                     return $data['H'];
-                },
-                'action' => function ($data) {
-                    $encodedId = base64_encode($data['id']);
-                    return $this->getActionButtons(
-                        $encodedId,
-                        (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'showAttendance' : null,
-                        null,
-                        (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'backend.attendances.students.week.edit' : null,
-                        null,
-                        'showDetail',
-                        'backend.attendances.students.week.show',
-                        'link'
-                    );
                 }
             ]
         );
@@ -362,19 +348,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                 },
                 'total_leave' => function ($data) {
                     return $data['total_leave'];
-                },
-                'action' => function ($data) {
-                    $encodedId = base64_encode($data['id']);
-                    return $this->getActionButtons(
-                        $encodedId,
-                        (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'showAttendance' : null,
-                        null,
-                        (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'backend.attendances.students.month.edit' : null,
-                        null,
-                        'showDetail',
-                        'backend.attendances.students.month.show',
-                        'link'
-                    );
                 }
             ]
         );
@@ -531,19 +504,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                 },
                 'H' => function ($data) {
                     return $data['H'];
-                },
-                'action' => function ($data) {
-                    $encodedId = base64_encode($data['id']);
-                    return $this->getActionButtons(
-                        $encodedId,
-                        'showAttendance',
-                        null,
-                        'backend.attendances.lecturers.week.edit',
-                        null,
-                        'showDetail',
-                        'backend.attendances.lecturers.week.show',
-                        'link'
-                    );
                 }
             ]
         );
@@ -649,19 +609,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                 },
                 'total_leave' => function ($data) {
                     return $data['total_leave'];
-                },
-                'action' => function ($data) {
-                    $encodedId = base64_encode($data['id']);
-                    return $this->getActionButtons(
-                        $encodedId,
-                        'showAttendance',
-                        null,
-                        'backend.attendances.lecturers.month.edit',
-                        null,
-                        'showDetail',
-                        'backend.attendances.lecturers.month.show',
-                        'link'
-                    );
                 }
             ]
         );

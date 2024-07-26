@@ -19,15 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { data: 'T', name: 'T', className: 'text-center' },
     { data: 'S', name: 'S', className: 'text-center' },
     { data: 'I', name: 'I', className: 'text-center' },
-    { data: 'H', name: 'H', className: 'text-center' },
-    {
-      data: 'action',
-      name: 'action',
-      orderable: false,
-      searchable: false,
-      width: '150px',
-      className: 'text-center'
-    }
+    { data: 'H', name: 'H', className: 'text-center' }
   ];
 
   // Initialize DataTable if it hasn't been initialized yet
