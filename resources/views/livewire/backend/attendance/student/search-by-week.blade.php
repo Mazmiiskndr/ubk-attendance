@@ -1,5 +1,5 @@
 <div class="order-2 order-md-2 mb-1 mb-sm-0 text-center">
-    <x-input-field id="searchByWeek" model="searchByWeek" placeholder="Cari Berdasarkan Tanggal.." required style="width:300px" />
+    <x-input-field id="searchByWeek" model="searchByWeek" placeholder="Cari Berdasarkan Rentang Mingguan.." required style="width:300px" />
 </div>
 
 @push('scripts')

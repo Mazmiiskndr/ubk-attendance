@@ -254,11 +254,13 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
 
     /**
      * Get the data formatted for DataTables for attendances by month.
+     *
+     * @param array|null $dates An optional array containing 'startDate' and 'endDate'.
      */
-    public function getDatatablesStudentByMonth()
+    public function getDatatablesStudentByMonth($dates = null)
     {
-        $startOfMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
-        $endOfMonth = Carbon::now()->endOfMonth()->format('Y-m-d');
+        $startOfMonth = isset($dates['startDate']) ? $dates['startDate'] : Carbon::now()->startOfMonth()->format('Y-m-d');
+        $endOfMonth = isset($dates['endDate']) ? $dates['endDate'] : Carbon::now()->endOfMonth()->format('Y-m-d');
         $currentUser = auth()->user();
         $userId = null;
         if ($currentUser->role->name_alias == 'mahasiswa') {

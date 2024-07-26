@@ -48,8 +48,10 @@ interface AttendanceService extends BaseService
 
     /**
      * Get the data formatted for DataTables for attendances by month.
+     *
+     * @param array|null $dates An optional array containing 'startDate' and 'endDate'.
      */
-    public function getDatatablesStudentByMonth();
+    public function getDatatablesStudentByMonth($dates);
 
     /**
      * Get the data formatted for DataTables for lecture by date.

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+  let searchByMonth = { startDate: null, endDate: null };
   const columns = [
     {
       data: 'DT_RowIndex',
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { data: 'total_leave', name: 'total_leave', className: 'text-center' }
   ];
 
+  // Initialize DataTable if it hasn't been initialized yet
   if (!$.fn.dataTable.isDataTable('#myTable')) {
     var dataTable = $('#myTable').DataTable({
       processing: true,
@@ -30,9 +32,19 @@ document.addEventListener('DOMContentLoaded', function () {
       order: [[0]],
       ajax: {
         url: document.getElementById('myTable').dataset.route,
-        type: 'GET'
+        type: 'GET',
+        data: function (d) {
+          d.startDate = searchByMonth.startDate;
+          d.endDate = searchByMonth.endDate;
+        }
       },
       columns: columns
+    });
+
+    window.addEventListener('searchByMonth', event => {
+      searchByMonth.startDate = event.detail[0].startDate;
+      searchByMonth.endDate = event.detail[0].endDate;
+      dataTable.ajax.reload();
     });
 
     window.addEventListener('refreshDatatable', () => {

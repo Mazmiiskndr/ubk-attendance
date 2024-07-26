@@ -34,48 +34,6 @@
     'resources/assets/js/backend/attendances/student-by-week-management.js',
     'resources/assets/vendor/libs/flatpickr/flatpickr.js'
     ])
-    {{-- <script>
-        function confirmDeleteBatch() {
-            // Ambil semua courseId yang dicentang
-            let courseIds = Array.from(document.querySelectorAll('.courses-checkbox:checked')).map(el => el.value);
-
-            if (courseIds.length > 0) {
-                showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
-                    // Emit an event untuk menghapus siswa yang dicentang
-                    Livewire.dispatch('deleteBatchCourses', {
-                        courseIds: courseIds
-                    });
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error'
-                    , type: 'error'
-                    , title: 'Oops...'
-                    , text: 'Anda harus memilih setidaknya satu mata kuliah untuk dihapus!'
-                    , customClass: {
-                        confirmButton: 'btn btn-primary'
-                        , buttonsStyling: false
-                    }
-                });
-            }
-        }
-
-        // Fungsi untuk menampilkan modal untuk MENGHAPUS!
-        function confirmDeleteCourse(courseId) {
-            showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
-                Livewire.dispatch('confirmCourse', {
-                    courseId: courseId
-                });
-            });
-        }
-
-        function showCourse(courseId) {
-            Livewire.dispatch('requestCourseById', {
-                courseId: courseId
-            });
-        }
-
-    </script> --}}
     @endpush
 </div>
 

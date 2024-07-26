@@ -2,7 +2,7 @@
 @section('title', 'Presensi Mahasiswa Perbulan')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatable/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
 @endpush
 
 @section('content')
@@ -11,21 +11,15 @@
     <span class="text-muted fw-light">Presensi / Mahasiswa /</span> Perbulan
 </h4>
 <!-- DataTable with Buttons -->
-@php
-use Carbon\Carbon;
-
-$startOfMonth = Carbon::now()->startOfMonth()->format('Y/m/d');
-$endOfMonth = Carbon::now()->endOfMonth()->format('Y/m/d');
-@endphp
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="mb-1 mb-sm-0 text-center text-sm-start">
                 <h4 class="card-title">Tabel Presensi Mahasiswa Perbulan</h4>
             </div>
-            <div>
-                <h5 class="card-title">Menampilkan Tanggal: {{ $startOfMonth }} - {{ $endOfMonth }}</h5>
-            </div>
+            @livewire('backend.attendance.student.search-by-month')
+            @livewire('backend.attendance.student.show-by-month')
+
         </div>
     </div>
 
@@ -38,50 +32,9 @@ $endOfMonth = Carbon::now()->endOfMonth()->format('Y/m/d');
     @push('scripts')
     @vite([
     'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/attendances/student-by-month-management.js'
+    'resources/assets/js/backend/attendances/student-by-month-management.js',
+    'resources/assets/vendor/libs/flatpickr/flatpickr.js'
     ])
-    {{-- <script>
-        function confirmDeleteBatch() {
-            // Ambil semua courseId yang dicentang
-            let courseIds = Array.from(document.querySelectorAll('.courses-checkbox:checked')).map(el => el.value);
-
-            if (courseIds.length > 0) {
-                showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
-                    // Emit an event untuk menghapus siswa yang dicentang
-                    Livewire.dispatch('deleteBatchCourses', {
-                        courseIds: courseIds
-                    });
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error'
-                    , type: 'error'
-                    , title: 'Oops...'
-                    , text: 'Anda harus memilih setidaknya satu mata kuliah untuk dihapus!'
-                    , customClass: {
-                        confirmButton: 'btn btn-primary'
-                        , buttonsStyling: false
-                    }
-                });
-            }
-        }
-
-        // Fungsi untuk menampilkan modal untuk MENGHAPUS!
-        function confirmDeleteCourse(courseId) {
-            showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
-                Livewire.dispatch('confirmCourse', {
-                    courseId: courseId
-                });
-            });
-        }
-
-        function showCourse(courseId) {
-            Livewire.dispatch('requestCourseById', {
-                courseId: courseId
-            });
-        }
-
-    </script> --}}
     @endpush
 </div>
 

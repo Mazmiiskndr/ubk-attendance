@@ -12,8 +12,8 @@ class ShowByWeek extends Component
 
     public function mount()
     {
-        $this->startDate = Carbon::now()->startOfWeek(Carbon::MONDAY)->format('Y/m/d');
-        $this->endDate = Carbon::now()->endOfWeek(Carbon::SUNDAY)->format('Y/m/d');
+        $this->startDate = Carbon::now()->startOfWeek(Carbon::MONDAY)->format('Y-m-d');
+        $this->endDate = Carbon::now()->endOfWeek(Carbon::SUNDAY)->format('Y-m-d');
     }
 
     #[On('searchByWeek')]
