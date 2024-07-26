@@ -34,9 +34,10 @@ interface AttendanceService extends BaseService
     public function deleteAttendances($attendanceIds);
 
     /**
-     * Get the data formatted for DataTables for attendances by date.
+     * Get the data formatted for DataTables for student by date.
+     * @param string|null $date The date for which to get the attendance data. If null, defaults to today's date.
      */
-    public function getDatatablesStudentByDate();
+    public function getDatatablesStudentByDate($date);
 
     /**
      * Get the data formatted for DataTables for attendances by week.

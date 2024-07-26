@@ -98,17 +98,19 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
 
     /**
      * Get the data formatted for DataTables for student by date.
+     * @param string|null $date The date for which to get the attendance data. If null, defaults to today's date.
      */
-    public function getDatatablesStudentByDate()
+    public function getDatatablesStudentByDate($date = null)
     {
         $today = Carbon::today()->toDateString();
+        $selectedDate = $date ? $date : $today;
         $currentUser = auth()->user();
         $userId = null;
         if ($currentUser->role->name_alias == 'mahasiswa') {
             $userId = $currentUser->id;
         }
 
-        $data = $this->getAttendances(null, $userId, $today, null, null, 'mahasiswa');
+        $data = $this->getAttendances(null, $userId, $selectedDate, null, null, 'mahasiswa');
         if ($data->isEmpty()) {
             return datatables()->of(collect())->make(true);
         }

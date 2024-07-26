@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+  let searchByDate = null;
   const columns = [
     {
       data: 'DT_RowIndex',
@@ -52,11 +53,18 @@ document.addEventListener('DOMContentLoaded', function () {
       order: [[0]],
       ajax: {
         url: document.getElementById('myTable').dataset.route,
-        type: 'GET'
+        type: 'GET',
+        data: function (d) {
+          d.date = searchByDate;
+        }
       },
       columns: columns
     });
 
+    window.addEventListener('searchByDate', event => {
+      searchByDate = event.detail[0].searchByDate;
+      dataTable.ajax.reload();
+    });
     window.addEventListener('refreshDatatable', () => {
       dataTable.ajax.reload();
     });

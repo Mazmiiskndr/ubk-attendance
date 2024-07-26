@@ -4,6 +4,7 @@ namespace App\Livewire\Backend\Attendance\Student;
 
 use App\Services\Attendance\AttendanceService;
 use Livewire\Attributes\On;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class DateDatatables extends Component
@@ -13,9 +14,10 @@ class DateDatatables extends Component
         return view('livewire.backend.attendance.student.date-datatables');
     }
 
-    public function getDataTable(AttendanceService $attendanceService)
+    public function getDataTable(Request $request)
     {
-        return $attendanceService->getDatatablesStudentByDate();
+        $attendanceService = app(AttendanceService::class);
+        return $attendanceService->getDatatablesStudentByDate($request->input('date'));
     }
 
     #[On('requestStudentDateById')]

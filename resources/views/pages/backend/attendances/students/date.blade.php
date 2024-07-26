@@ -2,7 +2,7 @@
 @section('title', 'Presensi Mahasiswa Pertanggal')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatable/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
 @endpush
 
 @section('content')
@@ -12,17 +12,16 @@
 </h4>
 <!-- DataTable with Buttons -->
 <div class="card">
+
     <div class="card-header">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="mb-1 mb-sm-0 text-center text-sm-start">
                 <h4 class="card-title">Tabel Presensi Mahasiswa Pertanggal</h4>
             </div>
-            <div>
-                <h5 class="card-title">Menampilkan Tanggal : {{ date("Y/m/d") }}</h5>
-                {{-- <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0" data-bs-toggle="modal" data-bs-target="#createNewCourse">
-                    <i class="tf-icons fas fa-plus-circle ti-xs me-1"></i>&nbsp; Tambah Data Mata Kuliah
-                </x-button> --}}
-            </div>
+            @livewire('backend.attendance.student.search-by-date')
+            @livewire('backend.attendance.student.show-by-date')
+
+
         </div>
     </div>
 
@@ -35,7 +34,8 @@
     @push('scripts')
     @vite([
     'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/attendances/student-by-date-management.js'
+    'resources/assets/js/backend/attendances/student-by-date-management.js',
+    'resources/assets/vendor/libs/flatpickr/flatpickr.js'
     ])
     <script>
         function showAttendance(attendanceId) {
