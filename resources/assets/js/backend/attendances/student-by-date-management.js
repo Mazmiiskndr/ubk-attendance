@@ -28,16 +28,19 @@ document.addEventListener('DOMContentLoaded', function () {
       data: 'status',
       name: 'status',
       className: 'text-center'
-    },
-    {
+    }
+  ];
+
+  if (canEdit) {
+    columns.push({
       data: 'action',
       name: 'action',
       orderable: false,
       searchable: false,
-      width: '150px',
+      width: '80px',
       className: 'text-center'
-    }
-  ];
+    });
+  }
 
   // Initialize DataTable if it hasn't been initialized yet
   if (!$.fn.dataTable.isDataTable('#myTable')) {

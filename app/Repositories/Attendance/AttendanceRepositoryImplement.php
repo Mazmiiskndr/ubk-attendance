@@ -147,10 +147,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         // 'confirmDeleteCourse',
                         null,
                         (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'backend.attendances.students.date.edit' : null,
-                        null,
-                        'showDetail',
-                        'backend.attendances.students.date.show',
-                        'link'
                     );
                 }
             ]
