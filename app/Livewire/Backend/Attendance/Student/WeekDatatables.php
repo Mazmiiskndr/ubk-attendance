@@ -4,6 +4,7 @@ namespace App\Livewire\Backend\Attendance\Student;
 
 use App\Services\Attendance\AttendanceService;
 use Livewire\Component;
+use Illuminate\Http\Request;
 
 class WeekDatatables extends Component
 {
@@ -12,8 +13,18 @@ class WeekDatatables extends Component
         return view('livewire.backend.attendance.student.week-datatables');
     }
 
-    public function getDataTable(AttendanceService $attendanceService)
+    public function getDataTable(Request $request)
     {
-        return $attendanceService->getDatatablesStudentByWeek();
+        $dates = [
+            'startDate' => $request->input('startDate'),
+            'endDate' => $request->input('endDate')
+        ];
+        $attendanceService = app(AttendanceService::class);
+        return $attendanceService->getDatatablesStudentByWeek($dates);
+    }
+
+    public function refreshDataTable()
+    {
+        $this->dispatch('refreshDatatable');
     }
 }

@@ -20,8 +20,6 @@
             </div>
             @livewire('backend.attendance.student.search-by-date')
             @livewire('backend.attendance.student.show-by-date')
-
-
         </div>
     </div>
 

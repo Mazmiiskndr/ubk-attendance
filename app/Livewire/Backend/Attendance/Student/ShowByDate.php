@@ -9,7 +9,6 @@ class ShowByDate extends Component
 {
     public $date;
 
-
     public function mount()
     {
         $this->date = date("Y-m-d");
@@ -20,6 +19,7 @@ class ShowByDate extends Component
     {
         $this->date = $value['searchByDate'];
     }
+
     public function render()
     {
         return view('livewire.backend.attendance.student.show-by-date');

@@ -16,6 +16,7 @@ class SearchByDate extends Component
     {
         $this->dispatch('searchByDate', ['searchByDate' => $value]);
     }
+
     public function render()
     {
         return view('livewire.backend.attendance.student.search-by-date');

@@ -156,11 +156,13 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
 
     /**
      * Get the data formatted for DataTables for attendances by week.
+     *
+     * @param array|null $dates An optional array containing 'startDate' and 'endDate'.
      */
-    public function getDatatablesStudentByWeek()
+    public function getDatatablesStudentByWeek($dates = null)
     {
-        $startOfWeek = Carbon::now()->startOfWeek()->format('Y-m-d');
-        $endOfWeek = Carbon::now()->endOfWeek()->format('Y-m-d');
+        $startOfWeek = isset($dates['startDate']) ? $dates['startDate'] : Carbon::now()->startOfWeek()->format('Y-m-d');
+        $endOfWeek = isset($dates['endDate']) ? $dates['endDate'] : Carbon::now()->endOfWeek()->format('Y-m-d');
         $currentUser = auth()->user();
         $userId = null;
         if ($currentUser->role->name_alias == 'mahasiswa') {

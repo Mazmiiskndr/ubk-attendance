@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
       searchByDate = event.detail[0].searchByDate;
       dataTable.ajax.reload();
     });
+
     window.addEventListener('refreshDatatable', () => {
       dataTable.ajax.reload();
     });

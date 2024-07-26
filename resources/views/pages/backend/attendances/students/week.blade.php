@@ -2,7 +2,7 @@
 @section('title', 'Presensi Mahasiswa Perminggu')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatable/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
 @endpush
 
 @section('content')
@@ -11,21 +11,14 @@
     <span class="text-muted fw-light">Presensi / Mahasiswa /</span> Perminggu
 </h4>
 <!-- DataTable with Buttons -->
-@php
-use Carbon\Carbon;
-
-$startOfWeek = Carbon::now()->startOfWeek(Carbon::MONDAY)->format('Y/m/d');
-$endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY)->format('Y/m/d');
-@endphp
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="mb-1 mb-sm-0 text-center text-sm-start">
                 <h4 class="card-title">Tabel Presensi Mahasiswa Perminggu</h4>
             </div>
-            <div>
-                <h5 class="card-title">Menampilkan Tanggal: {{ $startOfWeek }} - {{ $endOfWeek }}</h5>
-            </div>
+            @livewire('backend.attendance.student.search-by-week')
+            @livewire('backend.attendance.student.show-by-week')
         </div>
     </div>
 
@@ -38,7 +31,8 @@ $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY)->format('Y/m/d');
     @push('scripts')
     @vite([
     'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/attendances/student-by-week-management.js'
+    'resources/assets/js/backend/attendances/student-by-week-management.js',
+    'resources/assets/vendor/libs/flatpickr/flatpickr.js'
     ])
     {{-- <script>
         function confirmDeleteBatch() {

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   const daysInWeek = 7;
+  let searchByWeek = { startDate: null, endDate: null };
   const columns = [
     {
       data: 'DT_RowIndex',
@@ -32,24 +33,19 @@ document.addEventListener('DOMContentLoaded', function () {
       order: [[0]],
       ajax: {
         url: document.getElementById('myTable').dataset.route,
-        type: 'GET'
-      },
-      columns: columns,
-      createdRow: function (row, data, dataIndex) {
-        // Iterate over each cell to set the innerHTML directly to avoid HTML being escaped
-        for (let i = 0; i < daysInWeek; i++) {
-          const cell = $(row).find(`td:eq(${i + 2})`); // +2 to skip DT_RowIndex and student columns
-          const cellData = data[`day_${i + 1}`];
-          cell.html(cellData); // Set the cell content directly
+        type: 'GET',
+        data: function (d) {
+          d.startDate = searchByWeek.startDate;
+          d.endDate = searchByWeek.endDate;
         }
       },
-      drawCallback: function (settings) {
-        if (settings.aoData.length === 0) {
-          $('#myTable tbody').html(
-            '<tr>' + '<td colspan="' + columns.length + '" class="text-center">No matching records found</td>' + '</tr>'
-          );
-        }
-      }
+      columns: columns
+    });
+
+    window.addEventListener('searchByWeek', event => {
+      searchByWeek.startDate = event.detail[0].startDate;
+      searchByWeek.endDate = event.detail[0].endDate;
+      dataTable.ajax.reload();
     });
 
     window.addEventListener('refreshDatatable', () => {
