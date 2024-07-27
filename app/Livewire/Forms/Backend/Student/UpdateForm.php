@@ -20,14 +20,14 @@ class UpdateForm extends Form
     {
         $this->idStudent = $student->id;
         $this->name = $student->name;
-        $this->identNumber = $student->userDetail->ident_number;
+        $this->identNumber = $student->userDetail->ident_number ?? '';
         $this->email = $student->email;
-        $this->phoneNumber = $student->userDetail->phone_number;
-        $this->gender = $student->userDetail->gender;
-        $this->birthDate = $student->userDetail->birthdate;
-        $this->semester = $student->userDetail->semester;
-        $this->classId = $student->userDetail->kelas->id;
-        $this->address = $student->userDetail->address;
+        $this->phoneNumber = $student->userDetail->phone_number ?? '';
+        $this->gender = $student->userDetail->gender ?? '';
+        $this->birthDate = $student->userDetail->birthdate ?? '';
+        $this->semester = $student->userDetail->semester ?? '';
+        $this->classId = $student->userDetail->kelas->id ?? '';
+        $this->address = $student->userDetail->address ?? '';
         $this->existingImage = $student->images;
     }
 
