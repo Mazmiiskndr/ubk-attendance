@@ -97,6 +97,32 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     }
 
     /**
+     * Count attendances within a given date range
+     * @param string $startDate
+     * @param string $endDate
+     * @return int
+     */
+    public function countAttendancesByDateRange($startDate, $endDate)
+    {
+        return $this->attendanceModel
+            ->whereBetween('attendance_date', [$startDate, $endDate])
+            ->count();
+    }
+
+    /**
+     * Get attendance data per month
+     * @param int $year
+     * @param int $month
+     */
+    public function getMonthlyAttendance($year, $month)
+    {
+        return $this->attendanceModel
+            ->whereYear('attendance_date', $year)
+            ->whereMonth('attendance_date', $month)
+            ->get();
+    }
+
+    /**
      * Get the data formatted for DataTables for student by date.
      * @param string|null $date The date for which to get the attendance data. If null, defaults to today's date.
      */

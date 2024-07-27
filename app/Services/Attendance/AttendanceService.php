@@ -34,6 +34,21 @@ interface AttendanceService extends BaseService
     public function deleteAttendances($attendanceIds);
 
     /**
+     * Count attendances within a given date range
+     * @param string $startDate
+     * @param string $endDate
+     * @return int
+     */
+    public function countAttendancesByDateRange($startDate, $endDate);
+
+    /**
+     * Get attendance data per month
+     * @param int $year
+     * @param int $month
+     */
+    public function getMonthlyAttendance($year, $month);
+
+    /**
      * Get the data formatted for DataTables for student by date.
      * @param string|null $date The date for which to get the attendance data. If null, defaults to today's date.
      */
