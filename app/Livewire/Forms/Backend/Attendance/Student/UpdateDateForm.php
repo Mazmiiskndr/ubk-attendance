@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Forms\Backend\Atttendance\Student;
+namespace App\Livewire\Forms\Backend\Attendance\Student;
 
 use App\Services\Attendance\AttendanceService;
 use Livewire\Attributes\Validate;

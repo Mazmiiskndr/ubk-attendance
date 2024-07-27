@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Backend\Attendance\Student;
 
-use App\Livewire\Forms\Backend\Atttendance\Student\UpdateDateForm;
+use App\Livewire\Forms\Backend\Attendance\Student\UpdateDateForm;
 use App\Services\Attendance\AttendanceService;
 use App\Traits\{LivewireMessageEvents, CloseModalTrait};
 use Livewire\Attributes\On;
