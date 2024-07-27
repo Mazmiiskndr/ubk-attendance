@@ -5,17 +5,6 @@ $customizerHidden = 'customizer-hide';
 @extends('layouts/layoutMaster')
 
 @section('title', 'Halaman Login')
-
-{{-- @section('vendor-style')
-@vite(['resources/assets/vendor/libs/@form-validation/form-validation.scss'])
-@endsection --}}
-
-{{-- @section('vendor-script')
-@vite(['resources/assets/vendor/libs/@form-validation/popular.js',
-'resources/assets/vendor/libs/@form-validation/bootstrap5.js',
-'resources/assets/vendor/libs/@form-validation/auto-focus.js'])
-@endsection
---}}
 @section('page-style')
 @vite(['resources/assets/vendor/scss/pages/page-auth.scss'])
 @endsection
