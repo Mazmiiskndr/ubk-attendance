@@ -13,7 +13,7 @@ class Cards extends Component
     {
         $startDate = now()->startOfMonth()->toDateString();
         $endDate = now()->endOfMonth()->toDateString();
-        if (auth()->user()->role->name == 'admin') {
+        if (auth()->user()->role->name_alias == 'admin') {
             $this->totalStudents = $userService->countUsers('mahasiswa');
             $this->totalUsers = $userService->countUsers();
             $this->totalLecturers = $userService->countUsers('dosen');

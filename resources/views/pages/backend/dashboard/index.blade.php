@@ -15,7 +15,7 @@
 <h4 class="fw-bold py-3 mb-1">Beranda</h4>
 @livewire('backend.dashboard.cards')
 <div class="row">
-    @if(auth()->user()->role->name == 'admin')
+    @if(auth()->user()->role->name_alias == 'admin')
     <!-- Bar Charts -->
     @livewire('backend.dashboard.lecture-charts')
     <!-- /Bar Charts -->
