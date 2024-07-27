@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->name('backend.')->group(function () {
     // Route for list attendance Student page
     Route::get('attendances/students/date', [AttendanceController::class, 'showStudentAttendanceByDate'])->name('attendances.students.date');
+    Route::get('student/detail/{id}', [AttendanceController::class, 'showStudentAttendanceByDateDetail'])->name('attendances.students.date.show');
+
 
     Route::get('attendances/students/week', [AttendanceController::class, 'showStudentAttendanceByWeek'])->name('attendances.students.week');
 

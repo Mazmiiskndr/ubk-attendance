@@ -246,6 +246,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'showAttendance' : null,
                         null,
                         (auth()->user()->role->name_alias == 'dosen' || auth()->user()->role->name_alias == 'admin') ? 'backend.attendances.students.date.edit' : null,
+                        null,
+                        'showDetail',
+                        'backend.attendances.students.date.show',
+                        'link'
                     );
                 }
             ]
@@ -779,7 +783,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
      */
     public function isValidUserId($userId)
     {
-        // Menggunakan Eloquent untuk memeriksa keberadaan UID di database
         return $this->userModel->where('id', $userId)->exists();
     }
 
@@ -793,11 +796,11 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
      */
     public function determineStatus($userId, $date, $time)
     {
-        $dayOfWeek = Carbon::parse($date)->dayOfWeekIso; // Mendapatkan hari dalam bentuk angka (1-7, Senin-Minggu)
-        $schedule = $this->courseScheduleModel->where('day', $dayOfWeek)->first(); // Mendapatkan jadwal berdasarkan hari
+        $dayOfWeek = Carbon::parse($date)->dayOfWeekIso;
+        $schedule = $this->courseScheduleModel->where('day', $dayOfWeek)->first();
 
         if (!$schedule) {
-            return AttendanceStatus::Alpha->value; // Tidak Ada Jadwal
+            return AttendanceStatus::Alpha->value;
         }
 
         if ($time >= $schedule->check_in_start && $time <= $schedule->check_in_end) {
@@ -821,15 +824,14 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
      */
     public function storeAttendanceData($userId, $date, $time, $status, $filename)
     {
-        // Menyimpan data kehadiran ke database
         $this->attendanceModel->create([
             'user_id' => $userId,
-            'course_schedule_id' => $this->courseScheduleModel->where('day', Carbon::parse($date)->dayOfWeekIso)->value('id'),
+            'course_schedule_id' => CourseSchedule::where('day', Carbon::parse($date)->dayOfWeekIso)->value('id'),
             'attendance_date' => $date,
-            'check_in' => $status == 'Hadir' ? $time : null,
-            'check_out' => $status == 'Keluar' ? $time : null,
-            'image_in' => $status == 'Hadir' ? $filename : null,
-            'image_out' => $status == 'Keluar' ? $filename : null,
+            'check_in' => in_array($status, [AttendanceStatus::Hadir->value, AttendanceStatus::Terlambat->value]) ? $time : null,
+            'check_out' => null,
+            'image_in' => in_array($status, [AttendanceStatus::Hadir->value, AttendanceStatus::Terlambat->value]) ? $filename : null,
+            'image_out' => null,
             'status' => $status,
             'remarks' => null,
         ]);

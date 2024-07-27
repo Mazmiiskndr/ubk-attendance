@@ -25,6 +25,21 @@ class AttendanceController extends Controller
     {
         return view('pages.backend.attendances.students.date');
     }
+    public function showStudentAttendanceByDateDetail($encodedId)
+    {
+        try {
+            $id = base64_decode($encodedId);
+            if (!$id) {
+                throw new \InvalidArgumentException("Invalid ID provided.");
+            }
+
+            $student = $this->attendanceService->getAttendanceById($id);
+            return view('pages.backend.attendances.students.date-detail', compact('student'));
+        } catch (\InvalidArgumentException $e) {
+            // Handle the exception, for example by redirecting back with an error message
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
 
     public function showStudentAttendanceByWeek()
     {
@@ -53,7 +68,12 @@ class AttendanceController extends Controller
     }
     // END LECTURE
 
-    // TODO:
+    /**
+     * Store the attendance data.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $message = '';
@@ -64,13 +84,13 @@ class AttendanceController extends Controller
             $filename = str()->uuid() . ".jpg";
 
             $hari_ini = now()->format('Y-m-d');
-            // TODO:
+            // TODO: Day is not used in the code, consider removing it
             $day = $this->attendanceService->getDay($hari_ini);
 
             if ($this->attendanceService->isValidUserId($userId)) {
                 $time = Carbon::now()->format('H:i:s');
-                $status = $this->attendanceService->determineStatus($userId, $hari_ini, $time); // menentukan status kehadiran
-                $simpan_absen = $this->attendanceService->storeAttendanceData($userId, $hari_ini, $time, $status, $filename); // menyimpan hasil jam dan status absen di database
+                $status = $this->attendanceService->determineStatus($userId, $hari_ini, $time);
+                $simpan_absen = $this->attendanceService->storeAttendanceData($userId, $hari_ini, $time, $status, $filename);
                 $file->storeAs('public/assets/images/attendances', $filename);
                 $message = $simpan_absen;
             } else {
