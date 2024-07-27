@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Enums\AttendanceStatus;
 use App\Http\Controllers\Controller;
-use App\Models\Attendance;
-use App\Models\CourseSchedule;
-use App\Models\User;
 use App\Services\Attendance\AttendanceService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
