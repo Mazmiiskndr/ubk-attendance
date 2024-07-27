@@ -42,11 +42,21 @@ interface AttendanceRepository extends Repository
     public function countAttendancesByDateRange($startDate, $endDate);
 
     /**
-     * Get attendance data per month
+     * Get attendance data per month with optional role alias filter
      * @param int $year
      * @param int $month
+     * @param string|null $roleAlias
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getMonthlyAttendance($year, $month);
+
+    /**
+     * Get filtered attendances
+     * @param string $filter
+     * @param string|null $roleAlias
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getFilteredAttendances($filter, $roleAlias);
 
     /**
      * Get the data formatted for DataTables for student by date.

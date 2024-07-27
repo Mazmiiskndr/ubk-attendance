@@ -110,16 +110,77 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     }
 
     /**
-     * Get attendance data per month
+     * Get attendance data per month with optional role alias filter
      * @param int $year
      * @param int $month
+     * @param string|null $roleAlias
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getMonthlyAttendance($year, $month)
+    public function getMonthlyAttendance($year, $month, $roleAlias = null)
     {
-        return $this->attendanceModel
+        $query = $this->attendanceModel
             ->whereYear('attendance_date', $year)
-            ->whereMonth('attendance_date', $month)
-            ->get();
+            ->whereMonth('attendance_date', $month);
+
+        if ($roleAlias !== null) {
+            $query->whereHas('user.role', function ($query) use ($roleAlias) {
+                $query->where('name_alias', $roleAlias);
+            });
+        }
+
+        return $query->get();
+    }
+
+    /**
+     * Get filtered attendances
+     * @param string $filter
+     * @param string|null $roleAlias
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getFilteredAttendances($filter, $roleAlias = null)
+    {
+        $query = $this->attendanceModel->with(['user', 'courseSchedule.course'])->latest();
+        $year = now()->year;
+        $month = now()->month;
+
+        switch ($filter) {
+            case 'today':
+                $date = now()->toDateString();
+                $query->whereDate('attendance_date', $date);
+                break;
+            case 'yesterday':
+                $date = now()->subDay()->toDateString();
+                $query->whereDate('attendance_date', $date);
+                break;
+            case 'last7Days':
+                $startDate = now()->subDays(7)->toDateString();
+                $endDate = now()->toDateString();
+                $query->whereBetween('attendance_date', [$startDate, $endDate]);
+                break;
+            case 'last30Days':
+                $startDate = now()->subDays(30)->toDateString();
+                $endDate = now()->toDateString();
+                $query->whereBetween('attendance_date', [$startDate, $endDate]);
+                break;
+            case 'lastMonth':
+                $startDate = now()->subMonth()->startOfMonth()->toDateString();
+                $endDate = now()->subMonth()->endOfMonth()->toDateString();
+                $query->whereBetween('attendance_date', [$startDate, $endDate]);
+                break;
+            case 'currentMonth':
+            default:
+                $query->whereYear('attendance_date', $year)
+                    ->whereMonth('attendance_date', $month);
+                break;
+        }
+
+        if ($roleAlias !== null) {
+            $query->whereHas('user.role', function ($query) use ($roleAlias) {
+                $query->where('name_alias', $roleAlias);
+            });
+        }
+
+        return $query->get();
     }
 
     /**

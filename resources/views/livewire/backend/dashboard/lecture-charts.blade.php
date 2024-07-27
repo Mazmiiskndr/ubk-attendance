@@ -3,26 +3,26 @@
 <div class="col-lg-6 col-12 mb-4">
     <div class="card">
         <div class="card-header header-elements">
-            <h5 class="card-title mb-0">Grafic Absensi Dosen</h5>
+            <h5 class="card-title mb-0">Grafik Absensi Dosen Bulan {{ \Carbon\Carbon::now()->translatedFormat('F') }}</h5>
             <div class="card-action-element ms-auto py-0">
                 <div class="dropdown">
                     <button type="button" class="btn dropdown-toggle px-0" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti ti-calendar"></i></button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Today</a></li>
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Yesterday</a></li>
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last 7 Days</a></li>
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last 30 Days</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['today'])">Today</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['yesterday'])">Yesterday</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['last7Days'])">Last 7 Days</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['last30Days'])">Last 30 Days</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Current Month</a></li>
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Last Month</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['currentMonth'])">Current Month</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['lastMonth'])">Last Month</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <canvas id="chartDummy" class="chartjs" data-height="400"></canvas>
+            <canvas id="chartDummy" wire:ignore.self class="chartjs" data-height="400"></canvas>
         </div>
     </div>
     @push('scripts')
@@ -36,68 +36,93 @@
                 chartListItem.height = chartListItem.dataset.height;
             });
 
-            // Bar Chart
-            const chartDummy = document.getElementById('chartDummy');
-            if (chartDummy) {
-                // Destroy existing chart instance if it exists
-                if (chartDummy.chartInstance) {
-                    chartDummy.chartInstance.destroy();
-                }
+            // Prepare data for the chart
+            function updateChart(attendances) {
+                console.log(attendances);
+                // Group by date and sum counts
+                const groupedData = attendances.reduce((acc, attendance) => {
+                    const formattedDate = new Date(attendance.attendance_date).toLocaleDateString('en-CA');
+                    if (!acc[formattedDate]) {
+                        acc[formattedDate] = 0;
+                    }
+                    acc[formattedDate] += attendance.count || 1; // Assuming count is 1 if not provided
+                    return acc;
+                }, {});
 
-                chartDummy.chartInstance = new Chart(chartDummy, {
-                    type: 'bar'
-                    , data: {
-                        labels: [
-                            '7/12', '8/12', '9/12', '10/12', '11/12', '12/12', '13/12'
-                            , '14/12', '15/12', '16/12', '17/12', '18/12', '19/12'
-                        ]
-                        , datasets: [{
-                            data: [275, 90, 190, 205, 125, 85, 55, 87, 127, 150, 230, 280, 190]
-                            , backgroundColor: '#28dac6'
-                            , borderColor: 'transparent'
-                            , maxBarThickness: 15
-                            , borderRadius: {
-                                topRight: 15
-                                , topLeft: 15
-                            }
-                        }]
+                // Prepare labels and data for Chart.js
+                const labels = Object.keys(groupedData);
+                const data = Object.values(groupedData);
+
+                // Bar Chart
+                const chartDummy = document.getElementById('chartDummy');
+                if (chartDummy) {
+                    // Destroy existing chart instance if it exists
+                    if (chartDummy.chartInstance) {
+                        chartDummy.chartInstance.destroy();
                     }
-                    , options: {
-                        responsive: true
-                        , maintainAspectRatio: false
-                        , animation: {
-                            duration: 500
+
+                    chartDummy.chartInstance = new Chart(chartDummy, {
+                        type: 'bar'
+                        , data: {
+                            labels: labels
+                            , datasets: [{
+                                data: data
+                                , backgroundColor: '#28dac6'
+                                , borderColor: 'transparent'
+                                , maxBarThickness: 15
+                                , borderRadius: {
+                                    topRight: 15
+                                    , topLeft: 15
+                                }
+                            }]
                         }
-                        , plugins: {
-                            tooltip: {
-                                borderWidth: 1
+                        , options: {
+                            responsive: true
+                            , maintainAspectRatio: false
+                            , animation: {
+                                duration: 500
                             }
-                            , legend: {
-                                display: false
-                            }
-                        }
-                        , scales: {
-                            x: {
-                                grid: {
-                                    drawBorder: false
+                            , plugins: {
+                                tooltip: {
+                                    borderWidth: 1
+                                }
+                                , legend: {
+                                    display: false
                                 }
                             }
-                            , y: {
-                                min: 0
-                                , max: 400
-                                , grid: {
-                                    drawBorder: false
+                            , scales: {
+                                x: {
+                                    grid: {
+                                        drawBorder: false
+                                    }
                                 }
-                                , ticks: {
-                                    stepSize: 100
+                                , y: {
+                                    min: 0
+                                    , max: Math.max(...data) + 10
+                                    , grid: {
+                                        drawBorder: false
+                                    }
+                                    , ticks: {
+                                        stepSize: 10
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                }
             }
+
+            // Initial chart load
+            updateChart(@json($monthlyAttendances));
+
+            // Listen for chart updates
+            Livewire.on('chartUpdated', attendancesJson => {
+                const attendances = JSON.parse(attendancesJson);
+                updateChart(attendances);
+            });
         });
 
     </script>
     @endpush
+
 </div>

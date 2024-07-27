@@ -37,6 +37,6 @@ class DatabaseSeeder extends Seeder
             ->has(CourseSchedule::factory()->count(3), 'schedules') // Menggunakan nama relasi 'schedules'
             ->create();
 
-        Attendance::factory()->count(10)->create();
+        Attendance::factory()->count(100)->create();
     }
 }

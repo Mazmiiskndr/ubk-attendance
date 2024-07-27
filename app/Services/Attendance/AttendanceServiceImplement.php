@@ -68,13 +68,26 @@ class AttendanceServiceImplement extends Service implements AttendanceService
     }
 
     /**
-     * Get attendance data per month
+     * Get attendance data per month with optional role alias filter
      * @param int $year
      * @param int $month
+     * @param string|null $roleAlias
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getMonthlyAttendance($year, $month)
+    public function getMonthlyAttendance($year, $month, $roleAlias = null)
     {
-        return $this->handleRepositoryCall('getMonthlyAttendance', [$year, $month]);
+        return $this->handleRepositoryCall('getMonthlyAttendance', [$year, $month, $roleAlias]);
+    }
+
+    /**
+     * Get filtered attendances
+     * @param string $filter
+     * @param string|null $roleAlias
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getFilteredAttendances($filter, $roleAlias = null)
+    {
+        return $this->handleRepositoryCall('getFilteredAttendances', [$filter, $roleAlias]);
     }
 
     /**
