@@ -3,20 +3,20 @@
 <div class="col-lg-6 col-12 mb-4">
     <div class="card">
         <div class="card-header header-elements">
-            <h5 class="card-title mb-0">Grafik Absensi Dosen Bulan {{ \Carbon\Carbon::now()->translatedFormat('F') }}</h5>
+            <h5 class="card-title mb-0">{{ $title }}</h5>
             <div class="card-action-element ms-auto py-0">
                 <div class="dropdown">
                     <button type="button" class="btn dropdown-toggle px-0" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti ti-calendar"></i></button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['today'])">Today</a></li>
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['yesterday'])">Yesterday</a></li>
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['last7Days'])">Last 7 Days</a></li>
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['last30Days'])">Last 30 Days</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['today'])">Hari Ini</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['yesterday'])">Kemarin</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['last7Days'])">7 Hari Terakhir</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['last30Days'])">30 Hari Terakhir</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['currentMonth'])">Current Month</a></li>
-                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['lastMonth'])">Last Month</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['currentMonth'])">Bulan Ini</a></li>
+                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" onclick="Livewire.dispatch('refreshChart', ['lastMonth'])">Bulan Lalu</a></li>
                     </ul>
                 </div>
             </div>
@@ -36,16 +36,24 @@
                 chartListItem.height = chartListItem.dataset.height;
             });
 
+            // Status mapping
+            const statusMapping = {
+                'H': 'Hadir'
+                , 'S': 'Sakit'
+                , 'I': 'Izin'
+                , 'T': 'Terlambat'
+                , 'A': 'Alpha'
+            };
+
             // Prepare data for the chart
             function updateChart(attendances) {
-                console.log(attendances);
                 // Group by date and sum counts
                 const groupedData = attendances.reduce((acc, attendance) => {
-                    const formattedDate = new Date(attendance.attendance_date).toLocaleDateString('en-CA');
-                    if (!acc[formattedDate]) {
-                        acc[formattedDate] = 0;
+                    const status = statusMapping[attendance.status] || attendance.status;
+                    if (!acc[status]) {
+                        acc[status] = 0;
                     }
-                    acc[formattedDate] += attendance.count || 1; // Assuming count is 1 if not provided
+                    acc[status] += attendance.count || 1; // Assuming count is 1 if not provided
                     return acc;
                 }, {});
 

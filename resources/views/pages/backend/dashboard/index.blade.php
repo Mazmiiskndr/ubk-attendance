@@ -15,13 +15,15 @@
 <h4 class="fw-bold py-3 mb-1">Dashboard</h4>
 @livewire('backend.dashboard.cards')
 <div class="row">
+    @if(auth()->user()->role->name == 'admin')
     <!-- Bar Charts -->
     @livewire('backend.dashboard.lecture-charts')
-
     <!-- /Bar Charts -->
+
     <!-- Horizontal Bar Charts -->
     @livewire('backend.dashboard.student-charts')
-
     <!-- /Horizontal Bar Charts -->
+    @endif
+
 </div>
 @endsection
