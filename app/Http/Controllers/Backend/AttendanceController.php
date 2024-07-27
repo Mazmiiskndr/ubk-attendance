@@ -25,6 +25,7 @@ class AttendanceController extends Controller
     {
         return view('pages.backend.attendances.students.date');
     }
+
     public function showStudentAttendanceByDateDetail($encodedId)
     {
         try {
@@ -44,6 +45,22 @@ class AttendanceController extends Controller
     public function showStudentAttendanceByWeek()
     {
         return view('pages.backend.attendances.students.week');
+    }
+
+    public function showLectureAttendanceByDateDetail($encodedId)
+    {
+        try {
+            $id = base64_decode($encodedId);
+            if (!$id) {
+                throw new \InvalidArgumentException("Invalid ID provided.");
+            }
+
+            $student = $this->attendanceService->getAttendanceById($id);
+            return view('pages.backend.attendances.lecturers.date-detail', compact('student'));
+        } catch (\InvalidArgumentException $e) {
+            // Handle the exception, for example by redirecting back with an error message
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function showStudentAttendanceByMonth()

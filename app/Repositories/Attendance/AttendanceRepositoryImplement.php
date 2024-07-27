@@ -511,6 +511,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         // 'confirmDeleteCourse',
                         null,
                         'backend.attendances.lecturers.date.edit',
+                        null,
+                        'showDetail',
+                        'backend.attendances.students.date.show',
+                        'link'
                     );
                 }
             ]
