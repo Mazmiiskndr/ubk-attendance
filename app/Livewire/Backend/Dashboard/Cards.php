@@ -13,10 +13,14 @@ class Cards extends Component
     {
         $startDate = now()->startOfMonth()->toDateString();
         $endDate = now()->endOfMonth()->toDateString();
-        $this->totalStudents = $userService->countUsers('mahasiswa');
-        $this->totalUsers = $userService->countUsers();
-        $this->totalLecturers = $userService->countUsers('dosen');
-        $this->totalAttendancePerMonth = $attendanceService->countAttendancesByDateRange($startDate, $endDate);
+        if (auth()->user()->role->name == 'admin') {
+            $this->totalStudents = $userService->countUsers('mahasiswa');
+            $this->totalUsers = $userService->countUsers();
+            $this->totalLecturers = $userService->countUsers('dosen');
+            $this->totalAttendancePerMonth = $attendanceService->countAttendancesByDateRange($startDate, $endDate);
+        } else {
+            $this->totalAttendancePerMonth = $attendanceService->countAttendancesByDateRange($startDate, $endDate, auth()->user()->id);
+        }
     }
 
     public function render()

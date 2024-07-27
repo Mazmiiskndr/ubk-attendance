@@ -1,7 +1,7 @@
 <div>
     <div class=" flex-grow-1 ">
         <div class="row g-4 mb-4">
-
+            @if(auth()->user()->role->name == 'admin')
             <div class="col-sm-6 col-xl-3">
                 <div class="card">
                     <div class="card-body">
@@ -59,6 +59,7 @@
                     </div>
                 </div>
             </div>
+            @endif
             <div class="col-sm-6 col-xl-3">
                 <div class="card">
                     <div class="card-body">

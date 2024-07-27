@@ -37,9 +37,10 @@ interface AttendanceService extends BaseService
      * Count attendances within a given date range
      * @param string $startDate
      * @param string $endDate
+     * @param int|null $userId
      * @return int
      */
-    public function countAttendancesByDateRange($startDate, $endDate);
+    public function countAttendancesByDateRange($startDate, $endDate, $userId = null);
 
     /**
      * Get attendance data per month with optional role alias filter
