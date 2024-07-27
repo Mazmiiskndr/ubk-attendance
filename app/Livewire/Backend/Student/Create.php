@@ -54,7 +54,7 @@ class Create extends Component
             $this->dispatch('userCreated', $user);
 
             // Notify the frontend of success
-            return redirect()->route('backend.lec.index')->with('success', 'Data Mahasiswa berhasil ditambahkan!');
+            return redirect()->route('backend.students.index')->with('success', 'Data Mahasiswa berhasil ditambahkan!');
         } else {
             // Notify the frontend of failure
             $this->dispatchErrorEvent('Gagal Menambahkan Data Mahasiswa');
