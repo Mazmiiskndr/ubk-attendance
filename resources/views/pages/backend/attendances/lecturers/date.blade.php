@@ -19,9 +19,6 @@
             </div>
             <div>
                 <h5 class="card-title">Menampilkan Tanggal : {{ date("Y/m/d") }}</h5>
-                {{-- <x-button type="button" color="primary btn-sm me-sm-1 mb-2 mb-sm-0" data-bs-toggle="modal" data-bs-target="#createNewCourse">
-                    <i class="tf-icons fas fa-plus-circle ti-xs me-1"></i>&nbsp; Tambah Data Mata Kuliah
-                </x-button> --}}
             </div>
         </div>
     </div>
@@ -37,49 +34,17 @@
     'resources/assets/js/datatable/datatables.min.js',
     'resources/assets/js/backend/attendances/lecture-by-date-management.js'
     ])
-    {{-- <script>
-        function confirmDeleteBatch() {
-            // Ambil semua courseId yang dicentang
-            let courseIds = Array.from(document.querySelectorAll('.courses-checkbox:checked')).map(el => el.value);
-
-            if (courseIds.length > 0) {
-                showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
-                    // Emit an event untuk menghapus siswa yang dicentang
-                    Livewire.dispatch('deleteBatchCourses', {
-                        courseIds: courseIds
-                    });
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error'
-                    , type: 'error'
-                    , title: 'Oops...'
-                    , text: 'Anda harus memilih setidaknya satu mata kuliah untuk dihapus!'
-                    , customClass: {
-                        confirmButton: 'btn btn-primary'
-                        , buttonsStyling: false
-                    }
-                });
-            }
-        }
-
-        // Fungsi untuk menampilkan modal untuk MENGHAPUS!
-        function confirmDeleteCourse(courseId) {
-            showSwalDialog('Apakah Anda yakin?', 'Anda tidak akan bisa mengembalikan data ini!', () => {
-                Livewire.dispatch('confirmCourse', {
-                    courseId: courseId
-                });
+    <script>
+        function showAttendance(attendanceId) {
+            Livewire.dispatch('requestLectureDateById', {
+                attendanceId: attendanceId
             });
         }
 
-        function showCourse(courseId) {
-            Livewire.dispatch('requestCourseById', {
-                courseId: courseId
-            });
-        }
-
-    </script> --}}
+    </script>
     @endpush
 </div>
-
+{{-- START FORM EDIT ATTENDANCE BY DATE --}}
+@livewire('backend.attendance.lecture.edit-date')
+{{-- END FORM EDIT ATTENDANCE BY DATE --}}
 @endsection
