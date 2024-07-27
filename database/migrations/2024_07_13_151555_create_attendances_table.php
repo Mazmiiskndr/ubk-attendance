@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('course_schedule_id');
-            $table->time('check_in');
+            $table->time('check_in')->nullable();
             $table->time('check_out')->nullable();
             $table->date('attendance_date');
             $table->string('image_in', 191)->nullable();

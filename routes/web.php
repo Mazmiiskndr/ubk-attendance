@@ -4,6 +4,7 @@ use App\Http\Controllers\{
     Auth\LoginController,
     Backend\DashboardController,
 };
+use App\Http\Controllers\Backend\AttendanceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 // Home / Login Page route
 Route::get('/', [LoginController::class, 'index'])->name('login');
 

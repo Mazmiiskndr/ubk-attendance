@@ -3,6 +3,8 @@
 namespace App\Repositories\Attendance;
 
 use App\Enums\AttendanceStatus;
+use App\Models\CourseSchedule;
+use App\Models\User;
 use App\Traits\{DataTablesTrait, ActionsButtonTrait};
 use Carbon\Carbon;
 use Illuminate\Validation\Rules\Enum;
@@ -18,10 +20,14 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
      * @property Attendance|mixed $attendanceModel;
      */
     protected $attendanceModel;
+    protected $userModel;
+    protected $courseScheduleModel;
 
-    public function __construct(Attendance $attendanceModel)
+    public function __construct(Attendance $attendanceModel, User $userModel, CourseSchedule $courseScheduleModel)
     {
         $this->attendanceModel = $attendanceModel;
+        $this->userModel = $userModel;
+        $this->courseScheduleModel = $courseScheduleModel;
     }
 
     /**
@@ -749,6 +755,86 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
             ]
         );
         return $attendance;
+    }
+
+    /**
+     * Get the day of the week in Indonesian.
+     *
+     * @param string $date
+     * @return string
+     */
+    public function getDay($date)
+    {
+        // Mengatur lokal ke Indonesia
+        Carbon::setLocale('id');
+        // Mengembalikan nama hari dari tanggal yang diberikan dalam bahasa Indonesia
+        return Carbon::parse($date)->translatedFormat('l');
+    }
+
+    /**
+     * Check if the given user ID is valid.
+     *
+     * @param int $userId
+     * @return bool
+     */
+    public function isValidUserId($userId)
+    {
+        // Menggunakan Eloquent untuk memeriksa keberadaan UID di database
+        return $this->userModel->where('id', $userId)->exists();
+    }
+
+    /**
+     * Determine the attendance status based on user ID, date, and time.
+     *
+     * @param int $userId
+     * @param string $date
+     * @param string $time
+     * @return string
+     */
+    public function determineStatus($userId, $date, $time)
+    {
+        $dayOfWeek = Carbon::parse($date)->dayOfWeekIso; // Mendapatkan hari dalam bentuk angka (1-7, Senin-Minggu)
+        $schedule = $this->courseScheduleModel->where('day', $dayOfWeek)->first(); // Mendapatkan jadwal berdasarkan hari
+
+        if (!$schedule) {
+            return AttendanceStatus::Alpha->value; // Tidak Ada Jadwal
+        }
+
+        if ($time >= $schedule->check_in_start && $time <= $schedule->check_in_end) {
+            return AttendanceStatus::Hadir->value;
+        } elseif ($time > $schedule->check_in_end) {
+            return AttendanceStatus::Terlambat->value;
+        } else {
+            return AttendanceStatus::Alpha->value;
+        }
+    }
+
+    /**
+     * Store attendance data in the database.
+     *
+     * @param int $userId
+     * @param string $date
+     * @param string $time
+     * @param string $status
+     * @param string $filename
+     * @return string
+     */
+    public function storeAttendanceData($userId, $date, $time, $status, $filename)
+    {
+        // Menyimpan data kehadiran ke database
+        $this->attendanceModel->create([
+            'user_id' => $userId,
+            'course_schedule_id' => $this->courseScheduleModel->where('day', Carbon::parse($date)->dayOfWeekIso)->value('id'),
+            'attendance_date' => $date,
+            'check_in' => $status == 'Hadir' ? $time : null,
+            'check_out' => $status == 'Keluar' ? $time : null,
+            'image_in' => $status == 'Hadir' ? $filename : null,
+            'image_out' => $status == 'Keluar' ? $filename : null,
+            'status' => $status,
+            'remarks' => null,
+        ]);
+
+        return "Data absensi disimpan: UID=$userId, Date=$date, Time=$time, Status=$status, Filename=$filename";
     }
 
 }

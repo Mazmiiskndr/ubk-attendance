@@ -113,4 +113,42 @@ interface AttendanceRepository extends Repository
      * @param array $data
      */
     public function storeOrUpdate($data);
+
+    /**
+     * Get the day of the week in Indonesian.
+     *
+     * @param string $date
+     * @return string
+     */
+    public function getDay($date);
+
+    /**
+     * Check if the given user ID is valid.
+     *
+     * @param int $userId
+     * @return bool
+     */
+    public function isValidUserId($userId);
+
+    /**
+     * Determine the attendance status based on user ID, date, and time.
+     *
+     * @param int $userId
+     * @param string $date
+     * @param string $time
+     * @return string
+     */
+    public function determineStatus($userId, $date, $time);
+
+    /**
+     * Store attendance data in the database.
+     *
+     * @param int $userId
+     * @param string $date
+     * @param string $time
+     * @param string $status
+     * @param string $filename
+     * @return string
+     */
+    public function storeAttendanceData($userId, $date, $time, $status, $filename);
 }
