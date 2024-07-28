@@ -11,7 +11,7 @@
 
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" wire:model.lazy="username" placeholder="Enter your username" autofocus>
+            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" wire:model.lazy="username" placeholder="Masukan Username" autofocus>
             @error('username') <small class="error text-danger">{{ $message }}</small> @enderror
         </div>
         <div class="mb-3 form-password-toggle">

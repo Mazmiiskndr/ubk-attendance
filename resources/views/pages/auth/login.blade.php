@@ -27,7 +27,7 @@ $customizerHidden = 'customizer-hide';
                         </a>
                     </div>
                     <!-- /Logo -->
-                    <h4 class="mb-3 text-center fw-bold">Welcome to {{config('variables.templateName')}}! 👋</h4>
+                    <h4 class="mb-3 text-center fw-bold">Selamat Datang di {{config('variables.templateName')}}! 👋</h4>
 
                     {{-- START LOGIN FORM --}}
                     @livewire('auth.login.form')
