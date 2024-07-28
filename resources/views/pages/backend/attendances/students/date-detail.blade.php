@@ -16,7 +16,7 @@
     <!--/ User Card Details -->
 </div>
 @push('scripts')
-@vite([])
+@vite(['resources/assets/js/backend/lightbox.js'])
 @endpush
 </div>
 @endsection
