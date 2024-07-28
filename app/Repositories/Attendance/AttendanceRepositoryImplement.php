@@ -513,7 +513,7 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                         'backend.attendances.lecturers.date.edit',
                         null,
                         'showDetail',
-                        'backend.attendances.students.date.show',
+                        'backend.attendances.lecturers.date.show',
                         'link'
                     );
                 }

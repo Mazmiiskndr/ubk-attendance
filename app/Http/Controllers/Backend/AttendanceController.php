@@ -51,8 +51,8 @@ class AttendanceController extends Controller
                 throw new \InvalidArgumentException("Invalid ID provided.");
             }
 
-            $student = $this->attendanceService->getAttendanceById($id);
-            return view('pages.backend.attendances.lecturers.date-detail', compact('student'));
+            $attendance = $this->attendanceService->getAttendanceById($id);
+            return view('pages.backend.attendances.lecturers.date-detail', compact('attendance'));
         } catch (\InvalidArgumentException $e) {
             // Handle the exception, for example by redirecting back with an error message
             return redirect()->back()->with('error', $e->getMessage());
