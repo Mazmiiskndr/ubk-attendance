@@ -17,7 +17,8 @@ class KelasFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ucwords($this->faker->word()),
+            'name' => ucwords($this->faker->words(2, true)), // Menghasilkan dua kata
+            'room' => $this->faker->numberBetween(300, 315), // Menghasilkan angka dari 300-315
         ];
     }
 }

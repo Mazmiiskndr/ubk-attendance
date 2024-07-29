@@ -13,6 +13,9 @@
                             <div class="col-md-12">
                                 <x-input-field id="name" label="Nama Kelas" model="form.name" placeholder="Nama Kelas.." required />
                             </div>
+                            <div class="col-md-12 mt-3">
+                                <x-input-field id="room" label="Nama Ruangan" model="form.room" placeholder="Nama Ruangan.." required />
+                            </div>
                         </div>
 
                     </div>

@@ -12,5 +12,6 @@ class Kelas extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
+        'room',
     ];
 }

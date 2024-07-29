@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
       name: 'name'
     },
     {
+      data: 'room',
+      name: 'room'
+    },
+    {
       data: 'action',
       name: 'action',
       orderable: false,

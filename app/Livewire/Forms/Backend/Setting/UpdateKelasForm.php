@@ -11,12 +11,13 @@ class UpdateKelasForm extends Form
     /**
      * The properties of a kelas object.
      */
-    public $name, $kelasId;
+    public $name, $room, $kelasId;
 
     public function setKelas($kelas)
     {
-        $this->name = $kelas->name;
         $this->kelasId = $kelas->id;
+        $this->name = $kelas->name;
+        $this->room = $kelas->room;
     }
 
     /**

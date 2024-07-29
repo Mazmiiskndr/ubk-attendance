@@ -7,6 +7,7 @@
                 </th>
                 <th><b>No</b></th>
                 <th><b>Name</b></th>
+                <th><b>Ruangan</b></th>
                 <th><b>Aksi</b></th>
             </tr>
         </thead>

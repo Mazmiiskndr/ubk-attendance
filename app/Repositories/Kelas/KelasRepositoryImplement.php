@@ -116,6 +116,7 @@ class KelasRepositoryImplement extends Eloquent implements KelasRepository
     {
         return [
             'name' => 'required',
+            'room' => 'required',
         ];
     }
 
@@ -127,6 +128,7 @@ class KelasRepositoryImplement extends Eloquent implements KelasRepository
     {
         return [
             'name.required' => 'Nama Kelas tidak boleh kosong!',
+            'room.required' => 'Nama Kelas tidak boleh kosong!',
         ];
     }
 
@@ -143,6 +145,7 @@ class KelasRepositoryImplement extends Eloquent implements KelasRepository
             ['id' => $data['id'] ?? null],
             [
                 'name' => $data['name'],
+                'room' => $data['room'],
             ]
         );
         return $kelas;
