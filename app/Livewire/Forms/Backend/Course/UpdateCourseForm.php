@@ -11,13 +11,14 @@ class UpdateCourseForm extends Form
     /**
      * The properties of a courses object.
      */
-    public $name, $lecturerId, $courseId;
+    public $name, $lecturerId, $courseId, $classId;
 
     public function setCourse($course)
     {
         $this->name = $course->name;
         $this->courseId = $course->id;
         $this->lecturerId = $course->lecturer_id;
+        $this->classId = $course->class_id;
     }
 
     /**

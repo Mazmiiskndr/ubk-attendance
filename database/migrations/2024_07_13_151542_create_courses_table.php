@@ -14,11 +14,18 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 191);
             $table->unsignedBigInteger('lecturer_id');
+            $table->unsignedBigInteger('class_id');
             $table->timestamps();
 
             $table->foreign('lecturer_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('class_id')
+                ->references('id')
+                ->on('kelas')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

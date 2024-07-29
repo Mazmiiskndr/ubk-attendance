@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
       name: 'lecturer'
     },
     {
+      data: 'kelas',
+      name: 'kelas'
+    },
+    {
       data: 'action',
       name: 'action',
       orderable: false,

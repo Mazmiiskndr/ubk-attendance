@@ -14,12 +14,18 @@ class Course extends Model
     protected $fillable = [
         'id',
         'name',
-        'lecturer_id'
+        'lecturer_id',
+        'class_id'
     ];
 
     public function lecturer()
     {
         return $this->belongsTo(User::class, 'lecturer_id');
+    }
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'class_id');
     }
 
     public function schedules()

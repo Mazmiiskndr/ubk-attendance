@@ -4,6 +4,7 @@ namespace App\Livewire\Backend\Course;
 
 use App\Livewire\Forms\Backend\Course\UpdateCourseForm;
 use App\Services\Course\CourseService;
+use App\Services\Kelas\KelasService;
 use App\Services\User\UserService;
 use App\Traits\{LivewireMessageEvents, CloseModalTrait};
 use Livewire\Attributes\On;
@@ -25,7 +26,7 @@ class EditCourse extends Component
     /**
      * The properties and groups associated with this object.
      */
-    public $lecturers;
+    public $lecturers, $kelas;
 
     public function updated($property)
     {
@@ -35,10 +36,13 @@ class EditCourse extends Component
     /**
      * Initialize component state.
      */
-    public function mount(CourseService $courseService, UserService $userService)
+    public function mount(CourseService $courseService, UserService $userService, KelasService $kelasService)
     {
         // Fetch all properties ordered by creation date
         $this->lecturers = $userService->getUsers('dosen');
+        $this->kelas = $kelasService->getKelas()->mapWithKeys(function ($kelas) {
+            return [$kelas->id => "{$kelas->name}/{$kelas->room}"];
+        });
     }
 
     /**
@@ -92,5 +96,6 @@ class EditCourse extends Component
         $this->form->name = '';
         $this->form->courseId = '';
         $this->form->lecturerId = '';
+        $this->form->classId = '';
     }
 }

@@ -34,7 +34,7 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
      */
     public function getCourses($limit = null, $lectureId = null)
     {
-        $query = $this->courseModel->with(['lecturer', 'schedules'])->latest();
+        $query = $this->courseModel->with(['lecturer', 'schedules', 'kelas'])->latest();
 
         if ($lectureId !== null) {
             $query->where('lecturer_id', $lectureId);
@@ -57,7 +57,7 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
      */
     public function getCourseSchedules($courseId = null, $limit = null)
     {
-        $query = $this->courseScheduleModel->with(['course.lecturer'])->latest();
+        $query = $this->courseScheduleModel->with(['course.lecturer', 'course.kelas'])->latest();
 
         if ($courseId !== null) {
             $query->where('course_id', $courseId);
@@ -81,7 +81,7 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
      */
     public function getCourseById($courseId)
     {
-        $course = $this->courseModel->with(['lecturer', 'schedules'])->find($courseId);
+        $course = $this->courseModel->with(['lecturer', 'schedules', 'kelas'])->find($courseId);
 
         if (!$course) {
             throw new \InvalidArgumentException("Course with ID {$courseId} cannot be found.");
@@ -98,7 +98,7 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
      */
     public function getCourseScheduleById($courseScheduleId)
     {
-        $courseSchedule = $this->courseScheduleModel->with(['course.lecturer'])->find($courseScheduleId);
+        $courseSchedule = $this->courseScheduleModel->with(['course.lecturer', 'course.kelas'])->find($courseScheduleId);
 
         if (!$courseSchedule) {
             throw new \InvalidArgumentException("Course Schedules ID {$courseScheduleId} cannot be found.");
@@ -170,6 +170,9 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
             [
                 'lecturer' => function ($data) {
                     return $data->lecturer ? $data->lecturer->name : '-';
+                },
+                'kelas' => function ($data) {
+                    return $data->kelas ? $data->kelas->name . '/' . $data->kelas->room : '-';
                 },
                 'action' => function ($data) {
                     $encodedId = base64_encode($data->id);
@@ -264,6 +267,7 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
         return [
             'name' => 'required',
             'lecturerId' => 'required',
+            'classId' => 'required',
         ];
     }
 
@@ -276,6 +280,7 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
         return [
             'name.required' => 'Nama Mata Kuliah tidak boleh kosong!',
             'lecturerId.required' => 'Nama Dosen tidak boleh kosong!',
+            'classId.required' => 'Nama Kelas tidak boleh kosong!',
         ];
     }
 
@@ -316,6 +321,7 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
             [
                 'name' => $data['name'],
                 'lecturer_id' => $data['lecturerId'],
+                'class_id' => $data['classId'],
             ]
         );
         return $course;

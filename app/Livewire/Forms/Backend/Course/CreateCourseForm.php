@@ -11,7 +11,7 @@ class CreateCourseForm extends Form
     /**
      * The properties of a courses object.
      */
-    public $name, $lecturerId;
+    public $name, $lecturerId, $classId;
 
     /**
      * Get the validation rules for the model.

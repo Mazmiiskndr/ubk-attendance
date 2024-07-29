@@ -4,6 +4,7 @@ namespace App\Livewire\Backend\Course;
 
 use App\Livewire\Forms\Backend\Course\CreateCourseForm;
 use App\Services\Course\CourseService;
+use App\Services\Kelas\KelasService;
 use App\Services\User\UserService;
 use App\Traits\{LivewireMessageEvents, CloseModalTrait};
 use Livewire\Component;
@@ -12,7 +13,7 @@ class CreateCourse extends Component
 {
     use LivewireMessageEvents, CloseModalTrait;
 
-    public $lecturers;
+    public $lecturers, $kelas;
 
     /**
      * The CreateCourseForm instance associated with this object.
@@ -20,7 +21,7 @@ class CreateCourse extends Component
      */
     public CreateCourseForm $form;
 
-    public function mount(UserService $userService)
+    public function mount(UserService $userService, KelasService $kelasService)
     {
         $lectureId = auth()->user()->id;
         $roleAlias = auth()->user()->role->name_alias;
@@ -31,6 +32,9 @@ class CreateCourse extends Component
         } else {
             $this->lecturers = $userService->getUsers('dosen');
         }
+        $this->kelas = $kelasService->getKelas()->mapWithKeys(function ($kelas) {
+            return [$kelas->id => "{$kelas->name}/{$kelas->room}"];
+        });
     }
 
     public function updated($property)
@@ -70,6 +74,7 @@ class CreateCourse extends Component
     public function resetFields()
     {
         $this->form->name = '';
+        $this->form->classId = '';
         $lectureId = auth()->user()->id;
         $roleAlias = auth()->user()->role->name_alias;
         if ($roleAlias == 'dosen') {

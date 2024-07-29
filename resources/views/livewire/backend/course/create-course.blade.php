@@ -16,6 +16,9 @@
                             <div class="mt-3 col-md-12">
                                 <x-select-field id="lecturerId" label="Nama Dosen" model="form.lecturerId" required :options="$lecturers ? $lecturers->pluck('name', 'id')->toArray() : []" class="select2 form-select" data-allow-clear="true" />
                             </div>
+                            <div class="mt-3 col-md-12">
+                                <x-select-field id="classId" label="Nama Kelas" model="form.classId" required :options="$kelas ? $kelas->toArray() : []" class="select2 form-select" data-allow-clear="true" />
+                            </div>
                         </div>
 
                     </div>
