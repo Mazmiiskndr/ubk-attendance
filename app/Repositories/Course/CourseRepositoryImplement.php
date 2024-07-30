@@ -356,6 +356,9 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
                 'lecturer' => function ($data) {
                     return $data->lecturer ? $data->lecturer->name : '-';
                 },
+                'room' => function ($data) {
+                    return $data->kelas ? $data->kelas->room : '-';
+                },
                 'action' => function ($data) {
                     $encodedId = base64_encode($data->id);
                     return $this->getActionButtons(
@@ -364,8 +367,9 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
                         null,
                         null,
                         null,
-                        // TODO: SHOW DETAIL TAMBAHKAN LINKNYA
                         'showDetail',
+                        'backend.student-course-schedules.show',
+                        'link'
                     );
 
                 }

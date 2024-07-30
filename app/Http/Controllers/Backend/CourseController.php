@@ -39,4 +39,20 @@ class CourseController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function showStudentCourseSchedules($encodedId)
+    {
+        try {
+            $id = base64_decode($encodedId);
+            if (!$id) {
+                throw new \InvalidArgumentException("Invalid ID provided.");
+            }
+
+            $course = $this->courseService->getCourseById($id);
+            return view('pages.backend.courses.show-student-course-schedules', compact('course'));
+        } catch (\InvalidArgumentException $e) {
+            // Handle the exception, for example by redirecting back with an error message
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
 }

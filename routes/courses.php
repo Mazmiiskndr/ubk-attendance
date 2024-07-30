@@ -19,4 +19,5 @@ Route::middleware('auth')->name('backend.')->group(function () {
     Route::get('student-course-schedules', [CourseController::class, 'studentCourseSchedules'])->name('student-course-schedules.index');
     Route::get('courses', [CourseController::class, 'index'])->name('courses.index');
     Route::get('course/detail/{id}', [CourseController::class, 'show'])->name('course.show');
+    Route::get('student-course-schedules/detail/{id}', [CourseController::class, 'showStudentCourseSchedules'])->name('student-course-schedules.show');
 });
