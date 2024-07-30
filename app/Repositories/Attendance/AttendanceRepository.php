@@ -40,7 +40,7 @@ interface AttendanceRepository extends Repository
      * @param int|null $userId
      * @return int
      */
-    public function countAttendancesByDateRange($startDate, $endDate, $userId);
+    public function countAttendancesByDateRange($startDate, $endDate, $userId, $status);
 
     /**
      * Get attendance data per month with optional role alias filter
