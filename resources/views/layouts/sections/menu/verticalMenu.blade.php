@@ -174,8 +174,8 @@ $configData = Helper::appClasses();
         </li>
 
         <!-- Courses Menu  -->
-        <li class="menu-item {{ request()->is('courses*') || request()->is('course*') ? 'active' : '' }}">
-            <a href="#" class="menu-link ">
+        <li class="menu-item {{ request()->is('student-course-schedules*') ? 'active' : '' }}">
+            <a href="{{ route('backend.student-course-schedules.index') }}" class="menu-link ">
                 <i class="menu-icon tf-icons ti ti-clock-2"></i>
                 <div>Jadwal Mata Kuliah</div>
             </a>

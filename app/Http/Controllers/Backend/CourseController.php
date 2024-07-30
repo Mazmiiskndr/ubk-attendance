@@ -18,6 +18,12 @@ class CourseController extends Controller
     {
         return view('pages.backend.courses.index');
     }
+
+    public function studentCourseSchedules()
+    {
+        return view('pages.backend.courses.student-course-schedules');
+    }
+
     public function show($encodedId)
     {
         try {
@@ -32,15 +38,5 @@ class CourseController extends Controller
             // Handle the exception, for example by redirecting back with an error message
             return redirect()->back()->with('error', $e->getMessage());
         }
-    }
-
-    public function edit()
-    {
-        dd("TODO:");
-    }
-
-    public function editSchedule()
-    {
-        dd("TODO:");
     }
 }
