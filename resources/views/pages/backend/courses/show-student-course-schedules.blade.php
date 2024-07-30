@@ -20,9 +20,7 @@
 
     {{-- Start List DataTable --}}
     <div class="card-body">
-
-        {{-- TODO: DATATABLES --}}
-        {{-- @livewire('backend.course.schedule-datatables', ['courseId' => $course->id]) --}}
+        @livewire('backend.course.show-student-course-schedule-datatables', ['courseId' => $course->id])
     </div>
     {{-- End List DataTable --}}
 

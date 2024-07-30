@@ -171,4 +171,13 @@ class CourseServiceImplement extends Service implements CourseService
     return $this->handleRepositoryCall('getStudentCourseScheduleDatatables');
   }
 
+  /**
+   * Get the data formatted for DataTables for course schedules.
+   * @param int|null $courseId
+   */
+  public function getShowStudentCourseScheduleDatatables($courseId = null)
+  {
+    return $this->handleRepositoryCall('getShowStudentCourseScheduleDatatables', [$courseId]);
+  }
+
 }

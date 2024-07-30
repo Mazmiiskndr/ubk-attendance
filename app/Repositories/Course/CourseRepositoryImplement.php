@@ -376,4 +376,19 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
             ]
         );
     }
+
+    /**
+     * Get the data formatted for DataTables for course schedules.
+     * @param int|null $courseId
+     */
+    public function getShowStudentCourseScheduleDatatables($courseId = null)
+    {
+        // Retrieve the groups data from the group model
+        $data = $this->getCourseSchedules($courseId);
+        if ($data->isEmpty()) {
+            return datatables()->of(collect())->make(true);
+        }
+        // Return format the data for DataTables
+        return $this->formatDataTablesResponse($data);
+    }
 }

@@ -112,4 +112,10 @@ interface CourseService extends BaseService
      * Get the data formatted for DataTables for course schedules.
      */
     public function getStudentCourseScheduleDatatables();
+
+    /**
+     * Get the data formatted for DataTables for course schedules.
+     * @param int|null $courseId
+     */
+    public function getShowStudentCourseScheduleDatatables($courseId = null);
 }
