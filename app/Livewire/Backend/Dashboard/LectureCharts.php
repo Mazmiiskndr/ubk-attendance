@@ -36,6 +36,7 @@ class LectureCharts extends Component
 
     public function updateTitle()
     {
+        \Carbon\Carbon::setLocale('id');
         switch ($this->filter) {
             case 'today':
                 $this->title = 'Grafik Absensi Dosen Hari Ini';

@@ -13,7 +13,7 @@
     <div class="card-header">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="mb-1 mb-sm-0 text-center text-sm-start">
-                <h4 class="card-title">Tabel Jadwal Mata Kuliah</h4>
+                <h5 class="card-title">Mata Kuliah & Ruangan : {{ $course->name ."/". $course->kelas->room }}</h5>
             </div>
             <div>
                 <div class="d-flex justify-content-sm-end flex-column flex-sm-row gap-1">
