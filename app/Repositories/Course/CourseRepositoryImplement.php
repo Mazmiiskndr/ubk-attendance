@@ -27,17 +27,22 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
     }
 
     /**
-     * Get all courses with optional limit and lecture ID
+     * Get all courses with optional limit, lecture ID, and class ID
      * @param int|null $limit
      * @param int|null $lectureId
+     * @param int|null $classId
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getCourses($limit = null, $lectureId = null)
+    public function getCourses($limit = null, $lectureId = null, $classId = null)
     {
         $query = $this->courseModel->with(['lecturer', 'schedules', 'kelas'])->latest();
 
         if ($lectureId !== null) {
             $query->where('lecturer_id', $lectureId);
+        }
+
+        if ($classId !== null) {
+            $query->where('class_id', $classId);
         }
 
         if ($limit !== null) {
@@ -48,6 +53,7 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
 
         return $courses;
     }
+
 
     /**
      * Get all course schedules with limit and optional course ID
@@ -325,5 +331,45 @@ class CourseRepositoryImplement extends Eloquent implements CourseRepository
             ]
         );
         return $course;
+    }
+
+    /**
+     * Get the data formatted for DataTables for course schedules.
+     */
+    public function getStudentCourseScheduleDatatables()
+    {
+        $userDetail = auth()->user()->userDetail;
+
+        if ($userDetail) {
+            $classId = $userDetail->class_id;
+        } else {
+            $classId = null;
+        }
+
+        // Retrieve the courses data from the course model
+        $data = $this->getCourses(null, null, $classId);
+
+        // Return format the data for DataTables
+        return $this->formatDataTablesResponse(
+            $data,
+            [
+                'lecturer' => function ($data) {
+                    return $data->lecturer ? $data->lecturer->name : '-';
+                },
+                'action' => function ($data) {
+                    $encodedId = base64_encode($data->id);
+                    return $this->getActionButtons(
+                        $encodedId,
+                        null,
+                        null,
+                        null,
+                        null,
+                        // TODO: SHOW DETAIL TAMBAHKAN LINKNYA
+                        'showDetail',
+                    );
+
+                }
+            ]
+        );
     }
 }
