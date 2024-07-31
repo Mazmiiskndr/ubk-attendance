@@ -43,22 +43,23 @@ interface AttendanceService extends BaseService
     public function countAttendancesByDateRange($startDate, $endDate, $userId = null, $status = null);
 
     /**
-     * Get attendance data per month with optional role alias filter
+     * Get attendance data per month with optional role alias and user ID filter
      * @param int $year
      * @param int $month
      * @param string|null $roleAlias
+     * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getMonthlyAttendance($year, $month, $roleAlias = null);
+    public function getMonthlyAttendance($year, $month, $roleAlias = null, $userId = null);
 
     /**
-     * Get filtered attendances
+     * Get filtered attendances with optional role alias and user ID filter
      * @param string $filter
      * @param string|null $roleAlias
+     * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getFilteredAttendances($filter, $roleAlias = null);
-
+    public function getFilteredAttendances($filter, $roleAlias = null, $userId = null);
     /**
      * Get the data formatted for DataTables for student by date.
      * @param string|null $date The date for which to get the attendance data. If null, defaults to today's date.

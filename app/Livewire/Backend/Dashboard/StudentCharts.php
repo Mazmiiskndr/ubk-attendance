@@ -3,6 +3,7 @@
 namespace App\Livewire\Backend\Dashboard;
 
 use App\Services\Attendance\AttendanceService;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -16,13 +17,21 @@ class StudentCharts extends Component
     {
         $year = now()->year;
         $month = now()->month;
-        $this->monthlyAttendances = $attendanceService->getMonthlyAttendance($year, $month, 'mahasiswa');
+        if (auth()->user()->role->name_alias == 'admin') {
+            $this->monthlyAttendances = $attendanceService->getMonthlyAttendance($year, $month, 'mahasiswa');
+        } else if (auth()->user()->role->name_alias == 'mahasiswa') {
+            $this->monthlyAttendances = $attendanceService->getMonthlyAttendance($year, $month, 'mahasiswa', auth()->user()->id);
+        }
         $this->updateTitle();
     }
 
     public function updateChart(AttendanceService $attendanceService)
     {
-        $this->monthlyAttendances = $attendanceService->getFilteredAttendances($this->filter, 'mahasiswa');
+        if (auth()->user()->role->name_alias == 'admin') {
+            $this->monthlyAttendances = $attendanceService->getFilteredAttendances($this->filter, 'mahasiswa');
+        } else if (auth()->user()->role->name_alias == 'mahasiswa') {
+            $this->monthlyAttendances = $attendanceService->getFilteredAttendances($this->filter, 'mahasiswa', auth()->user()->id);
+        }
         $this->updateTitle();
         $this->dispatch('studentChartUpdated', json_encode($this->monthlyAttendances));
     }
@@ -36,7 +45,7 @@ class StudentCharts extends Component
 
     public function updateTitle()
     {
-        \Carbon\Carbon::setLocale('id');
+        Carbon::setLocale('id');
         switch ($this->filter) {
             case 'today':
                 $this->title = 'Grafik Absensi Mahasiswa Hari Ini';
@@ -51,10 +60,11 @@ class StudentCharts extends Component
                 $this->title = 'Grafik Absensi Mahasiswa 30 Hari Terakhir';
                 break;
             case 'currentMonth':
-                $this->title = 'Grafik Absensi Mahasiswa Bulan ' . \Carbon\Carbon::now()->translatedFormat('F');
+                $this->title = 'Grafik Absensi Mahasiswa Bulan ' . Carbon::now()->translatedFormat('F');
                 break;
             case 'lastMonth':
-                $this->title = 'Grafik Absensi Mahasiswa Bulan ' . \Carbon\Carbon::now()->subMonth()->translatedFormat('F');
+                $lastMonth = Carbon::now()->subMonthNoOverflow()->startOfMonth();
+                $this->title = 'Grafik Absensi Mahasiswa Bulan ' . $lastMonth->translatedFormat('F');
                 break;
             default:
                 $this->title = 'Grafik Absensi Mahasiswa';

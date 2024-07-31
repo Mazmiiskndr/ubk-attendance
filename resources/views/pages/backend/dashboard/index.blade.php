@@ -19,11 +19,11 @@
     <!-- Bar Charts -->
     @livewire('backend.dashboard.lecture-charts')
     <!-- /Bar Charts -->
+    @endif
 
     <!-- Horizontal Bar Charts -->
     @livewire('backend.dashboard.student-charts')
     <!-- /Horizontal Bar Charts -->
-    @endif
 
 </div>
 @endsection

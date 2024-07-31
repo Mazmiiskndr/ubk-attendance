@@ -45,8 +45,8 @@
 
             // Prepare data for the chart
             function updateChart(attendances, chartId) {
-                console.log(attendances);
-                // Group by date and sum counts
+
+                // Group by status and sum counts
                 const groupedData = attendances.reduce((acc, attendance) => {
                     const status = statusMapping[attendance.status] || attendance.status;
                     if (!acc[status]) {
@@ -59,7 +59,6 @@
                 // Prepare labels and data for Chart.js
                 const labels = Object.keys(groupedData);
                 const data = Object.values(groupedData);
-                console.log(labels)
                 // Chart
                 const chartElement = document.getElementById(chartId);
                 if (chartElement) {

@@ -67,28 +67,29 @@ class AttendanceServiceImplement extends Service implements AttendanceService
     {
         return $this->handleRepositoryCall('countAttendancesByDateRange', [$startDate, $endDate, $userId, $status]);
     }
-
     /**
-     * Get attendance data per month with optional role alias filter
+     * Get attendance data per month with optional role alias and user ID filter
      * @param int $year
      * @param int $month
      * @param string|null $roleAlias
+     * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getMonthlyAttendance($year, $month, $roleAlias = null)
+    public function getMonthlyAttendance($year, $month, $roleAlias = null, $userId = null)
     {
-        return $this->handleRepositoryCall('getMonthlyAttendance', [$year, $month, $roleAlias]);
+        return $this->handleRepositoryCall('getMonthlyAttendance', [$year, $month, $roleAlias, $userId]);
     }
 
     /**
-     * Get filtered attendances
+     * Get filtered attendances with optional role alias and user ID filter
      * @param string $filter
      * @param string|null $roleAlias
+     * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getFilteredAttendances($filter, $roleAlias = null)
+    public function getFilteredAttendances($filter, $roleAlias = null, $userId = null)
     {
-        return $this->handleRepositoryCall('getFilteredAttendances', [$filter, $roleAlias]);
+        return $this->handleRepositoryCall('getFilteredAttendances', [$filter, $roleAlias, $userId]);
     }
 
     /**

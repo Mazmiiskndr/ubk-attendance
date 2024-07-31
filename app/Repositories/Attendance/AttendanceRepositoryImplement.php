@@ -125,13 +125,14 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
     }
 
     /**
-     * Get attendance data per month with optional role alias filter
+     * Get attendance data per month with optional role alias and user ID filter
      * @param int $year
      * @param int $month
      * @param string|null $roleAlias
+     * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getMonthlyAttendance($year, $month, $roleAlias = null)
+    public function getMonthlyAttendance($year, $month, $roleAlias = null, $userId = null)
     {
         $query = $this->attendanceModel
             ->whereYear('attendance_date', $year)
@@ -143,16 +144,21 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
             });
         }
 
+        if ($userId !== null) {
+            $query->where('user_id', $userId);
+        }
+
         return $query->get();
     }
 
     /**
-     * Get filtered attendances
+     * Get filtered attendances with optional role alias and user ID filter
      * @param string $filter
      * @param string|null $roleAlias
+     * @param int|null $userId
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getFilteredAttendances($filter, $roleAlias = null)
+    public function getFilteredAttendances($filter, $roleAlias = null, $userId = null)
     {
         $query = $this->attendanceModel->with(['user', 'courseSchedule.course'])->latest();
         $year = now()->year;
@@ -178,8 +184,8 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                 $query->whereBetween('attendance_date', [$startDate, $endDate]);
                 break;
             case 'lastMonth':
-                $startDate = now()->subMonth()->startOfMonth()->toDateString();
-                $endDate = now()->subMonth()->endOfMonth()->toDateString();
+                $endDate = Carbon::now()->firstOfMonth()->subDay()->toDateString();
+                $startDate = Carbon::parse($endDate)->firstOfMonth()->toDateString();
                 $query->whereBetween('attendance_date', [$startDate, $endDate]);
                 break;
             case 'currentMonth':
@@ -193,6 +199,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
             $query->whereHas('user.role', function ($query) use ($roleAlias) {
                 $query->where('name_alias', $roleAlias);
             });
+        }
+
+        if ($userId !== null) {
+            $query->where('user_id', $userId);
         }
 
         return $query->get();
