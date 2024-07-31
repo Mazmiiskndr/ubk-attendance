@@ -15,6 +15,7 @@ use App\Livewire\Backend\{
     Attendance\Lecture\DateDatatables as LectureDateDatatables,
     Attendance\Lecture\MonthDatatables as LectureMonthDatatables,
     Attendance\Lecture\WeekDatatables as LectureWeekDatatables,
+    Student\AttendanceDetailDatatables as AttendanceDetailDatatables,
 };
 use Illuminate\Support\Facades\Route;
 
@@ -88,4 +89,8 @@ Route::prefix('livewire/backend/')->group(function () {
     // Attendances Lecture By Week Datatables
     Route::get('attendances/lecturers/week/getDatatable', [LectureWeekDatatables::class, 'getDatatable'])
         ->name('attendances.lecturers.week.getDatatable');
+
+    // Attendances Student Details By Date Datatables
+    Route::get('attendances/students/detail/date/getDatatable', [AttendanceDetailDatatables::class, 'getDatatable'])
+        ->name('attendances.students.detail.date.getDatatable');
 });

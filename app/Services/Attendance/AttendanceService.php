@@ -60,11 +60,13 @@ interface AttendanceService extends BaseService
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getFilteredAttendances($filter, $roleAlias = null, $userId = null);
+
     /**
      * Get the data formatted for DataTables for student by date.
      * @param string|null $date The date for which to get the attendance data. If null, defaults to today's date.
+     * @param int|null $userId The ID of the user for which to get the attendance data. If null, uses the authenticated user's ID if they are a 'mahasiswa'.
      */
-    public function getDatatablesStudentByDate($date);
+    public function getDatatablesStudentByDate($date = null, $userId = null);
 
     /**
      * Get the data formatted for DataTables for attendances by week.
