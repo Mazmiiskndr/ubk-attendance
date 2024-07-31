@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Backend\Student;
+namespace App\Livewire\Backend\Lecture;
 
 use App\Services\Attendance\AttendanceService;
 use Livewire\Attributes\On;
@@ -9,32 +9,32 @@ use Illuminate\Http\Request;
 
 class AttendanceDetailDatatables extends Component
 {
-    public $student, $studentId;
+    public $lecture, $lectureId;
 
-    public function mount($student)
+    public function mount($lecture)
     {
-        $this->student = $student;
-        $this->studentId = $student->id;
+        $this->lecture = $lecture;
+        $this->lectureId = $lecture->id;
     }
 
     public function render()
     {
-        return view('livewire.backend.student.attendance-detail-datatables');
+        return view('livewire.backend.lecture.attendance-detail-datatables');
     }
 
     public function getDataTable(Request $request)
     {
         $attendanceService = app(AttendanceService::class);
-        return $attendanceService->getDatatablesStudentByDate($request->input('date'), $request->input('student_id'));
+        return $attendanceService->getDatatablesLectureByDate($request->input('lecture_id'));
     }
 
-    #[On('requestStudentDateById')]
+    #[On('requestLectureDateById')]
     public function getAttendance($attendanceId)
     {
-        $this->dispatch('deliverAttendanceToEditComponent', $attendanceId);
+        $this->dispatch('deliverAttendanceLectureToEditComponent', $attendanceId);
     }
 
-    #[On(['attendanceUpdated'])]
+    #[On(['attendanceLectureUpdated'])]
     public function refreshDataTable()
     {
         $this->dispatch('refreshDatatable');

@@ -124,10 +124,11 @@ class AttendanceServiceImplement extends Service implements AttendanceService
 
     /**
      * Get the data formatted for DataTables for lecture by date.
+     * @param int|null $userId The ID of the user for which to get the attendance data. If null, uses the authenticated user's ID if they are a 'dosen'.
      */
-    public function getDatatablesLectureByDate()
+    public function getDatatablesLectureByDate($userId = null)
     {
-        return $this->handleRepositoryCall('getDatatablesLectureByDate');
+        return $this->handleRepositoryCall('getDatatablesLectureByDate', [$userId]);
     }
 
     /**

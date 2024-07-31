@@ -219,7 +219,6 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
         $selectedDate = $date ? $date : $today;
         $currentUser = auth()->user();
 
-        // Jika userId tidak diberikan dan user saat ini adalah 'mahasiswa', gunakan ID user yang terautentikasi
         if ($userId === null && $currentUser->role->name_alias == 'mahasiswa') {
             $userId = $currentUser->id;
         }
@@ -479,19 +478,21 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
 
     /**
      * Get the data formatted for DataTables for lecture by date.
+     * @param int|null $userId The ID of the user for which to get the attendance data. If null, uses the authenticated user's ID if they are a 'dosen'.
      */
-    public function getDatatablesLectureByDate()
+    public function getDatatablesLectureByDate($userId = null)
     {
         $today = Carbon::today()->toDateString();
         $currentUser = auth()->user();
-        $userId = null;
-        if ($currentUser->role->name_alias == 'dosen') {
+
+        if ($userId === null && $currentUser->role->name_alias == 'dosen') {
             $userId = $currentUser->id;
         }
         $data = $this->getAttendances(null, $userId, $today, null, null, 'dosen');
         if ($data->isEmpty()) {
             return datatables()->of(collect())->make(true);
         }
+
         // Return format the data for DataTables
         return $this->formatDataTablesResponse(
             $data,

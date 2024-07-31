@@ -13,16 +13,15 @@ class DateDatatables extends Component
         return view('livewire.backend.attendance.lecture.date-datatables');
     }
 
+    public function getDataTable(AttendanceService $attendanceService)
+    {
+        return $attendanceService->getDatatablesLectureByDate();
+    }
+
     #[On('requestLectureDateById')]
     public function getAttendance($attendanceId)
     {
         $this->dispatch('deliverAttendanceLectureToEditComponent', $attendanceId);
-    }
-
-
-    public function getDataTable(AttendanceService $attendanceService)
-    {
-        return $attendanceService->getDatatablesLectureByDate();
     }
 
     #[On(['attendanceLectureUpdated'])]
