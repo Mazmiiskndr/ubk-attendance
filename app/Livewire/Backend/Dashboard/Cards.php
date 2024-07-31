@@ -25,6 +25,7 @@ class Cards extends Component
             $this->totalAlpa = $attendanceService->countAttendancesByDateRange($startDate, $endDate, auth()->user()->id, "A");
         } else {
             $this->totalAttendancePerMonth = $attendanceService->countAttendancesByDateRange($startDate, $endDate, auth()->user()->id);
+            $this->totalStudents = $userService->countUsers('mahasiswa');
         }
     }
 

@@ -3,6 +3,7 @@
 namespace App\Livewire\Backend\Dashboard;
 
 use App\Services\Attendance\AttendanceService;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -10,19 +11,33 @@ class LectureCharts extends Component
 {
     public $monthlyAttendances = [];
     public $filter = 'currentMonth';
-    public $title = 'Grafik Absensi Dosen Bulan ';
+    public $title = 'Grafik Absensi ';
+    public $isAdmin = false;
+    public $isDosen = false;
+    public $isStudent = false;
 
     public function mount(AttendanceService $attendanceService)
     {
+        $this->isAdmin = auth()->user()->role->name_alias == 'admin';
+        $this->isDosen = auth()->user()->role->name_alias == 'dosen';
+        $this->isStudent = auth()->user()->role->name_alias == 'mahasiswa';
         $year = now()->year;
         $month = now()->month;
-        $this->monthlyAttendances = $attendanceService->getMonthlyAttendance($year, $month, 'dosen');
+        if ($this->isDosen) {
+            $this->monthlyAttendances = $attendanceService->getMonthlyAttendance($year, $month, 'dosen', auth()->user()->id);
+        } else if ($this->isAdmin) {
+            $this->monthlyAttendances = $attendanceService->getMonthlyAttendance($year, $month, 'dosen');
+        }
         $this->updateTitle();
     }
 
     public function updateChart(AttendanceService $attendanceService)
     {
-        $this->monthlyAttendances = $attendanceService->getFilteredAttendances($this->filter, 'dosen');
+        if ($this->isDosen) {
+            $this->monthlyAttendances = $attendanceService->getFilteredAttendances($this->filter, 'dosen', auth()->user()->id);
+        } else if ($this->isAdmin) {
+            $this->monthlyAttendances = $attendanceService->getFilteredAttendances($this->filter, 'dosen');
+        }
         $this->updateTitle();
         $this->dispatch('chartUpdated', json_encode($this->monthlyAttendances));
     }
@@ -36,28 +51,32 @@ class LectureCharts extends Component
 
     public function updateTitle()
     {
-        \Carbon\Carbon::setLocale('id');
+        Carbon::setLocale('id');
+        $userLabel = $this->isAdmin || $this->isStudent ? 'Dosen' : auth()->user()->name;
+        $baseTitle = 'Grafik Absensi ' . $userLabel;
+
         switch ($this->filter) {
             case 'today':
-                $this->title = 'Grafik Absensi Dosen Hari Ini';
+                $this->title = $baseTitle . ' Hari Ini';
                 break;
             case 'yesterday':
-                $this->title = 'Grafik Absensi Dosen Kemarin';
+                $this->title = $baseTitle . ' Kemarin';
                 break;
             case 'last7Days':
-                $this->title = 'Grafik Absensi Dosen 7 Hari Terakhir';
+                $this->title = $baseTitle . ' 7 Hari Terakhir';
                 break;
             case 'last30Days':
-                $this->title = 'Grafik Absensi Dosen 30 Hari Terakhir';
+                $this->title = $baseTitle . ' 30 Hari Terakhir';
                 break;
             case 'currentMonth':
-                $this->title = 'Grafik Absensi Dosen Bulan ' . \Carbon\Carbon::now()->translatedFormat('F');
+                $this->title = $baseTitle . ' Bulan ' . Carbon::now()->translatedFormat('F');
                 break;
             case 'lastMonth':
-                $this->title = 'Grafik Absensi Dosen Bulan ' . \Carbon\Carbon::now()->subMonth()->translatedFormat('F');
+                $lastMonth = Carbon::now()->subMonthNoOverflow()->startOfMonth();
+                $this->title = $baseTitle . ' Bulan ' . $lastMonth->translatedFormat('F');
                 break;
             default:
-                $this->title = 'Grafik Absensi Dosen';
+                $this->title = $baseTitle;
         }
     }
 

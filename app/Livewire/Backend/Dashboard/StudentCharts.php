@@ -11,13 +11,18 @@ class StudentCharts extends Component
 {
     public $monthlyAttendances = [];
     public $filter = 'currentMonth';
-    public $title = 'Grafik Absensi Mahasiswa Bulan ';
+    public $title = 'Grafik Absensi ';
+    public $isAdmin = false;
+    public $isDosen = false;
 
     public function mount(AttendanceService $attendanceService)
     {
+        $this->isAdmin = auth()->user()->role->name_alias == 'admin';
+        $this->isDosen = auth()->user()->role->name_alias == 'dosen';
+
         $year = now()->year;
         $month = now()->month;
-        if (auth()->user()->role->name_alias == 'admin') {
+        if ($this->isAdmin || $this->isDosen) {
             $this->monthlyAttendances = $attendanceService->getMonthlyAttendance($year, $month, 'mahasiswa');
         } else if (auth()->user()->role->name_alias == 'mahasiswa') {
             $this->monthlyAttendances = $attendanceService->getMonthlyAttendance($year, $month, 'mahasiswa', auth()->user()->id);
@@ -27,7 +32,7 @@ class StudentCharts extends Component
 
     public function updateChart(AttendanceService $attendanceService)
     {
-        if (auth()->user()->role->name_alias == 'admin') {
+        if ($this->isAdmin || $this->isDosen) {
             $this->monthlyAttendances = $attendanceService->getFilteredAttendances($this->filter, 'mahasiswa');
         } else if (auth()->user()->role->name_alias == 'mahasiswa') {
             $this->monthlyAttendances = $attendanceService->getFilteredAttendances($this->filter, 'mahasiswa', auth()->user()->id);
@@ -46,28 +51,31 @@ class StudentCharts extends Component
     public function updateTitle()
     {
         Carbon::setLocale('id');
+        $userLabel = $this->isAdmin || $this->isDosen ? 'Mahasiswa' : auth()->user()->name;
+        $baseTitle = 'Grafik Absensi ' . $userLabel;
+
         switch ($this->filter) {
             case 'today':
-                $this->title = 'Grafik Absensi Mahasiswa Hari Ini';
+                $this->title = $baseTitle . ' Hari Ini';
                 break;
             case 'yesterday':
-                $this->title = 'Grafik Absensi Mahasiswa Kemarin';
+                $this->title = $baseTitle . ' Kemarin';
                 break;
             case 'last7Days':
-                $this->title = 'Grafik Absensi Mahasiswa 7 Hari Terakhir';
+                $this->title = $baseTitle . ' 7 Hari Terakhir';
                 break;
             case 'last30Days':
-                $this->title = 'Grafik Absensi Mahasiswa 30 Hari Terakhir';
+                $this->title = $baseTitle . ' 30 Hari Terakhir';
                 break;
             case 'currentMonth':
-                $this->title = 'Grafik Absensi Mahasiswa Bulan ' . Carbon::now()->translatedFormat('F');
+                $this->title = $baseTitle . ' Bulan ' . Carbon::now()->translatedFormat('F');
                 break;
             case 'lastMonth':
                 $lastMonth = Carbon::now()->subMonthNoOverflow()->startOfMonth();
-                $this->title = 'Grafik Absensi Mahasiswa Bulan ' . $lastMonth->translatedFormat('F');
+                $this->title = $baseTitle . ' Bulan ' . $lastMonth->translatedFormat('F');
                 break;
             default:
-                $this->title = 'Grafik Absensi Mahasiswa';
+                $this->title = $baseTitle;
         }
     }
 
