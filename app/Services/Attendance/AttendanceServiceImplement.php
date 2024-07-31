@@ -61,11 +61,13 @@ class AttendanceServiceImplement extends Service implements AttendanceService
      * @param string $startDate
      * @param string $endDate
      * @param int|null $userId
+     * @param string|null $status
+     * @param string|null $roleAlias
      * @return int
      */
-    public function countAttendancesByDateRange($startDate, $endDate, $userId = null, $status = null)
+    public function countAttendancesByDateRange($startDate, $endDate, $userId = null, $status = null, $roleAlias = null)
     {
-        return $this->handleRepositoryCall('countAttendancesByDateRange', [$startDate, $endDate, $userId, $status]);
+        return $this->handleRepositoryCall('countAttendancesByDateRange', [$startDate, $endDate, $userId, $status, $roleAlias]);
     }
     /**
      * Get attendance data per month with optional role alias and user ID filter

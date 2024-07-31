@@ -107,9 +107,11 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
      * @param string $startDate
      * @param string $endDate
      * @param int|null $userId
+     * @param string|null $status
+     * @param string|null $roleAlias
      * @return int
      */
-    public function countAttendancesByDateRange($startDate, $endDate, $userId = null, $status = null)
+    public function countAttendancesByDateRange($startDate, $endDate, $userId = null, $status = null, $roleAlias = null)
     {
         $query = $this->attendanceModel->whereBetween('attendance_date', [$startDate, $endDate]);
 
@@ -119,6 +121,12 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
 
         if ($status) {
             $query->where('status', $status);
+        }
+
+        if ($roleAlias !== null) {
+            $query->whereHas('user.role', function ($query) use ($roleAlias) {
+                $query->where('name_alias', $roleAlias);
+            });
         }
 
         return $query->count();
