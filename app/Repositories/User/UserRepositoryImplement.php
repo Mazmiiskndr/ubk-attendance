@@ -36,7 +36,7 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
      */
     public function getUsers($roleAlias = null, $limit = null)
     {
-        $query = $this->userModel->with(['role', 'userDetail'])->latest();
+        $query = $this->userModel->with(['role', 'userDetail.kelas'])->latest();
 
         if ($roleAlias !== null) {
             $role = $this->roleModel->where('name_alias', $roleAlias)->first();
