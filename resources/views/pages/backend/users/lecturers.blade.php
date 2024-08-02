@@ -28,6 +28,9 @@
                         <i class="tf-icons fas fa-trash-alt ti-xs me-1"></i>&nbsp; Hapus Massal
                     </x-button>
                     {{-- End Button for Delete Batch --}}
+                    {{-- Start Save To Excel Lecture --}}
+                    @livewire('backend.lecture.save-to-excel')
+                    {{-- End Save To Excel Lecture --}}
                 </div>
             </div>
         </div>

@@ -38,6 +38,10 @@
                      <span>{{ $lecture->email }}</span>
                  </li>
                  <li class="mb-2 pt-1">
+                     <span class="fw-medium me-1">NIP:</span>
+                     <span>{{ $lecture->userDetail->ident_number?? '-' }}</span>
+                 </li>
+                 <li class="mb-2 pt-1">
                      <span class="fw-medium me-1">Status:</span>
                      @if ($lecture->status == 1)
                      <span class="badge bg-label-success">Aktif</span>

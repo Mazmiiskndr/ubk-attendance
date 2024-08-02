@@ -31,7 +31,6 @@
                     {{-- End Button for Delete Batch --}}
                     {{-- Start Save To Excel Student --}}
                     @livewire('backend.student.save-to-excel')
-
                     {{-- End Save To Excel Student --}}
                 </div>
             </div>

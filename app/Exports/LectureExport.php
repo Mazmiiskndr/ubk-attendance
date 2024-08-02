@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+
 use App\Services\User\UserService;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
@@ -13,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 
-class StudentExport implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting
+class LectureExport implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting
 {
     protected $userService;
     protected $totalRowNumber;
@@ -34,17 +35,10 @@ class StudentExport implements FromCollection, WithHeadings, WithStyles, WithCol
     public function collection()
     {
         // Retrieve the data from the hotel rooms service
-        $data = $this->userService->getUsers('mahasiswa');
+        $data = $this->userService->getUsers('dosen');
 
         // Transform the data to match the headings
         $mappedData = $data->map(function ($row, $key) {
-            $className = $row->userDetail->kelas->name ?? '';
-            $room = $row->userDetail->kelas->room ?? '';
-
-            $classInfo = '-';
-            if ($className && $room) {
-                $classInfo = "$className/$room";
-            }
             return [
                 'No' => $key + 1,
                 'Username' => $row->username ?? '-',
@@ -53,8 +47,6 @@ class StudentExport implements FromCollection, WithHeadings, WithStyles, WithCol
                 'Jenis Kelamin' => $row->userDetail->gender ?? '-',
                 'No. HP' => $row->userDetail->phone_number ?? '-',
                 'Email' => $row->email ?? '-',
-                'Kelas & Ruangan' => $classInfo,
-                'Semester' => $row->userDetail->semester ?? '-',
                 'Tanggal Lahir' => $row->userDetail->birthdate ?? '-',
                 'Alamat' => $row->userDetail->address ?? '-',
                 'Status' => $row->status == 1 ? "Aktif" : "Tidak Aktif",
@@ -68,12 +60,10 @@ class StudentExport implements FromCollection, WithHeadings, WithStyles, WithCol
             'No' => '',
             'Username' => '',
             'Nama' => '',
-            'NIM' => '',
+            'NIP' => '',
             'Jenis Kelamin' => '',
             'No. HP' => '',
             'Email' => '',
-            'Kelas & Ruangan' => '',
-            'Semester' => '',
             'Tanggal Lahir' => '',
             'Alamat' => 'TOTAL',
             'Status' => $totalStudents
@@ -94,12 +84,10 @@ class StudentExport implements FromCollection, WithHeadings, WithStyles, WithCol
             'No',
             'Username',
             'Nama',
-            'NIM',
+            'NIP',
             'Jenis Kelamin',
             'No. HP',
             'Email',
-            'Kelas & Ruangan',
-            'Semester',
             'Tanggal Lahir',
             'Alamat',
             'Status'
@@ -113,17 +101,17 @@ class StudentExport implements FromCollection, WithHeadings, WithStyles, WithCol
     public function styles(Worksheet $sheet)
     {
         // Set the fill color to yellow for the header
-        $sheet->getStyle('A1:L1')->getFill()
+        $sheet->getStyle('A1:J1')->getFill()
             ->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB('b80202');
-        $sheet->getStyle('A1:L1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
+        $sheet->getStyle('A1:J1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
 
         // Center the text for the header
-        $sheet->getStyle('A1:L1')->getAlignment()
+        $sheet->getStyle('A1:J1')->getAlignment()
             ->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         // Make the text bold for the header
-        $sheet->getStyle('A1:L1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:J1')->getFont()->setBold(true);
 
         // Add border to the cells
         $styleArray = [
@@ -138,24 +126,24 @@ class StudentExport implements FromCollection, WithHeadings, WithStyles, WithCol
         $endRow = $sheet->getHighestRow();
 
         // Apply the border style to all cells
-        $sheet->getStyle('A1:L' . $endRow)->applyFromArray($styleArray);
+        $sheet->getStyle('A1:J' . $endRow)->applyFromArray($styleArray);
 
         // Set column widths
-        foreach (range('A', 'L') as $columnID) {
+        foreach (range('A', 'J') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 
         // Center text in the 'Status' column
-        $sheet->getStyle('L1:L' . $endRow)->getAlignment()
+        $sheet->getStyle('J1:J' . $endRow)->getAlignment()
             ->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         // Set the alignment to right for the total
         if (isset($this->totalRowNumber)) {
-            $sheet->getStyle('K' . $this->totalRowNumber + 1 . ':L' . $this->totalRowNumber + 1)->getAlignment()
+            $sheet->getStyle('I' . $this->totalRowNumber + 1 . ':J' . $this->totalRowNumber + 1)->getAlignment()
                 ->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
             // Make the text bold for the total
-            $sheet->getStyle('K' . $this->totalRowNumber + 1 . ':L' . $this->totalRowNumber + 1)->getFont()->setBold(true);
+            $sheet->getStyle('I' . $this->totalRowNumber + 1 . ':J' . $this->totalRowNumber + 1)->getFont()->setBold(true);
         }
     }
 
@@ -172,8 +160,6 @@ class StudentExport implements FromCollection, WithHeadings, WithStyles, WithCol
             'H' => NumberFormat::FORMAT_TEXT,
             'I' => NumberFormat::FORMAT_TEXT,
             'J' => NumberFormat::FORMAT_TEXT,
-            'K' => NumberFormat::FORMAT_TEXT,
-            'L' => NumberFormat::FORMAT_TEXT,
         ];
     }
 }
