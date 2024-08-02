@@ -56,4 +56,13 @@ class CreateForm extends Form
         $this->reset();
         return $user;
     }
+
+    public function storeState(UserService $userService, $user)
+    {
+        $userService->truncateStates();
+        $data['userId'] = $user->id;
+        $data['status'] = 1;
+        $state = $userService->storeOrUpdateState($data);
+        return $state;
+    }
 }

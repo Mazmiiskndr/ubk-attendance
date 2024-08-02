@@ -51,6 +51,12 @@ interface UserRepository extends Repository
     public function getUserById($userId);
 
     /**
+     * Get the latest state for a given user or all states if no user ID is provided.
+     * @param int|null $userId
+     */
+    public function getStates($userId);
+
+    /**
      * Get the validation rules for the form request.
      * @param string|null $userId The user ID.
      * @param string|null $roleAlias The user role alias.
@@ -71,4 +77,17 @@ interface UserRepository extends Repository
      * @param string $roleAlias
      */
     public function storeOrUpdateUser($data, $roleAlias);
+
+    /**
+     * Delete all data form table states
+     * @return bool
+     */
+    public function truncateStates();
+
+    /**
+     * Store or update a state.
+     * @param array $data
+     * @param string $roleAlias
+     */
+    public function storeOrUpdateState($data);
 }

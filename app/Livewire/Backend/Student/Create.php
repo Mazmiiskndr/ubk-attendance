@@ -23,7 +23,9 @@ class Create extends Component
      */
     public CreateForm $form;
 
-    public $kelas;
+    public $kelas, $loadingMessage = "Loading...", $message = "Silahkan Daftarkan Finger Print Pada Perangkat!";
+
+    public $polling = false;
 
     public function mount(KelasService $kelasService)
     {
@@ -50,17 +52,40 @@ class Create extends Component
         $user = $this->form->storeOrUpdate($userService);
         // Check if $user contains valid data or not.
         if ($user) {
-            // Let other components know that a user was created
-            $this->dispatch('userCreated', $user);
-
-            // Notify the frontend of success
-            return redirect()->route('backend.students.index')->with('success', 'Data Mahasiswa berhasil ditambahkan!');
+            $state = $this->form->storeState($userService, $user);
+            if ($state) {
+                $this->dispatch('showLoading');
+                // Polling untuk cek status sinkronisasi
+                $this->dispatch('pollingStart');
+                $this->polling = true;
+            }
         } else {
+            $this->dispatch('hideLoading');
             // Notify the frontend of failure
             $this->dispatchErrorEvent('Gagal Menambahkan Data Mahasiswa');
         }
         // Close the modal
         $this->closeModal();
+    }
+
+    public function checkState(UserService $userService)
+    {
+        if (!$this->polling) {
+            $this->dispatch('hideLoading'); // Hide loading when polling stops
+            return;
+        }
+        // Cek status sinkronisasi
+        $state = $userService->getStates();
+        if ($state && $state->controller_notes) {
+            $this->loadingMessage = $state->controller_notes;
+            $this->dispatch('pollingStop');
+            $this->polling = false;
+            $this->dispatch('hideLoading');
+            $this->dispatch('userCreated');
+            return redirect()->route('backend.students.index')->with('success', 'Data Mahasiswa berhasil ditambahkan!');
+        } else {
+            $this->loadingMessage = "Melakukan Proses Pendaftaran";
+        }
     }
 
     /**

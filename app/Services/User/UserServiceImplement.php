@@ -84,6 +84,15 @@ class UserServiceImplement extends Service implements UserService
     }
 
     /**
+     * Get the latest state for a given user or all states if no user ID is provided.
+     * @param int|null $userId
+     */
+    public function getStates($userId = null)
+    {
+        return $this->handleRepositoryCall('getStates', [$userId]);
+    }
+
+    /**
      * Get the validation rules for the form request.
      * @param string|null $userId The user ID.
      * @param string|null $roleAlias The user role alias.
@@ -112,5 +121,24 @@ class UserServiceImplement extends Service implements UserService
     public function storeOrUpdateUser($data, $roleAlias = 'mahasiswa')
     {
         return $this->handleRepositoryCall('storeOrUpdateUser', [$data, $roleAlias]);
+    }
+
+    /**
+     * Delete all data form table states
+     * @return bool
+     */
+    public function truncateStates()
+    {
+        return $this->handleRepositoryCall('truncateStates');
+    }
+
+    /**
+     * Store or update a state.
+     * @param array $data
+     * @param string $roleAlias
+     */
+    public function storeOrUpdateState($data)
+    {
+        return $this->handleRepositoryCall('storeOrUpdateState', [$data]);
     }
 }

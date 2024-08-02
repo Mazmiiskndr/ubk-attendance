@@ -2,6 +2,7 @@
 
 namespace App\Repositories\User;
 
+use App\Models\State;
 use App\Models\UserDetail;
 use App\Traits\{ActionsButtonTrait, DataTablesTrait};
 use LaravelEasyRepository\Implementations\Eloquent;
@@ -20,12 +21,14 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
     protected $userModel;
     protected $roleModel;
     protected $userDetailModel;
+    protected $stateModel;
 
-    public function __construct(User $userModel, Role $roleModel, UserDetail $userDetailModel)
+    public function __construct(User $userModel, Role $roleModel, UserDetail $userDetailModel, State $stateModel)
     {
         $this->userModel = $userModel;
         $this->roleModel = $roleModel;
         $this->userDetailModel = $userDetailModel;
+        $this->stateModel = $stateModel;
     }
 
     /**
@@ -139,6 +142,34 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
         }
 
         return $user;
+    }
+
+    /**
+     * Get the latest state for a given user or all states if no user ID is provided.
+     * @param int|null $userId
+     * @return State|null
+     * @throws \InvalidArgumentException If no state is found and the user ID is provided.
+     */
+    public function getStates($userId = null)
+    {
+        $query = $this->stateModel->query();
+
+        if ($userId !== null) {
+            $query->where('user_id', $userId);
+        }
+
+        // Filter untuk hanya mengambil data dengan controller_notes yang tidak kosong
+        $query->whereNotNull('controller_notes')->where('controller_notes', '!=', '');
+
+        // Ambil satu data terbaru
+        $state = $query->latest()->first();
+
+        // Cek apakah data ditemukan atau tidak
+        if ($state === null && $userId !== null) {
+            throw new \InvalidArgumentException("States data cannot be found for user ID: $userId.");
+        }
+
+        return $state;
     }
 
     /**
@@ -349,6 +380,34 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
         );
 
         return $user;
+    }
+
+    /**
+     * Delete all data form table states
+     * @return bool
+     */
+    public function truncateStates()
+    {
+        return $this->stateModel->truncate();
+    }
+
+    /**
+     * Store or update a state.
+     * @param array $data
+     * @param string $roleAlias
+     */
+    public function storeOrUpdateState($data)
+    {
+        // Create or update the user
+        $state = $this->stateModel->updateOrCreate(
+            ['user_id' => $data['userId'] ?? null],
+            [
+                'status' => $data['status'],
+                'controller_notes' => $data['controllerNotes'] ?? '',
+            ]
+        );
+
+        return $state;
     }
 
     /**
