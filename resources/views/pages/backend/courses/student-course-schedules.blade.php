@@ -2,7 +2,7 @@
 @section('title', 'Jadwal Mata Kuliah Mahasiswa')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatables.min.css'])
 @endpush
 
 @section('content')
@@ -27,8 +27,8 @@
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/courses/student-course-schedules-management.js'
+    'resources/assets/js/datatables.min.js',
+    'resources/assets/js/student-course-schedules-management.js'
     ])
     {{-- <script>
         function confirmDeleteBatch() {

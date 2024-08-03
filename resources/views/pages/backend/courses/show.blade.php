@@ -2,7 +2,7 @@
 @section('title', 'Detail Mata Kuliah')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
+@vite(['resources/assets/js/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
 @endpush
 
 @section('content')
@@ -42,8 +42,8 @@
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/courses/course-schedules-management.js',
+    'resources/assets/js/datatables.min.js',
+    'resources/assets/js/course-schedules-management.js',
     'resources/assets/vendor/libs/flatpickr/flatpickr.js'
     ])
     <script>

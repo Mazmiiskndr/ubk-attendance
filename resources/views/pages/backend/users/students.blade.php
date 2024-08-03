@@ -2,8 +2,7 @@
 @section('title', 'List Mahasiswa')
 
 @push('styles')
-{{-- @vite(['resources/assets/js/datatable/datatables.min.css']) --}}
-<link rel="stylesheet" href="{{ asset('aseets/datatable/datatables.min.css') }}">
+@vite(['resources/assets/js/datatables.min.css'])
 @endpush
 
 @section('content')
@@ -46,8 +45,9 @@
 
     @push('scripts')
     @vite([
+    'resources/assets/js/datatables.min.js',
+    'resources/assets/js/students-management.js'
     ])
-    <script src="{{ asset("assets/datatable/datatables.min.js") }}"></script>
     <script>
         function confirmDeleteBatch() {
             // Ambil semua studentId yang dicentang

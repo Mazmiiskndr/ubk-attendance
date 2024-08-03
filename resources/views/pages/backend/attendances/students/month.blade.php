@@ -2,7 +2,7 @@
 @section('title', 'Presensi Mahasiswa Perbulan')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
+@vite(['resources/assets/js/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
 @endpush
 
 @section('content')
@@ -31,8 +31,8 @@
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/attendances/student-by-month-management.js',
+    'resources/assets/js/datatables.min.js',
+    'resources/assets/js/student-by-month-management.js',
     'resources/assets/vendor/libs/flatpickr/flatpickr.js'
     ])
     @endpush

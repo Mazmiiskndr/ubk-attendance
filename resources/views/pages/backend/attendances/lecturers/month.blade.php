@@ -2,7 +2,7 @@
 @section('title', 'Presensi Dosen Perbulan')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatables.min.css'])
 @endpush
 
 @section('content')
@@ -37,8 +37,8 @@ $endOfMonth = Carbon::now()->endOfMonth()->format('Y/m/d');
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/attendances/lecture-by-month-management.js'
+    'resources/assets/js/datatables.min.js',
+    'resources/assets/js/lecture-by-month-management.js'
     ])
     {{-- <script>
         function confirmDeleteBatch() {

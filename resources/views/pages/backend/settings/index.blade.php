@@ -2,7 +2,7 @@
 @section('title', 'List Pengaturan')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatables.min.css'])
 @endpush
 
 @section('content')
@@ -24,9 +24,9 @@
     {{-- End List DataTable --}}
 
     @push('scripts')
-    @vite(['resources/assets/js/datatable/datatables.min.js',
+    @vite(['resources/assets/js/datatables.min.js',
     'resources/assets/vendor/libs/flatpickr/flatpickr.js',
-    'resources/assets/js/backend/settings/settings-management.js'])
+    'resources/assets/js/settings-management.js'])
     <script>
         function showSetting(settingId) {
             Livewire.dispatch('requestSettingById', {

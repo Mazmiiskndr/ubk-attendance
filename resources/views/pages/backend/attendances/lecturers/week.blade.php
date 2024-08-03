@@ -2,7 +2,7 @@
 @section('title', 'Presensi Dosen Perminggu')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatables.min.css'])
 @endpush
 
 @section('content')
@@ -37,8 +37,8 @@ $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY)->format('Y/m/d');
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/attendances/lecture-by-week-management.js'
+    'resources/assets/js/datatables.min.js',
+    'resources/assets/js/lecture-by-week-management.js'
     ])
     {{-- <script>
         function confirmDeleteBatch() {

@@ -2,7 +2,7 @@
 @section('title', 'List Mata Kuliah')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatables.min.css'])
 @endpush
 
 @section('content')
@@ -42,8 +42,8 @@
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/courses/courses-management.js'
+    'resources/assets/js/datatables.min.js',
+    'resources/assets/js/courses-management.js'
     ])
     <script>
         function confirmDeleteBatch() {

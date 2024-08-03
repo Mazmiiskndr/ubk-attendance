@@ -2,7 +2,7 @@
 @section('title', 'List Dosen')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatables.min.css'])
 @endpush
 
 @section('content')
@@ -45,7 +45,7 @@
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js',
+    'resources/assets/js/datatables.min.js',
     'resources/assets/js/backend/users/lecturers-management.js'
     ])
     <script>

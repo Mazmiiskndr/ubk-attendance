@@ -2,7 +2,7 @@
 @section('title', 'List Kelas')
 
 @push('styles')
-@vite(['resources/assets/js/datatable/datatables.min.css'])
+@vite(['resources/assets/js/datatables.min.css'])
 @endpush
 
 @section('content')
@@ -43,8 +43,8 @@
 
     @push('scripts')
     @vite([
-    'resources/assets/js/datatable/datatables.min.js',
-    'resources/assets/js/backend/settings/kelas-management.js'
+    'resources/assets/js/datatables.min.js',
+    'resources/assets/js/kelas-management.js'
     ])
     <script>
         function confirmDeleteBatch() {
