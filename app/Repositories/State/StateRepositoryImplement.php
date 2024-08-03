@@ -20,5 +20,35 @@ class StateRepositoryImplement extends Eloquent implements StateRepository
         $this->stateModel = $stateModel;
     }
 
-    // Write something awesome :)
+    /**
+     * Check the state with status '1' and return its details.
+     *
+     * @param string $key
+     * @return string JSON encoded array
+     */
+    public function checkStateStatus(string $key)
+    {
+        if ($key === "x124sr3sQQ2d") {
+            $state = $this->stateModel->where('status', 1)->first();
+
+            if ($state) {
+                $response = [
+                    "status" => 0,
+                    "id" => $state->id,
+                ];
+            } else {
+                $response = [
+                    "status" => 1,
+                    "id" => '',
+                ];
+            }
+        } else {
+            $response = [
+                "status" => 2,
+                "id" => '',
+            ];
+        }
+
+        return json_encode($response);
+    }
 }

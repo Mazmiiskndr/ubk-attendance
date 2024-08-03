@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('attendance', [AttendanceController::class, 'store'])->name('attendance.store');
+Route::post('enroll-controller', [AttendanceController::class, 'enrollController'])->name('attendance.enroll-controller');
+Route::post('regis-controller', [AttendanceController::class, 'regisController'])->name('attendance.regis-controller');

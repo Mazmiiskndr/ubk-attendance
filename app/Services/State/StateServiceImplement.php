@@ -20,5 +20,14 @@ class StateServiceImplement extends Service implements StateService
     $this->mainRepository = $mainRepository;
   }
 
-  // Define your custom methods :)
+  /**
+   * Check the state with status '1' and return its details.
+   *
+   * @param string $key
+   * @return string JSON encoded array
+   */
+  public function checkStateStatus(string $key)
+  {
+    return $this->handleRepositoryCall('checkStateStatus', [$key]);
+  }
 }

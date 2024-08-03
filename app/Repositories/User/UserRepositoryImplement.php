@@ -393,21 +393,28 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
 
     /**
      * Store or update a state.
-     * @param array $data
-     * @param string $roleAlias
      */
     public function storeOrUpdateState($data)
     {
-        // Create or update the user
-        $state = $this->stateModel->updateOrCreate(
-            ['user_id' => $data['userId'] ?? null],
-            [
-                'status' => $data['status'],
-                'controller_notes' => $data['controllerNotes'] ?? '',
-            ]
-        );
-
-        return $state;
+        if (!empty($data['parameter'])) {
+            // Update the state where 'parameter' is provided
+            $affectedRows = $this->stateModel->where('status', 1)->update([
+                'status' => 0,
+                'controller_notes' => $data['parameter'],
+            ]);
+            // Mengembalikan hasil yang lebih informatif
+            return $affectedRows > 0 ? 1 : 0;
+        } else {
+            // Create or update the state with other data
+            $state = $this->stateModel->updateOrCreate(
+                ['user_id' => $data['userId'] ?? null],
+                [
+                    'status' => $data['status'] ?? 1,
+                    'controller_notes' => $data['controllerNotes'] ?? '',
+                ]
+            );
+            return $state;
+        }
     }
 
     /**

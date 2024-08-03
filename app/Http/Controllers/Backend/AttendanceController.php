@@ -4,16 +4,22 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Services\Attendance\AttendanceService;
+use App\Services\State\StateService;
+use App\Services\User\UserService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
     public $attendanceService;
+    public $stateService;
+    public $userService;
 
-    public function __construct(AttendanceService $attendanceService)
+    public function __construct(AttendanceService $attendanceService, StateService $stateService, UserService $userService)
     {
         $this->attendanceService = $attendanceService;
+        $this->stateService = $stateService;
+        $this->userService = $userService;
     }
 
     // START STUDENT
@@ -114,5 +120,46 @@ class AttendanceController extends Controller
         }
 
         return response()->json(['message' => $message]);
+    }
+
+    /**
+     * Handle enrollment requests for the controller.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function enrollController(Request $request)
+    {
+        $key = $request->input('key');
+        try {
+            // Call checkStateStatus method from StateService
+            $response = $this->stateService->checkStateStatus($key);
+            // Return the response as JSON
+            return $response;
+        } catch (\InvalidArgumentException $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Unexpected error occurred.'], 500);
+        }
+    }
+
+    /**
+     * Handle enrollment requests for the controller.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function regisController(Request $request)
+    {
+        $data['id'] = $request->input('id');
+        $data['parameter'] = $request->input('parameter');
+
+        if ($data['id'] == "kontroler" && $data['parameter'] != "") {
+            $result = $this->userService->storeOrUpdateState($data);
+            return response()->json($result);
+        }
+
+        // Jika tidak memenuhi syarat, kembalikan pesan kesalahan atau respon lain
+        return response()->json(['error' => 'Invalid request'], 400);
     }
 }
