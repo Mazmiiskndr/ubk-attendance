@@ -2,7 +2,7 @@
 @section('title', 'Presensi Mahasiswa Pertanggal')
 
 @push('styles')
-@vite(['resources/assets/js/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
+@vite(['resources/assets/css/datatables.min.css','resources/assets/vendor/libs/flatpickr/flatpickr.scss'])
 @endpush
 
 @section('content')

@@ -2,7 +2,7 @@
 @section('title', 'List Dosen')
 
 @push('styles')
-@vite(['resources/assets/js/datatables.min.css'])
+@vite(['resources/assets/css/datatables.min.css'])
 @endpush
 
 @section('content')
