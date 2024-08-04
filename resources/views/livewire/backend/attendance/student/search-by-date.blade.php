@@ -1,4 +1,4 @@
- <div class="order-2 order-md-2 mb-1 mb-sm-0 text-center">
+ <div class="mb-1 mb-sm-0 text-center">
      <x-input-field id="searchByDate" model="searchByDate" placeholder="Cari Berdasarkan Tanggal.." required style="width:300px" />
  </div>
  @push('scripts')

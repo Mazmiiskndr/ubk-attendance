@@ -15,11 +15,12 @@
 
     <div class="card-header">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
-            <div class="mb-1 mb-sm-0 text-center text-sm-start">
-                <h4 class="card-title">Tabel Presensi Mahasiswa Pertanggal</h4>
-            </div>
-            @livewire('backend.attendance.student.search-by-date')
             @livewire('backend.attendance.student.show-by-date')
+            {{-- <div class="mb-1 mb-sm-0 text-center text-sm-start">
+                <h4 class="card-title">Tabel Presensi Mahasiswa Pertanggal</h4>
+            </div> --}}
+            @livewire('backend.attendance.student.search-by-date')
+            @livewire('backend.attendance.student.date-save-to-excel')
         </div>
     </div>
 
