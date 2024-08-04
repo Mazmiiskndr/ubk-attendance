@@ -38,7 +38,7 @@
 @push('scripts')
 @vite([
 'resources/assets/js/datatables.min.js',
-'resources/assets/js/backend/users/attendance-lecture-details-management.js'
+'resources/assets/js/attendance-lecture-details-management.js'
 ])
 <script>
     function showAttendance(attendanceId) {
