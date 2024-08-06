@@ -46,7 +46,7 @@
     @push('scripts')
     @vite([
     'resources/assets/js/datatables.min.js',
-    'resources/assets/js/backend/users/lecturers-management.js'
+    'resources/assets/js/lecturers-management.js'
     ])
     <script>
         function confirmDeleteBatch() {

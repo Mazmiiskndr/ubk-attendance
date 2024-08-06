@@ -16,7 +16,7 @@ class SettingSeeder extends Seeder
             [
                 'time_zone' => 'Asia/Jakarta',
                 'bot_token' => '-',
-                'ip_address' => '192.168.1.121',
+                'ip_address' => '0.0.0.0',
             ],
         ]);
     }

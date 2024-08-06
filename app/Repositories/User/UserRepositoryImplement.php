@@ -46,8 +46,6 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
 
             if ($role) {
                 $query->where('role_id', $role->id);
-            } else {
-                throw new \InvalidArgumentException("Role with alias '{$roleAlias}' cannot be found.");
             }
         }
 
@@ -56,10 +54,6 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
         }
 
         $users = $query->get();
-
-        if ($users->isEmpty()) {
-            throw new \InvalidArgumentException("Users Data cannot be found.");
-        }
 
         return $users;
     }

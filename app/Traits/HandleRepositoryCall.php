@@ -16,8 +16,11 @@ trait HandleRepositoryCall
         try {
             return $this->mainRepository->{$method}(...$parameters);
         } catch (\InvalidArgumentException $e) {
-            $errorMessage = "Error : " . $e->getMessage();
-            throw new \InvalidArgumentException($errorMessage);
+            // Log error or handle it as needed
+            \Log::error("Repository call error: " . $e->getMessage());
+
+            // Return null or a specific response as needed
+            return null; // Or you could throw a custom exception or return a default value
         }
     }
 }
