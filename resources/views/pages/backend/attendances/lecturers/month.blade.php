@@ -36,8 +36,8 @@ $endOfMonth = Carbon::now()->endOfMonth()->format('Y/m/d');
     {{-- End List DataTable --}}
 
     @push('scripts')
+    <script src="{{ asset('assets/datatable/datatables.min.js') }}" defer></script>
     @vite([
-    'resources/assets/js/datatables.min.js',
     'resources/assets/js/lecture-by-month-management.js'
     ])
     {{-- <script>

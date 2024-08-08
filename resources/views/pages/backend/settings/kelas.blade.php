@@ -42,8 +42,8 @@
     {{-- End List DataTable --}}
 
     @push('scripts')
+    <script src="{{ asset('assets/datatable/datatables.min.js') }}" defer></script>
     @vite([
-    'resources/assets/js/datatables.min.js',
     'resources/assets/js/kelas-management.js'
     ])
     <script>
