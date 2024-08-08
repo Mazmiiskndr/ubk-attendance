@@ -58,6 +58,8 @@ export default defineConfig({
       input: [
         'resources/css/app.css',
         'resources/assets/css/demo.css',
+        'resources/assets/css/datatables.min.css',
+        'resources/assets/js/datatables.min.js',
         'resources/js/app.js',
         ...pageJsFiles,
         ...backendJsFiles,
