@@ -24,7 +24,8 @@
     {{-- End List DataTable --}}
 
     @push('scripts')
-    @vite(['resources/assets/js/datatables.min.js',
+    <script src="{{ asset('assets/datatable/datatables.min.js') }}" defer></script>
+    @vite([
     'resources/assets/vendor/libs/flatpickr/flatpickr.js',
     'resources/assets/js/settings-management.js'])
     <script>
