@@ -853,6 +853,12 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
      */
     public function storeAttendanceData($userId, $date, $time, $status, $filename)
     {
+        $courseScheduleId = $this->courseScheduleModel->where('day', Carbon::parse($date)->dayOfWeekIso)->value('id');
+
+        if (!$courseScheduleId) {
+            return "Mata kuliah dan jadwal mata kuliah belum dibuat.";
+        }
+        $userName = $this->userModel->find($userId)->name;
         $this->attendanceModel->create([
             'user_id' => $userId,
             'course_schedule_id' => CourseSchedule::where('day', Carbon::parse($date)->dayOfWeekIso)->value('id'),
@@ -865,7 +871,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
             'remarks' => null,
         ]);
 
-        return "Data absensi disimpan: UID=$userId, Date=$date, Time=$time, Status=$status, Filename=$filename";
+        // Menggunakan enum untuk mendapatkan deskripsi
+        $statusDescription = AttendanceStatus::from($status)->getDescription();
+
+        return "$statusDescription";
     }
 
 }

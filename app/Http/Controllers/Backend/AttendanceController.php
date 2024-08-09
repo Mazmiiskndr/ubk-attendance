@@ -89,15 +89,12 @@ class AttendanceController extends Controller
 
     /**
      * Store the attendance data.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $message = '';
 
-        if ($request->has('id') && $request->file('img')->isValid()) {
+        if ($request->has('id') && $request->hasFile('img') && $request->file('img')->isValid()) {
             $userId = $request->input('id');
             $file = $request->file('img');
             $filename = str()->uuid() . ".jpg";
@@ -119,35 +116,23 @@ class AttendanceController extends Controller
             $message = "Coba Lagi";
         }
 
-        return response()->json(['message' => $message]);
+        return $message;
     }
 
     /**
      * Handle enrollment requests for the controller.
-     * 
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
      */
     public function enrollController(Request $request)
     {
         $key = $request->input('key');
-        try {
-            // Call checkStateStatus method from StateService
-            $response = $this->stateService->checkStateStatus($key);
-            // Return the response as JSON
-            return $response;
-        } catch (\InvalidArgumentException $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Unexpected error occurred.'], 500);
-        }
+        // Call checkStateStatus method from StateService
+        $response = $this->stateService->checkStateStatus($key);
+        // Return the response as JSON
+        return $response;
     }
 
     /**
      * Handle enrollment requests for the controller.
-     * 
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
      */
     public function regisController(Request $request)
     {
@@ -155,11 +140,11 @@ class AttendanceController extends Controller
         $data['parameter'] = $request->input('parameter');
 
         if ($data['id'] == "kontroler" && $data['parameter'] != "") {
-            $result = $this->userService->storeOrUpdateState($data);
-            return response()->json($result);
+            $this->userService->storeOrUpdateState($data);
+            return $data['parameter'];
         }
 
         // Jika tidak memenuhi syarat, kembalikan pesan kesalahan atau respon lain
-        return response()->json(['error' => 'Invalid request'], 400);
+        return 'Invalid request';
     }
 }

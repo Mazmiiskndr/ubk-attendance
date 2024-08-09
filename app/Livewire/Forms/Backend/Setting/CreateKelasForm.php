@@ -11,7 +11,7 @@ class CreateKelasForm extends Form
     /**
      * The properties of a kelas object.
      */
-    public $name;
+    public $name, $room;
 
     /**
      * Get the validation rules for the model.

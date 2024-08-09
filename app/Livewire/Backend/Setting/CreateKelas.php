@@ -53,5 +53,6 @@ class CreateKelas extends Component
     public function resetFields()
     {
         $this->form->name = '';
+        $this->form->room = '';
     }
 }
