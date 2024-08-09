@@ -3,6 +3,7 @@
 namespace App\Repositories\Attendance;
 
 use App\Enums\AttendanceStatus;
+use App\Enums\DayOfWeek;
 use App\Models\CourseSchedule;
 use App\Models\User;
 use App\Traits\{DataTablesTrait, ActionsButtonTrait};
@@ -853,28 +854,61 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
      */
     public function storeAttendanceData($userId, $date, $time, $status, $filename)
     {
-        $courseScheduleId = $this->courseScheduleModel->where('day', Carbon::parse($date)->dayOfWeekIso)->value('id');
+        $dayOfWeek = DayOfWeek::getDescription($date);
+        $courseSchedule = $this->courseScheduleModel->where('day', $dayOfWeek)->first();
 
-        if (!$courseScheduleId) {
+        if (!$courseSchedule) {
             return "Mata kuliah dan jadwal mata kuliah belum dibuat.";
         }
-        $userName = $this->userModel->find($userId)->name;
-        $this->attendanceModel->create([
-            'user_id' => $userId,
-            'course_schedule_id' => CourseSchedule::where('day', Carbon::parse($date)->dayOfWeekIso)->value('id'),
-            'attendance_date' => $date,
-            'check_in' => in_array($status, [AttendanceStatus::Hadir->value, AttendanceStatus::Terlambat->value]) ? $time : null,
-            'check_out' => null,
-            'image_in' => in_array($status, [AttendanceStatus::Hadir->value, AttendanceStatus::Terlambat->value]) ? $filename : null,
-            'image_out' => null,
-            'status' => $status,
-            'remarks' => null,
-        ]);
 
-        // Menggunakan enum untuk mendapatkan deskripsi
-        $statusDescription = AttendanceStatus::from($status)->getDescription();
+        // Konversi waktu dari string ke objek Carbon
+        $time = Carbon::parse($time);
 
-        return "$statusDescription";
+        // Menentukan status kehadiran berdasarkan waktu check-in
+        if ($time->between($courseSchedule->check_in_start, $courseSchedule->check_in_end)) {
+            $status = AttendanceStatus::Hadir->value;
+        } elseif ($time->greaterThan($courseSchedule->check_in_end) && $time->lessThan($courseSchedule->check_out_start)) {
+            $status = AttendanceStatus::Terlambat->value;
+        } elseif ($time->between($courseSchedule->check_out_start, $courseSchedule->check_out_end)) {
+            $status = AttendanceStatus::Hadir->value;
+        } elseif ($time->greaterThan($courseSchedule->check_out_end)) {
+            $status = AttendanceStatus::Terlambat->value;
+        } else {
+            $status = AttendanceStatus::Alpha->value;
+        }
+
+        // Pengecekan absensi sebelumnya untuk hari dan mata kuliah yang sama
+        $attendanceRecord = $this->attendanceModel->where('user_id', $userId)
+            ->where('attendance_date', $date)
+            ->where('course_schedule_id', $courseSchedule->id)
+            ->first();
+
+        if ($attendanceRecord) {
+            // Jika absensi sudah ada, lakukan update untuk check_out dan image_out
+            $attendanceRecord->update([
+                'check_out' => !empty($filename) ? $time->format('H:i:s') : $attendanceRecord->check_out,
+                'image_out' => !empty($filename) ? $filename : $attendanceRecord->image_out,
+                'status' => $status, // Memperbarui status berdasarkan logika waktu yang sudah ditentukan
+            ]);
+            $statusDescription = AttendanceStatus::from($status)->getDescription();
+            return "diperbarui: $statusDescription";
+        } else {
+            // Jika belum ada absensi, lakukan insert untuk check_in dan image_in
+            $this->attendanceModel->create([
+                'user_id' => $userId,
+                'course_schedule_id' => $courseSchedule->id,
+                'attendance_date' => $date,
+                'check_in' => !empty($filename) ? $time->format('H:i:s') : null,
+                'check_out' => null,
+                'image_in' => !empty($filename) ? $filename : null,
+                'image_out' => null,
+                'status' => $status, // Menyimpan status berdasarkan logika waktu yang sudah ditentukan
+                'remarks' => null,
+            ]);
+            $statusDescription = AttendanceStatus::from($status)->getDescription();
+            return "ditambahkan: $statusDescription";
+        }
     }
+
 
 }
