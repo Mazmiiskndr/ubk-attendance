@@ -854,6 +854,10 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
      */
     public function storeAttendanceData($userId, $date, $time, $status, $filename)
     {
+        if (!$userId || !$date || !$time || !$status) {
+            return "Data absensi tidak lengkap.";
+        }
+
         $dayOfWeek = DayOfWeek::getDescription($date);
         $courseSchedule = $this->courseScheduleModel->where('day', $dayOfWeek)->first();
 
