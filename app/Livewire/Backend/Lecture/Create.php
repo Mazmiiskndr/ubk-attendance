@@ -22,6 +22,10 @@ class Create extends Component
      */
     public CreateForm $form;
 
+    public $loadingMessage = "Loading...", $message = "Silahkan Daftarkan Finger Print Pada Perangkat!";
+
+    public $polling = false;
+
     public function updated($property)
     {
         $this->validateOnly($property);
@@ -37,22 +41,43 @@ class Create extends Component
      * @param UserService $userService
      * @return void
      */
-    public function storeNewStudent(UserService $userService)
+    public function storeNewLecture(UserService $userService)
     {
         $user = $this->form->storeOrUpdate($userService);
         // Check if $user contains valid data or not.
         if ($user) {
-            // Let other components know that a user was created
-            $this->dispatch('lectureCreated', $user);
-
-            // Notify the frontend of success
-            return redirect()->route('backend.lecturers.index')->with('success', 'Data Dosen berhasil ditambahkan!');
+            $state = $this->form->storeState($userService, $user);
+            if ($state) {
+                $this->dispatch('showLoading');
+                // Polling untuk cek status sinkronisasi
+                $this->dispatch('pollingStart');
+                $this->polling = true;
+            }
         } else {
+            $this->dispatch('hideLoading');
             // Notify the frontend of failure
             $this->dispatchErrorEvent('Gagal Menambahkan Data Dosen');
         }
-        // Close the modal
-        $this->closeModal();
+    }
+
+    public function checkState(UserService $userService)
+    {
+        if (!$this->polling) {
+            $this->dispatch('hideLoading'); // Hide loading when polling stops
+            return;
+        }
+        // Cek status sinkronisasi
+        $state = $userService->getStates();
+        if ($state && $state->controller_notes) {
+            $this->loadingMessage = $state->controller_notes;
+            $this->dispatch('pollingStop');
+            $this->polling = false;
+            $this->dispatch('hideLoading');
+            $this->dispatch('lectureCreated');
+            return redirect()->route('backend.lecturers.index')->with('success', 'Data Dosen berhasil ditambahkan!');
+        } else {
+            $this->loadingMessage = "Melakukan Proses Pendaftaran";
+        }
     }
 
     /**
