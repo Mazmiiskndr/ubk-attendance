@@ -891,7 +891,7 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                 'status' => $status, // Memperbarui status berdasarkan logika waktu yang sudah ditentukan
             ]);
             $statusDescription = AttendanceStatus::from($status)->getDescription();
-            return "diperbarui: $statusDescription";
+            return "$statusDescription";
         } else {
             // Jika belum ada absensi, lakukan insert untuk check_in dan image_in
             $this->attendanceModel->create([
@@ -906,7 +906,7 @@ class AttendanceRepositoryImplement extends Eloquent implements AttendanceReposi
                 'remarks' => null,
             ]);
             $statusDescription = AttendanceStatus::from($status)->getDescription();
-            return "ditambahkan: $statusDescription";
+            return "$statusDescription";
         }
     }
 
